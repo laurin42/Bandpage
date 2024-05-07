@@ -103,23 +103,26 @@ img {
   color: #000000;
 }
 #home p {
-  padding: 0 60px 0 60px;
+  padding: 10px 60px 10px 60px;
 }
 table {
   justify-content: center;
   align-items: center;
   width: 100%;
   border-collapse: collapse;
+  border-radius: 100px;
   max-width: 75%;
   margin: 0 auto;
   background-color: transparent;
+  margin-bottom: 200px;
 }
 #concerts {
   color: #000000;
+  border-radius: 10px;
 }
 td,
 th {
-  border: 2px solid #ddd;
+  border: 2px solid grey;
   padding: 10px;
   text-align: left;
   background-color: transparent;
