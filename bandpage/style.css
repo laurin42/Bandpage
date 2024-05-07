@@ -17,6 +17,7 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  color: #000000;
 }
 a:hover {
   color: #535bf2;
@@ -34,30 +35,30 @@ main {
   flex: 1;
   text-align: center;
   width: 100%;
-  background: linear-gradient(to bottom, #c0b9a7, #ffffff);
+  background: linear-gradient(to bottom, #c0b9a7, #fdf4e3);
 }
 h1 {
-  /* Use other values (rem) */
-  font-size: 44px;
+  display: block;
+  font-size: 3.5rem;
   text-align: center;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Jersey 25", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-h2 {
-  /* Use other values (rem) */
-  font-size: 88px;
-  line-height: 2;
+h1 span {
+  display: block;
+  font-size: 7.5rem;
+  line-height: 1.25;
+  text-align: center;
   justify-content: center;
   align-items: center;
   font-family: "Jersey 25", sans-serif;
   font-weight: 400;
   font-style: normal;
+  padding-bottom: 19vh;
 }
-
 header {
   position: sticky;
   top: 0;
@@ -94,14 +95,15 @@ img {
 #home {
   display: inline-block;
   justify-content: center;
-  text-align: center;
+  text-align: left;
   font-family: "Titillium Web";
-  font-size: 18px;
+  font-size: 1.3rem;
   line-height: 1.25;
   margin: 200px 0 300px 0;
-
-  /* Use Media-queries? max-width will cause problems. */
-  max-width: 65%;
+  color: #000000;
+}
+#home p {
+  padding: 0 60px 0 60px;
 }
 table {
   justify-content: center;
@@ -110,25 +112,20 @@ table {
   border-collapse: collapse;
   max-width: 75%;
   margin: 0 auto;
+  background-color: transparent;
 }
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-/* Optimize this? */
-th {
-  background-color: #f2f2f2;
-}
-
-/* Is this needed? a already on top of this file. */
-a {
+#concerts {
   color: #000000;
 }
-
+td,
+th {
+  border: 2px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  background-color: transparent;
+}
+@media screen and (min-width: 320px) {
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
