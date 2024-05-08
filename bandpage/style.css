@@ -145,6 +145,13 @@ nav ul li {
   margin: auto;
   position: relative;
 }
+
+@media (max-width: 1024px) {
+  .slideshow {
+    width: 90vw;
+  }
+}
+
 .slide {
   top: 0;
   right: 0;
