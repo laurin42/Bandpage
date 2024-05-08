@@ -75,32 +75,119 @@
         </p>
       </section>
       <section id="gallery">
+        <h2>Gallery</h2>
+        <p>Step into the visual world of rock 'n' roll with Burnheart Mockery. Experience a captivating blend of imagery and performances that embody the essence of the band's musical journey.</p>
         <div class="slideshow">
           <div class="slide">
             <img
-              src="./public/bandfoto1."
+              src="./public/bandfoto1.jpg"
               alt="Quatsch mit Soße"
               class="slide-bild"
             />
+            <div class="slide-text">
+              <p>Living the best life at Blue Shell in Cologne</p>
+            </div>
           </div>
           <div class="slide">
             <img
-              src="./public/bandfoto2."
+              src="./public/bandfoto2.jpg"
               alt="Quatsch mit Soße"
               class="slide-bild"
             />
+            <div class="slide-text">
+              <p>Bang your f*cking head</head></head></p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-video-container">
+              <video controls class="slide-video">
+                <source src="./public/bandvideo1.mp4" type="video/mp4">
+              </video>
+            </div>
           </div>
           <div class="slide">
             <img
-              src="./public/bandfoto3."
+              src="./public/bandfoto3.jpg"
               alt="Quatsch mit Soße"
               class="slide-bild"
             />
+            <div class="slide-text">
+              <p>Axl having a good time with our buddy Burnie</p>
+            </div>
           </div>
+          <div class="slide">
+            <img
+              src="./public/bandfoto4.jpg"
+              alt="Quatsch mit Soße"
+              class="slide-bild"
+            />
+            <div class="slide-text">
+              <p>Summoning those demonic forces</p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-video-container">
+              <video controls class="slide-video">
+                <source src="./public/bandvideo2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="./public/bandfoto5.jpg"
+              alt="Quatsch mit Soße"
+              class="slide-bild"
+            />
+            <div class="slide-text">
+              <p>Five good friends (die Fünf von der Tankstelle)</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="./public/bandfoto6.jpg"
+              alt="Quatsch mit Soße"
+              class="slide-bild"
+            />
+            <div class="slide-text">
+              <p>Fog machine ftw</p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-video-container">
+              <video controls class="slide-video">
+                <source src="./public/bandvideo3.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="./public/bandfoto7.jpg"
+              alt="Quatsch mit Soße"
+              class="slide-bild"
+            />
+            <div class="slide-text">
+              <p>Professional stage setup: check</p>
+            </div>
+          </div>
+          <a class="pfeil pfeil-links" onclick="umschalten(-1)"><span>&#10094;</span></a>
+          <a class="pfeil pfeil-rechts" onclick="umschalten(1)"><span>&#10095;</span></a>
+          <ol class="indikatorenliste">
+            <li class="indikator" onclick="springeZuEintrag(0)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(1)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(2)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(3)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(4)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(5)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(6)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(7)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(8)">&#8226;</li>
+            <li class="indikator" onclick="springeZuEintrag(9)">&#8226;</li>
+          </ol>
         </div>
       </section>
       <section id="music"></section>
       <section id="concerts" class="concerts">
+        <h3>...Buckle Up and Join Us on Our Rock 'n' Roll Journey...</h3>
         <table>
           <thead>
             <tr>
@@ -145,5 +232,6 @@
       </section>
     </main>
     <script type="module" src="/main.js"></script>
+    <script src="slideshow.js"></script>
   </body>
 </html>
