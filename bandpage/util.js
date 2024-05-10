@@ -53,7 +53,7 @@ let currentTrackIndex = 0;
 
 function playTrack(index) {
     audioPlayer.src = audioFiles[index];
-    audioPlayer.play();
+    // audioPlayer.play();
     currentTrackIndex = index;
 }
 
@@ -67,7 +67,25 @@ function previousTrack() {
     playTrack(currentTrackIndex);
 }
 
-document.getElementById('nextButton').addEventListener('click', nextTrack);
-document.getElementById('previousButton').addEventListener('click', previousTrack);
+
 
 playTrack(currentTrackIndex);
+
+
+function appendShit() {
+    console.log(audioPlayer.src);
+    document.getElementById('song-title').innerHTML = audioFiles[0].split('/')[2].split(".")[0]
+    
+}
+
+
+appendShit();
+
+function rotateElement() {
+    const headerImage = document.getElementById("logo-image");
+
+        headerImage.classList.add('rotate');
+        setTimeout(() => {
+            headerImage.classList.remove('rotate'); 
+        }, 2000);
+}

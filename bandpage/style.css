@@ -56,7 +56,6 @@ h1 {
   font-style: normal;
   padding: 2rem;
   color: #000000;
-  padding-top: 5rem;
 }
 h2,
 h3 {
@@ -94,6 +93,7 @@ p {
   position: absolute;
   width: 100%;
   display: flex;
+  z-index: -1;
   top: 0;
 }
 header {
@@ -334,4 +334,34 @@ th {
   nav {
     flex-direction: column; /* Ändert die Ausrichtung auf vertikal */
   }
+}
+
+.rotate {
+  animation: rotate 2s infinite ease;
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    -webkit-transform: rotate3d(0, 0, 1, 180deg);
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    -webkit-transform: rotate3d(0, 0, 1, 270deg);
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+#musik {
+  padding-top: 5rem;
 }
