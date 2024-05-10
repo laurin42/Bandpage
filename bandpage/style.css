@@ -21,37 +21,41 @@ body {
   align-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 main {
   flex: 1;
   text-align: center;
   width: 100%;
-  background: linear-gradient(to bottom, #c0b9a7, #fdf4e3);
+  /* background: linear-gradient(to bottom, #c0b9a7, #fdf4e3); */
+  background-color: #f9f9f9;
+  padding: 0 173px;
 }
 a {
+  display: flex;
   font-weight: 500;
   text-decoration: inherit;
-  color: #000000;
+  color: #e5e3e3;
 }
 a:hover {
-  color: #535bf2;
+  color: #ffffff;
 }
 .logo {
-  width: 50vh;
-  height: 15vh;
-  display: block;
+  top: 0;
+  height: 7rem;
   margin: auto;
   object-fit: contain;
 }
 h1 {
-  display: block;
+  display: flex;
+  flex-direction: column;
   font-size: 3.5rem;
-  text-align: center;
   justify-content: center;
   align-items: center;
-  font-family: "Jersey 25", sans-serif;
   font-weight: 400;
   font-style: normal;
+  padding: 2rem;
+  color: #000000;
 }
 h2,
 h3 {
@@ -64,19 +68,18 @@ h3 {
   font-family: "Jersey 25", sans-serif;
   font-weight: 400;
   font-style: normal;
-  padding-bottom: 1vh;
+  padding-bottom: 5rem;
 }
 h1 span {
   display: block;
-  font-size: 7.5rem;
+
   line-height: 1.25;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-family: "Jersey 25", sans-serif;
+  font-family: "Calistoga", sans-serif;
   font-weight: 400;
   font-style: normal;
-  margin: 10vh 0 10vh 0;
 }
 .slide-text p {
   color: white;
@@ -85,52 +88,66 @@ p {
   color: black;
   text-align: center;
 }
+
+.logo-container {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  z-index: -1;
+  top: 0;
+}
 header {
   position: sticky;
   top: 0;
-  width: 100vw;
-  background-color: #c0b9a7;
-  color: #ffffff;
-  padding: 20px 0 35px 0;
-  z-index: 1000;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  background-color: #030303;
+  -webkit-box-shadow: 20px -109px 96px 91px rgb(9 9 9 / 75%);
+  -moz-box-shadow: 20px -109px 96px 91px rgb(9 9 9 / 75%);
+  box-shadow: 20px -130px 96px 91px rgb(9 9 9 / 70%);
+  width: 100%;
 }
 nav ul {
-  margin: 0;
-  padding-bottom: 0;
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  font-size: 35px;
-  font-family: "Jersey 25", sans-serif;
+  font-size: clamp(1rem, 2vw, 3rem);
+  font-family: "Calistoga", sans-serif;
   font-weight: 400;
   font-style: normal;
+  position: relative;
+  padding: 1.2rem 0;
+}
+.nav-items {
+  display: flex;
+  width: 100%;
+}
+.nav-item-row {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
 }
 nav ul li {
-  display: inline;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
-#home {
+#bio {
   display: inline-block;
   justify-content: center;
   text-align: left;
   font-family: "Titillium Web";
   font-size: 1.3rem;
   line-height: 1.25;
-  margin: 20vh 0 3vh 0;
   color: #000000;
+  padding-top: 5rem;
 }
-#home p {
+#bio p {
   padding: 1vh 6vw 1vh 6vw;
 }
 #gallery {
-  margin: 5vh 0 5vh 0;
+  padding: 1vh 6vw 1vh 6vw;
 }
 #gallery p {
   font-family: "Titillium Web";
-  font-size: 1.3rem;
+  font-size: 0.8rem;
   line-height: 1.25;
   margin: 1vh 0 5vh 0;
 }
@@ -257,7 +274,7 @@ table {
 #concerts {
   color: #000000;
   border-radius: 1vh;
-  margin: 10vh 0 10vh 0;
+  padding-top: 5rem;
 }
 td,
 th {
@@ -266,7 +283,11 @@ th {
   text-align: left;
   background-color: transparent;
 }
-@media screen and (min-width: 320px) {
+@media screen and (max-width: 796px) {
+  .logo {
+    width: 13vw;
+    height: 15vh;
+  }
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -285,4 +306,62 @@ th {
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+.footer-content p {
+  color: white;
+}
+.footer-content button {
+  justify-content: center;
+}
+::backdrop {
+  background-image: linear-gradient(
+    to bottom,
+
+    rgb(209, 211, 221),
+    rgb(88, 95, 96),
+    rgb(85, 87, 91),
+    rgb(108, 113, 111)
+  );
+  opacity: 0.75;
+}
+@media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Ändert die Ausrichtung auf vertikal */
+  }
+}
+
+.rotate {
+  animation: rotate 2s infinite ease;
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    -webkit-transform: rotate3d(0, 0, 1, 180deg);
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    -webkit-transform: rotate3d(0, 0, 1, 270deg);
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+#musik {
+  padding-top: 5rem;
 }
