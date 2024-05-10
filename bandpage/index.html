@@ -21,7 +21,11 @@
               <li><a href="#bio">Biographie</a></li>
               <li><a href="#gallery">Gallerie</a></li>
             </div>
-            <div class="logo-container">
+            <div
+              id="logo-image"
+              onclick="rotateElement()"
+              class="logo-container"
+            >
               <img src="./public/logo.png" alt="Band Logo" class="logo" />
             </div>
             <div class="nav-item-row">
@@ -36,15 +40,6 @@
       <div class="headline">
         <h1><span>We are</span> <span>Burnheart Mockery</span></h1>
       </div>
-      <section id="musik">
-        <audio id="audioPlayer" controls>
-          <source src="./public/Still Rock.mp3" type="audio/mpeg" />
-          <source src="./public/Witches.mp3" type="audio/mpeg" />
-        </audio>
-        <button onclick="playTrack()">Play</button>"
-        <button onclick="previousTrack()">Previous</button>
-        <button onclick="nextTrack()">Next</button>
-      </section>
       <section id="gallery">
         <div class="slideshow">
           <div class="slide">
@@ -157,6 +152,13 @@
             <li class="indikator" onclick="springeZuEintrag(9)">&#8226;</li>
           </ol>
         </div>
+      </section>
+      <section id="musik">
+        <p id="song-title">Test</p>
+        <audio id="audioPlayer" controls>
+          <source src="./public/Still Rock.mp3" type="audio/mpeg" />
+          <source src="./public/Witches.mp3" type="audio/mpeg" />
+        </audio>
       </section>
       <section id="bio">
         <p>
