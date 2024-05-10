@@ -33,5 +33,41 @@ function springeZuEintrag(neuerIndex) {
 
     aktuellerIndex = neuerIndex;
 }
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog button");
 
+// "Show the dialog" button opens the dialog modally
+showButton.addEventListener("click", () => {
+  dialog.showModal();
+});
 
+// "Close" button closes the dialog
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+const audioPlayer = document.getElementById('audioPlayer');
+const audioFiles = ["./public/Still Rock.mp3","./public/Witches.mp3"]; // Füge hier die Pfade zu deinen Audiodateien hinzu
+let currentTrackIndex = 0;
+
+function playTrack(index) {
+    audioPlayer.src = audioFiles[index];
+    audioPlayer.play();
+    currentTrackIndex = index;
+}
+
+function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % audioFiles.length;
+    playTrack(currentTrackIndex);
+}
+
+function previousTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + audioFiles.length) % audioFiles.length;
+    playTrack(currentTrackIndex);
+}
+
+document.getElementById('nextButton').addEventListener('click', nextTrack);
+document.getElementById('previousButton').addEventListener('click', previousTrack);
+
+playTrack(currentTrackIndex);
