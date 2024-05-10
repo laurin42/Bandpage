@@ -6,19 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Jersey+10+Charted&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Jersey+25&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jersey+10+Charted&family=Jersey+25&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Calistoga&family=Jersey+10+Charted&family=Jersey+25&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,54 +16,31 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="music">Music</a></li>
-          <li><a href="#concerts">Concerts</a></li>
+          <div class="nav-items">
+            <div class="nav-item-row">
+              <li><a href="#bio">Biographie</a></li>
+              <li><a href="#gallery">Gallerie</a></li>
+            </div>
+            <div
+              id="logo-image"
+              onclick="rotateElement()"
+              class="logo-container"
+            >
+              <img src="./public/logo.png" alt="Band Logo" class="logo" />
+            </div>
+            <div class="nav-item-row">
+              <li><a href="music">Musik</a></li>
+              <li><a href="#concerts">Gigs</a></li>
+            </div>
+          </div>
         </ul>
       </nav>
-      <div class="flex">
-        <img
-          src="./public/IMG-20240401-WA0008.jpg"
-          alt="Band Logo"
-          class="logo"
-        />
-      </div>
     </header>
     <main>
-      <section id="home">
-        <h1>We are <br /><span>Burnheart Mockery</span></h1>
-        <p>
-          Burnheart Mockery is a hard rock band consisting of five talented
-          musicians who have been playing together for several years. The band
-          was originally formed in the basement of a commune, where they took
-          their first musical steps.
-        </p>
-        <p>
-          With their handcrafted hard rock music, they quickly made a name for
-          themselves in the local music scene and gathered a loyal following.
-          Their energetic live performances and captivating songs consistently
-          thrill their audience.
-        </p>
-        <p>
-          Fueled by their passion for loud guitars, powerful drums, and catchy
-          melodies, Burnheart Mockery has created a sound of their own that sets
-          them apart from other bands. Inspired by the greats of hard rock from
-          the past, they infuse their own modern twist into the music while
-          remaining authentic and sincere.
-        </p>
-        <p>
-          Burnheart Mockery is more than just a band - they are a community of
-          musicians who share a passion for rock music and embark on an
-          unforgettable musical journey with their fans. With every song they
-          write and every performance they play, they continue their mission to
-          rock the world with their music and spread their message of freedom
-          and passion.
-        </p>
-      </section>
+      <div class="headline">
+        <h1><span>We are</span> <span>Burnheart Mockery</span></h1>
+      </div>
       <section id="gallery">
-        <h2>Gallery</h2>
-        <p>Step into the visual world of Rock 'n' Roll with Burnheart Mockery. Experience a captivating blend of pictures and performances that embody the essence of the band's journey.</p>
         <div class="slideshow">
           <div class="slide">
             <img
@@ -84,7 +49,14 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Living the best life at Blue Shell in Cologne</p>
+              <p>Live im Blue Shell, Köln</p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-video-container">
+              <video controls class="slide-video">
+                <source src="./public/bandvideo1.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
           <div class="slide">
@@ -94,14 +66,7 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Bang your f*cking head</head></head></p>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="slide-video-container">
-              <video controls class="slide-video">
-                <source src="./public/bandvideo1.mp4" type="video/mp4">
-              </video>
+              <p>Bang your f*cking head</p>
             </div>
           </div>
           <div class="slide">
@@ -111,7 +76,7 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Axl having a good time with our buddy Burnie</p>
+              <p>Axl mit unserem Bandmaskottchen Burnie</p>
             </div>
           </div>
           <div class="slide">
@@ -121,13 +86,13 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Summoning those demonic forces</p>
+              <p>Dämonische Kräfte werden beschwört</p>
             </div>
           </div>
           <div class="slide">
             <div class="slide-video-container">
               <video controls class="slide-video">
-                <source src="./public/bandvideo2.mp4" type="video/mp4">
+                <source src="./public/bandvideo2.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -138,7 +103,7 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Five good friends (die Fünf von der Tankstelle)</p>
+              <p>Die 5 von der Tanke</p>
             </div>
           </div>
           <div class="slide">
@@ -148,13 +113,13 @@
               class="slide-bild"
             />
             <div class="slide-text">
-              <p>Fog machine ftw</p>
+              <p>Nebelmaschine ftw</p>
             </div>
           </div>
           <div class="slide">
             <div class="slide-video-container">
               <video controls class="slide-video">
-                <source src="./public/bandvideo3.mp4" type="video/mp4">
+                <source src="./public/bandvideo3.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -168,8 +133,12 @@
               <p>Professional stage setup: check</p>
             </div>
           </div>
-          <a class="pfeil pfeil-links" onclick="umschalten(-1)"><span>&#10094;</span></a>
-          <a class="pfeil pfeil-rechts" onclick="umschalten(1)"><span>&#10095;</span></a>
+          <a class="pfeil pfeil-links" onclick="umschalten(-1)"
+            ><span>&#10094;</span></a
+          >
+          <a class="pfeil pfeil-rechts" onclick="umschalten(1)"
+            ><span>&#10095;</span></a
+          >
           <ol class="indikatorenliste">
             <li class="indikator" onclick="springeZuEintrag(0)">&#8226;</li>
             <li class="indikator" onclick="springeZuEintrag(1)">&#8226;</li>
@@ -183,6 +152,50 @@
             <li class="indikator" onclick="springeZuEintrag(9)">&#8226;</li>
           </ol>
         </div>
+      </section>
+      <section id="musik">
+        <p id="song-title">Test</p>
+        <audio id="audioPlayer" controls>
+          <source src="./public/Still Rock.mp3" type="audio/mpeg" />
+          <source src="./public/Witches.mp3" type="audio/mpeg" />
+        </audio>
+      </section>
+      <section id="bio">
+        <p>
+          In den vernebelten Höhlen einer vergessenen Hippie-Kommune formte sich
+          das Schicksal von Burnheart Mockery. Axl, der Gorilla unter den
+          Sängern und spiritueller Bandleader, fand hier seine musikalischen
+          Brüder: Luca, der kreative Geist, taucht in den Wirbelwind der
+          Sologitarre ein, während Max, das Uhrwerk der Melodie, mit seinen
+          Rhythmusgitarrenklängen die Seelen berührt. Lennart, Meister der
+          Schießbude und Taktgeber, lenkt die Truppe durch sternenübersäten
+          Nächte, während Laurin - für die tiefen Frequenzen zuständig -
+          kosmische Basslines durch die Galaxien schickt.
+        </p>
+        <p>
+          Mit der Sonne im Herzen und dem Rauch der Geister vergangener Tage im
+          Haar brechen sie auf, ihre Musik im Schlepptau, um die Welt zu
+          verzaubern. Die ersten Schritte auf der Bühne des Lebens wurden im
+          berüchtigten Jameson Pub gemacht, wo ihre Klänge wie Räucherstäbchen
+          in der Luft hingen und die Zuschauer in tranceähnliche Zustände
+          versetzten.
+        </p>
+        <p>
+          Doch wie Sterne, die am Himmel wandern, zogen auch sie weiter. Ein
+          neuer Proberaum wurde ihr Zuhause, ein heiliger Ort des kreativen
+          Wahnsinns, wo Ideen wie Nebelschwaden durch die Räume waberten und
+          Visionen in den Köpfen der Bandmitglieder explodierten. Von dort aus
+          fanden sie ihren Weg zum Blue Shell in Köln, wo ihre Ekstase auf der
+          Bühne zu einem magnetischen Sturm wurde, der die Herzen der Zuhörer
+          gefangen nahm und in einem Ozean aus Sound ertrinken ließ.
+        </p>
+        <p>
+          Die Reise von Burnheart Mockery geht weiter, durch die Wirren der Zeit
+          und die Dunkelheit der Nacht. Doch während sie ihren Weg durch die
+          Galaxien der Musik bahnen, bleiben sie vereint im Geist der Freiheit
+          und der Liebe zur kosmischen Melodie, die sie zusammenbringt und ihre
+          Seele in ewigem Glanz erstrahlen lässt.
+        </p>
       </section>
       <section id="music"></section>
       <section id="concerts" class="concerts">
@@ -230,6 +243,19 @@
         </table>
       </section>
     </main>
+    <footer>
+      <div class="footer-content">
+        <p>2024 Burnheart Mockery. Alle Rechte vorbehalten.</p>
+        <dialog>
+          <button autofocus>Close</button>
+          <p>
+            Impressum: Laurin Schmidt Benzstraße 9-11 51381 Leverkusen E-Mail:
+            burnheart.mockery@gmail.com
+          </p>
+        </dialog>
+        <button>Impressum</button>
+      </div>
+    </footer>
     <script type="module" src="main.js"></script>
     <script src="util.js"></script>
   </body>
