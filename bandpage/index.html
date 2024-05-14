@@ -188,6 +188,12 @@
           </tbody>
         </table>
       </section>
+      <form action="http://127.0.0.1:3000/submit-form" method="post">
+        <input type="text" name="name" placeholder="Name" />
+        <input type="email" name="email" placeholder="E-Mail" />
+        <textarea name="message" placeholder="Nachricht"></textarea>
+        <button type="submit" class="contact-button">Absenden</button>
+      </form>
     </main>
     <footer>
       <div class="footer-content">
@@ -462,6 +468,17 @@
       closeButton.addEventListener("click", () => {
         dialog.close();
       });
+
+      async function backendverstehen() {
+        const response = await fetch("http://127.0.0.1:3000/styles");
+        const backend = await response.json();
+        console.log(backend);
+        document.getElementById("concerts").style.fontSize = backend.fontSize;
+        document.getElementById("concerts").innerHTML = backend.text;
+        document.getElementById("concerts").style.backgroundColor =
+          backend.color;
+      }
+      backendverstehen();
     </script>
   </body>
 </html>
