@@ -20,21 +20,23 @@
   <body>
     <header>
       <nav>
+        <a
+          href="#home"
+          id="logo-image"
+          onclick="rotateElement()"
+          class="logo-container"
+        >
+          <img src="./public/logo.png" alt="Band Logo" class="logo" />
+        </a>
         <ul>
           <div class="nav-items">
             <div class="nav-item-row">
               <li><a href="#music">Music</a></li>
+              <li><a href="https://wonderl.ink/@burnheart-mockery">Social</li>
             </div>
-            <a
-              href="#home"
-              id="logo-image"
-              onclick="rotateElement()"
-              class="logo-container"
-            >
-              <img src="./public/logo.png" alt="Band Logo" class="logo" />
-            </a>
             <div class="nav-item-row">
               <li><a href="#concerts">Gigs</a></li>
+              <li><a href="contact-form.html" target="_blank">Booking</a></li>
             </div>
           </div>
         </ul>
@@ -42,13 +44,6 @@
     </header>
     <main>
       <section id="home"></section>
-      <div class="headline">
-        <h1>
-          <span class="header1">We are</span>
-          <span class="header2">Burnheart Mockery</span>
-        </h1>
-      </div>
-      <section id="gallery">
         <div class="bandfoto-container">
           <div class="bandfoto">
             <img
@@ -59,9 +54,9 @@
           </div>
         </div>
       </section>
+      <h1><span>We are</span>Burnheart Mockery</h1>
       <section id="music">
         <audio id="myAudio" ontimeupdate="onTimeUpdate()">
-          <!-- <source src="audio.ogg" type="audio/ogg"> -->
           <source id="source-audio" src="" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
@@ -188,12 +183,6 @@
           </tbody>
         </table>
       </section>
-      <form action="http://127.0.0.1:3000/submit-form" method="post">
-        <input type="text" name="name" placeholder="Name" />
-        <input type="email" name="email" placeholder="E-Mail" />
-        <textarea name="message" placeholder="Nachricht"></textarea>
-        <button type="submit" class="contact-button">Absenden</button>
-      </form>
     </main>
     <footer>
       <div class="footer-content">
@@ -248,7 +237,7 @@
       var listAudio = [
         {
           name: "Burnheart Mockery - Still Rock",
-          file: "./public/Still Rock.mp3",
+          file: "./public/StillRock.mp3",
           duration: "03:32",
         },
         {
@@ -469,16 +458,7 @@
         dialog.close();
       });
 
-      async function backendverstehen() {
-        const response = await fetch("http://127.0.0.1:3000/styles");
-        const backend = await response.json();
-        console.log(backend);
-        document.getElementById("concerts").style.fontSize = backend.fontSize;
-        document.getElementById("concerts").innerHTML = backend.text;
-        document.getElementById("concerts").style.backgroundColor =
-          backend.color;
-      }
-      backendverstehen();
+    
     </script>
   </body>
 </html>

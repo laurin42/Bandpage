@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Calistoga", sans-serif;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.contact-form-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: "Calistoga";
+}
+
+.contact-form button {
+  background-color: #1a1414;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #afacac;
+}
+
+.contact-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("public/bandfoto5.jpg");
+
+  height: 100vh;
+  width: 100vw;
+}
+p {
+  color: #f9f9f9;
+  font-size: 2.4rem;
+  text-align: center;
+}
