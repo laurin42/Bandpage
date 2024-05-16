@@ -20,21 +20,25 @@
   <body>
     <header>
       <nav>
+        <a
+          href="#home"
+          id="logo-image"
+          onclick="rotateElement()"
+          class="logo-container"
+        >
+          <img src="./public/logo.png" alt="Band Logo" class="logo" />
+        </a>
         <ul>
           <div class="nav-items">
             <div class="nav-item-row">
-              <li><a href="#music">Music</a></li>
+              <li><a href="#home">Home</a></li>
+              <li>
+                <a href="https://wonderl.ink/@burnheart-mockery">Social</a>
+              </li>
             </div>
-            <a
-              href="#home"
-              id="logo-image"
-              onclick="rotateElement()"
-              class="logo-container"
-            >
-              <img src="./public/logo.png" alt="Band Logo" class="logo" />
-            </a>
             <div class="nav-item-row">
               <li><a href="#concerts">Gigs</a></li>
+              <li><a href="contact-form.html" target="_blank">Booking</a></li>
             </div>
           </div>
         </ul>
@@ -42,83 +46,74 @@
     </header>
     <main>
       <section id="home"></section>
-      <div class="headline">
-        <h1>
-          <span class="header1">We are</span>
-          <span class="header2">Burnheart Mockery</span>
-        </h1>
+      <div class="bandfoto-container">
+        <div class="bandfoto">
+          <img
+            src="./public/bandfoto1.jpg"
+            alt="Quatsch mit Soße"
+            class="foto"
+          />
+          <h1><span>We are</span>Burnheart Mockery</h1>
+          <audio id="myAudio" ontimeupdate="onTimeUpdate()">
+            <source id="source-audio" src="" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <div class="player-ctn">
+            <div class="infos-ctn">
+              <div class="timer">00:00</div>
+              <div class="title"></div>
+              <div class="duration">00:00</div>
+            </div>
+            <div id="myProgress">
+              <div id="myBar"></div>
+            </div>
+            <div class="btn-ctn">
+              <div class="btn-action first-btn" onclick="previous()">
+                <div id="btn-faws-back">
+                  <i class="fas fa-step-backward"></i>
+                </div>
+              </div>
+              <div class="btn-action" onclick="rewind()">
+                <div id="btn-faws-rewind">
+                  <i class="fas fa-backward"></i>
+                </div>
+              </div>
+              <div class="btn-action" onclick="toggleAudio()">
+                <div id="btn-faws-play-pause">
+                  <i class="fas fa-play" id="icon-play"></i>
+                  <i
+                    class="fas fa-pause"
+                    id="icon-pause"
+                    style="display: none"
+                  ></i>
+                </div>
+              </div>
+              <div class="btn-play" onclick="forward()">
+                <div id="btn-faws-forward">
+                  <i class="fas fa-forward"></i>
+                </div>
+              </div>
+              <div class="btn-action" onclick="next()">
+                <div id="btn-faws-next">
+                  <i class="fas fa-step-forward"></i>
+                </div>
+              </div>
+              <div class="btn-mute" id="toggleMute" onclick="toggleMute()">
+                <div id="btn-faws-volume">
+                  <i id="icon-vol-up" class="fas fa-volume-up"></i>
+                  <i
+                    id="icon-vol-mute"
+                    class="fas fa-volume-mute"
+                    style="display: none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div class="playlist-ctn"></div>
+          </div>
+        </div>
       </div>
-      <section id="gallery">
-        <div class="bandfoto-container">
-          <div class="bandfoto">
-            <img
-              src="./public/bandfoto1.jpg"
-              alt="Quatsch mit Soße"
-              class="foto"
-            />
-          </div>
-        </div>
-      </section>
-      <section id="music">
-        <audio id="myAudio" ontimeupdate="onTimeUpdate()">
-          <!-- <source src="audio.ogg" type="audio/ogg"> -->
-          <source id="source-audio" src="" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
-        <div class="player-ctn">
-          <div class="infos-ctn">
-            <div class="timer">00:00</div>
-            <div class="title"></div>
-            <div class="duration">00:00</div>
-          </div>
-          <div id="myProgress">
-            <div id="myBar"></div>
-          </div>
-          <div class="btn-ctn">
-            <div class="btn-action first-btn" onclick="previous()">
-              <div id="btn-faws-back">
-                <i class="fas fa-step-backward"></i>
-              </div>
-            </div>
-            <div class="btn-action" onclick="rewind()">
-              <div id="btn-faws-rewind">
-                <i class="fas fa-backward"></i>
-              </div>
-            </div>
-            <div class="btn-action" onclick="toggleAudio()">
-              <div id="btn-faws-play-pause">
-                <i class="fas fa-play" id="icon-play"></i>
-                <i
-                  class="fas fa-pause"
-                  id="icon-pause"
-                  style="display: none"
-                ></i>
-              </div>
-            </div>
-            <div class="btn-play" onclick="forward()">
-              <div id="btn-faws-forward">
-                <i class="fas fa-forward"></i>
-              </div>
-            </div>
-            <div class="btn-action" onclick="next()">
-              <div id="btn-faws-next">
-                <i class="fas fa-step-forward"></i>
-              </div>
-            </div>
-            <div class="btn-mute" id="toggleMute" onclick="toggleMute()">
-              <div id="btn-faws-volume">
-                <i id="icon-vol-up" class="fas fa-volume-up"></i>
-                <i
-                  id="icon-vol-mute"
-                  class="fas fa-volume-mute"
-                  style="display: none"
-                ></i>
-              </div>
-            </div>
-          </div>
-          <div class="playlist-ctn"></div>
-        </div>
-      </section>
+      <button id="showplayerbtn" class="showplayerbtn">Play Music</button>
       <section id="bio">
         <p>
           In den vernebelten Höhlen einer vergessenen Hippie-Kommune formte sich
@@ -140,7 +135,7 @@
         </p>
       </section>
       <section id="concerts" class="concerts">
-        <h3>...Buckle Up and Join Us on Our Rock 'n' Roll Journey...</h3>
+        <h3>...buckle up and join us on our rock'n'roll journey...</h3>
         <div class="button-container">
           <a href="https://wonderl.ink/@burnheart-mockery" class="follow-button"
             >FOLLOW US!</a
@@ -171,14 +166,14 @@
               <td>Neuhjahrsfeier des Präsidenten</td>
             </tr>
             <tr>
+              <td>20.04.2025</td>
+              <td>Amsterdam</td>
+              <td>Holländisches Blumenfest</td>
+            </tr>
+            <tr>
               <td>30.08.2025</td>
               <td>Wacken, Deutschland</td>
               <td>Wacken Open Air</td>
-            </tr>
-            <tr>
-              <td>11.09.2025</td>
-              <td>New York, USA</td>
-              <td>Ground Zero Memorial Festival</td>
             </tr>
             <tr>
               <td>15.11.2025</td>
@@ -242,7 +237,7 @@
       var listAudio = [
         {
           name: "Burnheart Mockery - Still Rock",
-          file: "./public/Still Rock.mp3",
+          file: "./public/StillRock.mp3",
           duration: "03:32",
         },
         {
@@ -452,6 +447,7 @@
       const dialog = document.querySelector("dialog");
       const showButton = document.querySelector("dialog + button");
       const closeButton = document.querySelector("dialog button");
+      const showPlayerBtn = document.querySelector("#showplayerbtn");
 
       // "Show the dialog" button opens the dialog modally
       showButton.addEventListener("click", () => {
@@ -461,6 +457,10 @@
       // "Close" button closes the dialog
       closeButton.addEventListener("click", () => {
         dialog.close();
+      });
+
+      showPlayerBtn.addEventListener("click", () => {
+        document.querySelector(".player-ctn").style.display = "block";
       });
     </script>
   </body>

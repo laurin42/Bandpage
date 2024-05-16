@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/contact-form-style.css" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Calistoga&family=Jersey+10+Charted&family=Jersey+25&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+      media="all"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Burnheart Mockery</title>
+  </head>
+  <body>
+    <main>
+      <div class="contact-page-container"></div>
+      <div class="contact-form-container">
+        <p>Wir freuen uns über Eure Bookinganfragen!</p>
+        <form
+          class="contact-form"
+          action="http://127.0.0.1:3000/submit-form"
+          method="post"
+        >
+          <input type="text" name="name" placeholder="Name" />
+          <input type="email" name="email" placeholder="E-Mail" />
+          <textarea name="message" placeholder="Nachricht"></textarea>
+          <button type="submit" class="contact-button">Absenden</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
