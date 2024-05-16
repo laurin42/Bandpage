@@ -41,13 +41,15 @@ header {
   z-index: 1;
 }
 .logo-container {
-  position: absolute;
+  position: relative;
   width: 100%;
   display: flex;
-  z-index: -1;
+  z-index: 1;
   top: 0;
+  justify-content: center;
 }
 .logo {
+  position: absolute;
   top: 0;
   height: 7rem;
   margin: auto;
@@ -82,7 +84,7 @@ a {
   font-weight: 500;
   text-decoration: inherit;
   color: #e5e3e3;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 a:hover {
   color: #ffffff;
@@ -109,18 +111,28 @@ a:hover {
   font-style: normal;
 }
 #home {
-  scroll-margin-top: 10vh;
+  scroll-padding-top: 15vh;
 }
 h1 {
   display: flex;
   flex-direction: column;
-  font-size: 3.5rem;
-  justify-content: center;
-  align-items: center;
-  font-weight: 400;
-  font-style: normal;
-  padding-top: 4rem;
-  color: #000000;
+  font-size: 3.2rem;
+  color: white;
+  font-family: "Calistoga";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+}
+h1 span {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  color: white;
+  font-family: "Calistoga";
+  top: 50%;
+  left: 50%;
 }
 h2,
 h3 {
@@ -138,26 +150,30 @@ h3 {
 .bandfoto-container {
   background-color: black;
   width: 80vw;
-  height: 62vh;
-  box-shadow: 0 0 2vh rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 100vh rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   margin: 4rem auto;
+  border: 0.16rem outset rgba(82, 81, 81, 0.8);
+  margin-bottom: 2rem;
 }
 .bandfoto {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  position: absolute;
+  font-family: "Calistoga";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .foto {
   overflow: hidden;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 16 / 9;
 }
 #bio {
   display: inline-block;
@@ -167,7 +183,6 @@ h3 {
   font-size: 1.3rem;
   line-height: 1.25;
   color: #000000;
-  padding-top: 5rem;
 }
 #bio p {
   padding: 1vh 6vw 1vh 6vw;
@@ -177,10 +192,9 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  scroll-margin-top: 10vh;
+  scroll-margin-top: 26vh;
 }
 #myProgress {
-  width: 420px;
   background-color: #d9d9f2;
   cursor: pointer;
   border-radius: 10px;
@@ -190,9 +204,6 @@ h3 {
   height: 5px;
   background-color: #ffc266;
   border-radius: 10px;
-}
-.logo {
-  fill: red;
 }
 .btn-action {
   cursor: pointer;
@@ -215,7 +226,7 @@ h3 {
 }
 .infos-ctn > div {
   margin-bottom: 8px;
-  color: #e5e3e3;
+  color: #f9f9f9;
 }
 .first-btn {
   margin-left: 3px;
@@ -229,23 +240,22 @@ h3 {
   text-align: center;
 }
 .player-ctn {
+  position: absolute;
   border-radius: 15px;
-  width: 420px;
-  padding: 10px;
-  background-color: #030303;
-  margin: auto;
-  margin-top: 8rem;
+  background-color: rgba(196, 192, 192, 0.4);
+  color: #f9f9f9;
+  margin: 0 auto;
   box-shadow: 0px 0px 12px 3px rgb(9 9 9 / 31%);
+  overflow: hidden;
+  bottom: 0vh;
+  margin-bottom: 1rem;
 }
 .playlist-track-ctn {
   display: flex;
-  background-color: #464646;
+  background-color: #767373;
   margin-top: 3px;
   border-radius: 5px;
   cursor: pointer;
-}
-.playlist-track-ctn:last-child {
-  /*border: 1px solid #ffc266; */
 }
 .playlist-track-ctn > div {
   margin: 10px;
@@ -257,36 +267,55 @@ h3 {
 .playlist-duration {
   padding-top: 7px;
   padding-bottom: 7px;
-  color: #e5e3e3;
+  color: #f9f9f9;
   font-size: 14px;
   pointer-events: none;
 }
 .playlist-ctn {
   padding-bottom: 20px;
+  display: none;
 }
 .active-track {
   background: #4d4d4d;
-  color: #e5e3e3 !important;
+  color: #f9f9f9 !important;
   font-weight: bold;
 }
 .active-track > .playlist-info-track,
 .active-track > .playlist-duration,
 .active-track > .playlist-btn-play {
-  color: #e5e3e3 !important;
+  color: #2f2626 !important;
 }
 .playlist-btn-play {
   pointer-events: none;
   padding-top: 5px;
   padding-bottom: 5px;
 }
+#myProgress {
+  width: 100%;
+}
 .fas {
-  color: #e5e3e3;
+  color: white;
   font-size: 20px;
+}
+.showplayerbtn {
+  display: none;
+  font-family: "Titillium Web";
+  border-radius: 0.4rem;
+  background-color: rgba(71, 71, 71, 0.5);
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.showplayerbtn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.playlist-track-ctn {
+  display: none;
 }
 #concerts {
   color: #000000;
   border-radius: 1vh;
   padding-top: 5rem;
+  scroll-margin-top: 8vh;
 }
 table {
   justify-content: center;
@@ -303,7 +332,7 @@ table {
 td,
 th {
   border-bottom: 1px solid #ddd;
-  padding: 1vh;
+  padding: 0.75rem 0;
   text-align: left;
   background-color: transparent;
 }
@@ -321,7 +350,6 @@ tr {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-
   margin-bottom: 5rem;
   text-align: center;
 }
@@ -349,36 +377,14 @@ button {
 .footer-content button {
   justify-content: center;
 }
-::backdrop {
-  background-image: linear-gradient(
-    to bottom,
-
-    rgb(209, 211, 221),
-    rgb(88, 95, 96),
-    rgb(85, 87, 91),
-    rgb(108, 113, 111)
-  );
-  opacity: 0.75;
-}
 .rotate {
   animation: rotate 2s infinite ease;
 }
+
 @keyframes rotate {
   0% {
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
     transform: rotate3d(0, 0, 1, 0deg);
-  }
-  25% {
-    -webkit-transform: rotate3d(0, 0, 1, 90deg);
-    transform: rotate3d(0, 0, 1, 90deg);
-  }
-  50% {
-    -webkit-transform: rotate3d(0, 0, 1, 180deg);
-    transform: rotate3d(0, 0, 1, 180deg);
-  }
-  75% {
-    -webkit-transform: rotate3d(0, 0, 1, 270deg);
-    transform: rotate3d(0, 0, 1, 270deg);
   }
   100% {
     -webkit-transform: rotate3d(0, 0, 1, 360deg);
@@ -401,13 +407,62 @@ button {
     width: 13vw;
     height: 15vh;
   }
-  nav {
-    flex-direction: column; /* Ändert die Ausrichtung auf vertikal */
+}
+@media screen and (max-width: 425px) {
+  .showplayerbtn {
+    display: inline-block;
   }
   .player-ctn {
-    width: unset;
+    min-width: 89vw;
+    position: fixed;
+    display: none;
+    background-color: rgba(171, 164, 164, 1);
   }
-  #myProgress {
-    width: 100%;
+  #myprogress {
+    width: 89vw;
+  }
+  h1 {
+    margin-top: 1rem;
+  }
+}
+@media screen and (min-width: 426px) {
+  .showplayerbtn {
+    display: none;
+  }
+}
+@media screen and (min-width: 1024px) {
+  h1 {
+    padding-top: 8rem;
+    font-size: 4rem;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .player-ctn {
+    min-width: 30vw;
+    max-width: 40vw;
+    min-height: 10vh;
+    max-height: 15vh;
+  }
+  h1 {
+    padding-top: 14rem;
+    font-size: 6rem;
+  }
+}
+@media screen and (min-width: 2560px) {
+  .player-ctn {
+    min-width: 20vw;
+    max-width: 43vw;
+    min-height: 6vh;
+    max-height: 8vh;
+  }
+  h1 {
+    padding-top: 40rem;
+    font-size: 11rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  h1 {
+    padding-top: 2rem;
+    font-size: 1rem;
   }
 }
