@@ -111,22 +111,28 @@ a:hover {
   font-style: normal;
 }
 #home {
-  scroll-margin-top: 10vh;
+  scroll-padding-top: 15vh;
 }
 h1 {
   display: flex;
   flex-direction: column;
   font-size: 3.2rem;
-  color: #000000;
+  color: white;
   font-family: "Calistoga";
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
 }
 h1 span {
   display: flex;
   flex-direction: column;
   font-size: 1.6rem;
-  color: #000000;
+  color: white;
   font-family: "Calistoga";
-  padding-bottom: 1rem;
+  top: 50%;
+  left: 50%;
 }
 h2,
 h3 {
@@ -146,16 +152,21 @@ h3 {
   width: 80vw;
   box-shadow: 0 0 100vh rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  margin: 1.5rem auto;
+  margin: 4rem auto;
+  border: 0.16rem outset rgba(82, 81, 81, 0.8);
+  margin-bottom: 2rem;
 }
 .bandfoto {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  font-family: "Calistoga";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .foto {
   overflow: hidden;
@@ -184,7 +195,6 @@ h3 {
   scroll-margin-top: 26vh;
 }
 #myProgress {
-  width: 420px;
   background-color: #d9d9f2;
   cursor: pointer;
   border-radius: 10px;
@@ -216,7 +226,7 @@ h3 {
 }
 .infos-ctn > div {
   margin-bottom: 8px;
-  color: #2f2626;
+  color: #f9f9f9;
 }
 .first-btn {
   margin-left: 3px;
@@ -230,14 +240,15 @@ h3 {
   text-align: center;
 }
 .player-ctn {
+  position: absolute;
   border-radius: 15px;
-  width: 420px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin: auto;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  background-color: rgba(196, 192, 192, 0.4);
+  color: #f9f9f9;
+  margin: 0 auto;
   box-shadow: 0px 0px 12px 3px rgb(9 9 9 / 31%);
+  overflow: hidden;
+  bottom: 0vh;
+  margin-bottom: 1rem;
 }
 .playlist-track-ctn {
   display: flex;
@@ -256,16 +267,17 @@ h3 {
 .playlist-duration {
   padding-top: 7px;
   padding-bottom: 7px;
-  color: #2f2626;
+  color: #f9f9f9;
   font-size: 14px;
   pointer-events: none;
 }
 .playlist-ctn {
   padding-bottom: 20px;
+  display: none;
 }
 .active-track {
   background: #4d4d4d;
-  color: #2f2626 !important;
+  color: #f9f9f9 !important;
   font-weight: bold;
 }
 .active-track > .playlist-info-track,
@@ -278,20 +290,32 @@ h3 {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-.player-ctn {
-  color: #2f2626;
-}
 #myProgress {
   width: 100%;
 }
 .fas {
-  color: #2f2626;
+  color: white;
   font-size: 20px;
+}
+.showplayerbtn {
+  display: none;
+  font-family: "Titillium Web";
+  border-radius: 0.4rem;
+  background-color: rgba(71, 71, 71, 0.5);
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.showplayerbtn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.playlist-track-ctn {
+  display: none;
 }
 #concerts {
   color: #000000;
   border-radius: 1vh;
   padding-top: 5rem;
+  scroll-margin-top: 8vh;
 }
 table {
   justify-content: center;
@@ -308,7 +332,7 @@ table {
 td,
 th {
   border-bottom: 1px solid #ddd;
-  padding: 1vh;
+  padding: 0.75rem 0;
   text-align: left;
   background-color: transparent;
 }
@@ -356,6 +380,7 @@ button {
 .rotate {
   animation: rotate 2s infinite ease;
 }
+
 @keyframes rotate {
   0% {
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
@@ -381,5 +406,63 @@ button {
   .logo {
     width: 13vw;
     height: 15vh;
+  }
+}
+@media screen and (max-width: 425px) {
+  .showplayerbtn {
+    display: inline-block;
+  }
+  .player-ctn {
+    min-width: 89vw;
+    position: fixed;
+    display: none;
+    background-color: rgba(171, 164, 164, 1);
+  }
+  #myprogress {
+    width: 89vw;
+  }
+  h1 {
+    margin-top: 1rem;
+  }
+}
+@media screen and (min-width: 426px) {
+  .showplayerbtn {
+    display: none;
+  }
+}
+@media screen and (min-width: 1024px) {
+  h1 {
+    padding-top: 8rem;
+    font-size: 4rem;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .player-ctn {
+    min-width: 30vw;
+    max-width: 40vw;
+    min-height: 10vh;
+    max-height: 15vh;
+  }
+  h1 {
+    padding-top: 14rem;
+    font-size: 6rem;
+  }
+}
+@media screen and (min-width: 2560px) {
+  .player-ctn {
+    min-width: 20vw;
+    max-width: 43vw;
+    min-height: 6vh;
+    max-height: 8vh;
+  }
+  h1 {
+    padding-top: 40rem;
+    font-size: 11rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  h1 {
+    padding-top: 2rem;
+    font-size: 1rem;
   }
 }
