@@ -55,7 +55,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("public/bandfoto5.jpg");
+  background-image: url("../public/bandfoto5.jpg");
   height: 100vh;
   width: 100vw;
   background-size: cover;
