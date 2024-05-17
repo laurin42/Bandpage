@@ -307,7 +307,7 @@ h3 {
   border: 0.1rem outset gray;
   cursor: pointer;
   color: #333333;
-  box-shadow: 0px 2px 13px rgb(9 9 9 / 32%);
+  box-shadow: 0px 2px 7px rgb(9 9 9 / 32%);
   height: 5vh;
 }
 .showplayerbtn:hover {
