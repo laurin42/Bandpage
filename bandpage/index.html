@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Calistoga&family=Jersey+10+Charted&family=Jersey+25&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
@@ -59,6 +63,7 @@
             Your browser does not support the audio element.
           </audio>
           <div class="player-ctn">
+            <span class="material-symbols-outlined">close</span>
             <div class="infos-ctn">
               <div class="timer">00:00</div>
               <div class="title"></div>
@@ -113,7 +118,10 @@
           </div>
         </div>
       </div>
-      <button id="showplayerbtn" class="showplayerbtn">Play Music</button>
+      <button id="showplayerbtn" class="showplayerbtn">
+        <span class="material-symbols-outlined music"> music_note </span>
+        <p>Hier klicken für Rock n Roll</p>
+      </button>
       <section id="bio">
         <p>
           In den vernebelten Höhlen einer vergessenen Hippie-Kommune formte sich
@@ -143,42 +151,38 @@
         </div>
         <table>
           <thead>
-            <tr>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Event</th>
-            </tr>
+            <tr></tr>
           </thead>
           <tbody>
             <tr>
-              <td>10.08.2024</td>
-              <td>Leichlingen, Germany</td>
+              <td>10.08.2024 Leichlingen, Deutschland</td>
               <td>Ingo's Zeltplatz</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
             <tr>
-              <td>24.12.2024</td>
-              <td>Narvik, Norway</td>
+              <td>24.12.2024 Narvik, Norwegen</td>
               <td>Weihnachtsfeier am Polarkreis</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
             <tr>
-              <td>01.01.2025</td>
-              <td>Washington D.C., USA</td>
+              <td>01.01.2025 Washington D.C., USA</td>
               <td>Neuhjahrsfeier des Präsidenten</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
             <tr>
-              <td>20.04.2025</td>
-              <td>Amsterdam</td>
+              <td>20.04.2025 Amsterdam, Niederlande</td>
               <td>Holländisches Blumenfest</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
             <tr>
-              <td>30.08.2025</td>
-              <td>Wacken, Deutschland</td>
+              <td>30.08.2025 Wacken, Deutschland</td>
               <td>Wacken Open Air</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
             <tr>
-              <td>15.11.2025</td>
-              <td>Wanne-Eickel, Germany</td>
+              <td>15.11.2025 Wanne-Eickel, Germany</td>
               <td>Ich geh mit meiner Laterne</td>
+              <td><button>Hol dir dein Ticket, Bruder</button></td>
             </tr>
           </tbody>
         </table>
@@ -237,12 +241,12 @@
       var listAudio = [
         {
           name: "Burnheart Mockery - Still Rock",
-          file: "./public/StillRock.mp3",
+          file: "./StillRock.mp3",
           duration: "03:32",
         },
         {
           name: "Burnheart Mockery - Witches",
-          file: "./public/Witches.mp3",
+          file: "./Witches.mp3",
           duration: "06:41",
         },
       ];
@@ -462,6 +466,15 @@
       showPlayerBtn.addEventListener("click", () => {
         document.querySelector(".player-ctn").style.display = "block";
       });
+
+      document
+        .querySelector(".material-symbols-outlined")
+        .addEventListener("click", function () {
+          const player = document.querySelector(".player-ctn");
+          if (player) {
+            player.style.display = "none";
+          }
+        });
     </script>
   </body>
 </html>

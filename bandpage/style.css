@@ -33,7 +33,7 @@ main {
 header {
   position: sticky;
   top: 0;
-  background-color: #030303;
+  background-color: rgba(3 3 3);
   -webkit-box-shadow: 20px -109px 96px 91px rgb(9 9 9 / 75%);
   -moz-box-shadow: 20px -109px 96px 91px rgb(9 9 9 / 75%);
   box-shadow: 20px -130px 96px 91px rgb(9 9 9 / 70%);
@@ -136,7 +136,7 @@ h1 span {
 }
 h2,
 h3 {
-  color: #000000;
+  color: #040404;
   display: block;
   font-size: 2rem;
   text-align: center;
@@ -178,14 +178,14 @@ h3 {
 #bio {
   display: inline-block;
   justify-content: center;
-  text-align: left;
+  text-align: center;
   font-family: "Titillium Web";
   font-size: 1.3rem;
   line-height: 1.25;
-  color: #000000;
+  color: #040404;
 }
 #bio p {
-  padding: 1vh 6vw 1vh 6vw;
+  padding: 3vh 6vw 1vh 6vw;
 }
 #music {
   font-family: "Calistoga";
@@ -299,14 +299,26 @@ h3 {
 }
 .showplayerbtn {
   display: none;
-  font-family: "Titillium Web";
-  border-radius: 0.4rem;
-  background-color: rgba(71, 71, 71, 0.5);
+  position: relative;
+  font-family: "Calistoga";
+  text-align: right;
+  background-color: rgba(171, 164, 164, 0.2);
+  border-radius: 2rem;
+  border: 0.1rem outset gray;
   cursor: pointer;
-  margin-bottom: 2rem;
+  color: #333333;
+  box-shadow: 0px 2px 13px rgb(9 9 9 / 32%);
+  height: 5vh;
 }
 .showplayerbtn:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(94, 90, 90, 0.2);
+}
+.showplayerbtn p {
+  bottom: 0.5vh;
+  display: inline-block;
+  font-size: 1.1rem;
+  position: relative;
+  background-color: rgba(171, 164, 164, 0);
 }
 .playlist-track-ctn {
   display: none;
@@ -332,7 +344,7 @@ table {
 td,
 th {
   border-bottom: 1px solid #ddd;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0.5rem;
   text-align: left;
   background-color: transparent;
 }
@@ -380,7 +392,20 @@ button {
 .rotate {
   animation: rotate 2s infinite ease;
 }
-
+.material-symbols-outlined {
+  display: flex;
+  right: 2vw;
+  top: 1vh;
+  justify-content: right;
+  cursor: pointer;
+  position: relative;
+}
+.material-symbols-outlined.music {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  top: 0vh;
+}
 @keyframes rotate {
   0% {
     -webkit-transform: rotate3d(0, 0, 1, 0deg);
@@ -416,17 +441,21 @@ button {
     min-width: 89vw;
     position: fixed;
     display: none;
-    background-color: rgba(171, 164, 164, 1);
+    background-color: rgba(171, 164, 164, 0.9);
   }
   #myprogress {
     width: 89vw;
   }
   h1 {
     margin-top: 1rem;
+    font-size: 1rem;
   }
 }
 @media screen and (min-width: 426px) {
   .showplayerbtn {
+    display: none;
+  }
+  .material-symbols-outlined {
     display: none;
   }
 }
