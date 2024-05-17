@@ -20,20 +20,50 @@
   </head>
   <body>
     <main>
-      <div class="contact-page-container"></div>
-      <div class="contact-form-container">
-        <p>Wir freuen uns über Eure Bookinganfragen!</p>
-        <form
-          class="contact-form"
-          action="http://127.0.0.1:3000/submit-form"
-          method="post"
-        >
-          <input type="text" name="name" placeholder="Name" />
-          <input type="email" name="email" placeholder="E-Mail" />
-          <textarea name="message" placeholder="Nachricht"></textarea>
-          <button type="submit" class="contact-button">Absenden</button>
-        </form>
+      <div class="contact-page-container">
+        <div class="contact-form-container p-24">
+          <p>Wir freuen uns über Eure Bookinganfragen!</p>
+          <div>
+            <form
+              class="flex flex-col gap-8"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+            >
+              <input
+                type="hidden"
+                name="access_key"
+                value="2c910bbf-174f-402c-bf8f-e51cfb97b4fe"
+              />
+              <div class="flex gap-8">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Dein Name"
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Deine email"
+                  required
+                />
+              </div>
+              <textarea
+                name="message"
+                placeholder="Deine Nachricht"
+                required
+              ></textarea>
+              <div
+                class="h-captcha"
+                data-captcha="true"
+                data-size="compact"
+              ></div>
+              <button type="submit">Submit Form</button>
+            </form>
+          </div>
+        </div>
       </div>
     </main>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
   </body>
 </html>
