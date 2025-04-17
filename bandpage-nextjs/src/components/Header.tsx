@@ -49,11 +49,8 @@ const Header = () => {
             >
               Gigs
             </Link>
-            {/* TODO: Update booking link if migrating contact page */}
             <Link
               href="/contact"
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-gray-200 hover:text-white text-lg"
             >
               Booking
