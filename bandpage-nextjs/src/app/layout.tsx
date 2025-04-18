@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Calistoga, Titillium_Web } from "next/font/google"; // Import fonts
 import "./globals.css";
+import "@/styles/layout.css"; // Added import for CSS file
 
 // Configure fonts
 const calistoga = Calistoga({
@@ -48,11 +49,7 @@ export default function RootLayout({
       </head>
       {/* Use Tailwind's dark mode and apply base styles */}
       {/* Apply the default font class here if needed */}
-      <body
-        className={`bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased ${titilliumWeb.className}`}
-      >
-        {children}
-      </body>
+      <body className={titilliumWeb.className}>{children}</body>
     </html>
   );
 }

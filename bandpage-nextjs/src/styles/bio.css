@@ -1,0 +1,39 @@
+/* Add styles for Bio.tsx here */
+
+/* Styles for Bio.tsx */
+
+/* Empty rule removed/commented out */
+/*
+#bio {
+  
+}
+*/
+
+/* Inner container for the bio text formatting */
+#bio > div {
+  /* Target direct div child again */
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  padding-left: 1rem; /* Add horizontal padding */
+  padding-right: 1rem; /* Add horizontal padding */
+  /* padding-top: 80px; REMOVED - Handled by #bio padding */
+  /* box-sizing: border-box; REMOVED */
+}
+
+/* Paragraph styling */
+#bio p {
+  /* Target p tags within #bio */
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Optional: Style for larger screens */
+@media (min-width: 768px) {
+  /* Empty rule removed/commented out */
+  /*
+  #bio {
+     
+  }
+  */
+}

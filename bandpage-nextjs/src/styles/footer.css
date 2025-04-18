@@ -1,0 +1,52 @@
+/* Add styles for Footer.tsx here */
+
+footer {
+  position: static; /* Keep default positioning */
+  background-color: black; /* Changed background to black */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  width: 100%; /* Ensure it takes full width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Optional: Style the dialog and button if needed */
+/* Empty rule removed/commented out */
+/*
+footer dialog {
+  
+}
+*/
+
+footer button {
+  /* Add styles for the buttons */
+  margin-left: 0.5rem;
+}
+
+.footer-content {
+  max-width: 1200px; /* Optional: Limit content width */
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-links {
+  margin-top: 0.5rem; /* Space between copyright and links */
+}
+
+.footer-link {
+  color: white;
+  text-decoration: underline;
+  margin: 0 0.75rem; /* Space around links */
+}
+
+.footer-link:hover {
+  text-decoration: none;
+}
+
+/* REMOVED Class to make the footer visible */
+/*
+footer.footer-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+*/

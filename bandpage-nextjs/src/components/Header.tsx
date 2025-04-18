@@ -1,64 +1,161 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+"use client"; // Make it a client component for useState and onClick
+
+import React, { useState } from "react";
+import Link from "next/link"; // Use Next.js Link for navigation
+import {
+  Menu,
+  X,
+  Home,
+  Music,
+  Users,
+  Share2,
+  Calendar,
+  Mail,
+  Dot,
+} from "lucide-react"; // Import icons and needed icons
+import "@/styles/header.css"; // Import header styles
 
 const Header = () => {
-  // TODO: Add logo rotation logic
-  // TODO: Convert CSS to Tailwind classes
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isKontaktSubMenuOpen, setIsKontaktSubMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    setIsKontaktSubMenuOpen(false);
+  };
+
+  const toggleKontaktSubMenu = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setIsKontaktSubMenuOpen(!isKontaktSubMenuOpen);
+  };
 
   return (
-    <header className="sticky top-0 z-10 bg-black shadow-[20px_-130px_96px_91px_rgba(9,9,9,0.7)] w-full">
-      <nav className="relative py-5 font-['Calistoga'] text-clamp-nav">
-        <Link
-          href="#home"
-          id="logo-image"
-          className="flex justify-center w-full absolute top-0 z-10"
-        >
-          {/* Use Next.js Image component for optimization */}
-          {/* TODO: Verify image path after moving assets */}
-          <Image
-            src="/logo.png" // Assuming logo.png is moved to public folder
-            alt="Band Logo"
-            width={100} // Adjust width/height as needed
-            height={100}
-            className="absolute top-0 h-28 object-contain" // Tailwind equivalent of .logo styles
-            priority // Prioritize loading the logo
-          />
-        </Link>
-        <ul className="flex w-full">
-          <li className="flex justify-around w-1/2">
-            <Link
-              href="#home"
-              className="text-gray-200 hover:text-white text-lg"
+    <>
+      {/* The visible header bar - Applies animation */}
+      <header className={`${isMenuOpen ? "header-hidden" : ""}`}>
+        <div className="header-content">
+          <Link href="/" className="brand-name">
+            Burnheart Mockery
+          </Link>
+
+          <button
+            onClick={toggleMenu}
+            className="menu-button"
+            aria-label="Toggle menu"
+          >
+            <Menu size={28} />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu & Backdrop - Siblings to header, rendered conditionally */}
+      {isMenuOpen && (
+        <>
+          <nav className={`mobile-menu open`}>
+            <button
+              onClick={toggleMenu}
+              className="close-button"
+              aria-label="Close menu"
             >
-              Home
-            </Link>
-            <a
-              href="https://wonderl.ink/@burnheart-mockery"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-200 hover:text-white text-lg"
-            >
-              Social
-            </a>
-          </li>
-          <li className="flex justify-around w-1/2">
-            <Link
-              href="#concerts"
-              className="text-gray-200 hover:text-white text-lg"
-            >
-              Gigs
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-200 hover:text-white text-lg"
-            >
-              Booking
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+              <X size={28} />
+            </button>
+            <ul>
+              <li>
+                <Link href="#home" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Home size={18} className="menu-icon" />
+                    Home
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="#musik" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Music size={18} className="menu-icon" />
+                    Musik
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="#ueber-uns" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Users size={18} className="menu-icon" />
+                    Über uns
+                  </span>
+                </Link>
+              </li>{" "}
+              {/* Assuming #bio is the target */}
+              <li>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={toggleMenu}
+                >
+                  <span className="menu-item-content">
+                    <Share2 size={18} className="menu-icon" />
+                    Social Media
+                  </span>
+                </a>
+              </li>
+              <li>
+                <Link href="#konzerte" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Calendar size={18} className="menu-icon" />
+                    Konzerte
+                  </span>
+                </Link>
+              </li>{" "}
+              {/* Add concert section later */}
+              <li className="menu-item-has-children">
+                <button
+                  onClick={toggleKontaktSubMenu}
+                  className="menu-parent-button"
+                >
+                  <span className="menu-item-content">
+                    <Mail size={18} className="menu-icon" />
+                    Kontakt und Infos
+                  </span>
+                </button>
+                {isKontaktSubMenuOpen && (
+                  <ul className="sub-menu">
+                    <li>
+                      <Link href="/booking" onClick={toggleMenu}>
+                        <span className="menu-item-content">
+                          <Dot size={10} className="menu-icon" />
+                          Bookinganfragen
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/epk" onClick={toggleMenu}>
+                        <span className="menu-item-content">
+                          <Dot size={10} className="menu-icon" />
+                          Electronic Press Kit
+                        </span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/impressum" onClick={toggleMenu}>
+                        <span className="menu-item-content">
+                          <Dot size={10} className="menu-icon" />
+                          Impressum
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            </ul>
+
+            {/* Remove logo image */}
+            {/* <img src="/logo.png" alt="Logo" className="menu-logo" /> */}
+          </nav>
+          {/* Backdrop - Also rendered conditionally */}
+          <div className="menu-backdrop" onClick={toggleMenu}></div>
+        </>
+      )}
+    </>
   );
 };
 

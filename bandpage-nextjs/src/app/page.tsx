@@ -1,20 +1,45 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Bio from "@/components/Bio";
-import Concerts from "@/components/Concerts";
-import Footer from "@/components/Footer";
+import "@/styles/page.css";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div>
       <Header />
-      <main className="flex-1 text-center w-full bg-gray-100 dark:bg-gray-800">
-        {/* The main content sections will go here */}
-        <Hero />
-        <Bio />
-        <Concerts />
+      <main>
+        {/* Remove the scroll-snap-wrapper */}
+        {/* <div className="scroll-snap-wrapper"> */}
+        {/* Section 1: Hero */}
+        <section id="home">
+          <Hero />
+        </section>
+
+        {/* Section 2: Bio */}
+        <section id="bio">
+          <Bio />
+        </section>
+
+        {/* Section 3: Alex */}
+        <section id="alex">{/* Content for Alex section goes here */}</section>
+
+        {/* Section 4: Luca */}
+        <section id="luca">{/* Content for Luca section goes here */}</section>
+
+        {/* Section 5: Lenny */}
+        <section id="lenny">
+          {/* Content for Lenny section goes here */}
+        </section>
+
+        {/* Section 6: Max */}
+        <section id="max">{/* Content for Max section goes here */}</section>
+
+        {/* Section 7: Laurin */}
+        <section id="laurin">
+          {/* Content for Laurin section goes here */}
+        </section>
+        {/* </div> */}
       </main>
-      <Footer />
     </div>
   );
 }
