@@ -22,7 +22,6 @@ const Hero = () => {
             <span className="text-2xl">We are</span>
             Burnheart Mockery
           </h1>
-          {/* Audio Player will be a separate component */}
         </div>
       </div>
     </section>

@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 // Placeholder data for concerts
 const concertData = [
@@ -47,7 +46,7 @@ const Concerts = () => {
   return (
     <section id="concerts" className="pt-20 pb-[20vh] px-4 scroll-mt-[8vh]">
       <h3 className="text-3xl font-['Calistoga'] text-center text-gray-900 dark:text-gray-100 mb-12">
-        ...buckle up and join us on our rock'n'roll journey...
+        ...buckle up and join us on our rock&apos;n&apos;roll journey...
       </h3>
       <div className="flex justify-center mb-20">
         <a
