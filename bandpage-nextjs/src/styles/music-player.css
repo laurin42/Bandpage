@@ -1,0 +1,47 @@
+/* src/styles/music-player.css */
+
+.music-player {
+  color: whitesmoke; /* Match other text color */
+  padding: 1rem;
+  /* background-color: rgba(255, 255, 255, 0.1); */ /* Optional subtle background */
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  display: inline-block; /* Or flex if needed */
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between button and volume */
+  margin-top: 0.5rem;
+}
+
+.play-pause-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid whitesmoke;
+  color: whitesmoke;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.play-pause-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-control label {
+  font-size: 0.9rem;
+}
+
+.volume-slider {
+  cursor: pointer;
+  /* Basic styling - can be customized further */
+  accent-color: whitesmoke; /* Color for the slider track/thumb */
+}

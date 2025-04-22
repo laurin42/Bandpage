@@ -17,7 +17,7 @@ header {
 
 header {
   background-color: black;
-  color: white;
+  color: whitesmoke;
   padding: 0.75rem 1rem; /* Vertical and horizontal padding */
   position: fixed; /* Keep header at the top */
   top: 0;
@@ -52,9 +52,10 @@ header.header-hidden {
 */
 
 .brand-name {
-  font-size: 1.5rem; /* Adjust size as needed */
-  font-weight: bold;
-  color: white;
+  font-size: 1.5rem;
+  font-weight: 400;
+  /* font-family: var(--font-calistoga); */ /* Moved to globals.css */
+  color: whitesmoke;
   text-decoration: none;
 }
 
@@ -150,10 +151,10 @@ header.header-hidden {
   padding: 0;
   margin: 0; /* Remove default button margin */
   cursor: pointer;
-  width: 100%; /* Make button take full width of li */
-  text-align: left; /* Align text left */
-  display: flex; /* Use flex to position arrow */
-  justify-content: space-between; /* Push arrow to the right */
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 

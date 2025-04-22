@@ -1,0 +1,31 @@
+/* src/styles/music-section.css */
+
+/* Wrapper to constrain content width and handle layout */
+.music-content-wrapper {
+  max-width: 800px; /* Or your preferred max width */
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+  color: whitesmoke;
+}
+
+/* Styling for the heading */
+.music-content-wrapper h2 {
+  font-family: var(--font-calistoga); /* Optional: Use Calistoga for heading */
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+/* Styling for the paragraph */
+.music-content-wrapper p {
+  font-family: var(--font-titillium-web), sans-serif; /* Ensure correct font */
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: left; /* Keep longer text left-aligned for readability */
+}
+
+/* Ensure MusicPlayer component aligns as needed */
+/* (MusicPlayer itself uses display: inline-block currently) */

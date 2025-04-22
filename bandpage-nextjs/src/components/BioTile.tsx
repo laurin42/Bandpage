@@ -19,59 +19,46 @@ const BioTile: React.FC<BioTileProps> = ({
   scrollContainerRef,
   description,
 }) => {
-  console.log("[BioTile RENDER] Rendering component with id:", id);
   const [showOverlay, setShowOverlay] = useState(false);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
   const isVisibleRef = useRef(false);
 
   useEffect(() => {
-    console.log("[BioTile EFFECT] Initializing useEffect for id:", id);
     const scrollElement = scrollContainerRef.current;
 
-    // Get header height once
     let headerHeight = 0;
     if (typeof window !== "undefined") {
-      try {
-        const rootStyle = window.getComputedStyle(document.documentElement);
-        const headerHeightValue = rootStyle
-          .getPropertyValue("--header-height")
-          .trim();
-        if (headerHeightValue.endsWith("rem")) {
-          const baseFontSize = parseFloat(
-            window.getComputedStyle(document.documentElement).fontSize
-          );
-          headerHeight = parseFloat(headerHeightValue) * (baseFontSize || 16); // Use detected or default base font size
-        } else if (headerHeightValue.endsWith("px")) {
-          headerHeight = parseFloat(headerHeightValue);
-        } else if (headerHeightValue) {
-          console.warn(
-            `[BioTile ${id}] Unknown unit for --header-height: ${headerHeightValue}. Using 0.`
-          );
-        }
-      } catch (error) {
-        console.error(`[BioTile ${id}] Error reading --header-height:`, error);
+      // Directly attempt to read the variable without try...catch
+      const rootStyle = window.getComputedStyle(document.documentElement);
+      const headerHeightValue = rootStyle
+        .getPropertyValue("--header-height")
+        .trim();
+      if (headerHeightValue.endsWith("rem")) {
+        const baseFontSize = parseFloat(
+          window.getComputedStyle(document.documentElement).fontSize
+        );
+        headerHeight = parseFloat(headerHeightValue) * (baseFontSize || 16);
+      } else if (headerHeightValue.endsWith("px")) {
+        headerHeight = parseFloat(headerHeightValue);
+      } else if (headerHeightValue) {
+        // console.warn(`[BioTile ${id}] Unknown unit for --header-height: ${headerHeightValue}. Using 0.`);
       }
+      // If getPropertyValue fails or value is invalid, headerHeight remains 0
     }
-    console.log(`[BioTile ${id}] Using Header Height: ${headerHeight}px`);
+    // console.log(`[BioTile ${id}] Using Header Height: ${headerHeight}px`);
 
     if (!scrollElement) {
-      console.error(`[BioTile ${id}] Scroll container element not found.`);
+      // console.error(`[BioTile ${id}] Scroll container element not found.`);
       return;
     }
 
-    console.log(`[BioTile ${id}] Attaching scroll listener to:`, scrollElement);
+    // console.log(`[BioTile ${id}] Attaching scroll listener to:`, scrollElement);
 
     const handleScroll = () => {
-      console.log(
-        "[BioTile SCROLL] Scroll event detected for id:",
-        id,
-        "on element:",
-        scrollElement
-      );
+      // console.log("[BioTile SCROLL] Scroll event detected for id:", id, "on element:", scrollElement);
       const section = document.getElementById(id);
-      console.log(`[BioTile ${id}] Found section:`, section);
+      // console.log(`[BioTile ${id}] Found section:`, section);
       if (scrollElement && section) {
-        // Check scrollElement again just in case
         const containerRect = scrollElement.getBoundingClientRect();
         const sectionRect = section.getBoundingClientRect();
 
@@ -81,28 +68,21 @@ const BioTile: React.FC<BioTileProps> = ({
           sectionRect.bottom - containerRect.top;
         const containerVisibleHeight = scrollElement.clientHeight;
 
-        // Visibility check considering header height
         const isNowVisible =
-          sectionBottomRelativeToContainer > headerHeight && // Bottom edge must be below header
-          sectionTopRelativeToContainer < containerVisibleHeight; // Top edge must be above container bottom
+          sectionBottomRelativeToContainer > headerHeight &&
+          sectionTopRelativeToContainer < containerVisibleHeight;
 
-        console.log(
-          `[BioTile ${id}] SectionTopRel: ${sectionTopRelativeToContainer.toFixed(
-            2
-          )}, SectionBottomRel: ${sectionBottomRelativeToContainer.toFixed(
-            2
-          )}, ContainerHeight: ${containerVisibleHeight}, HeaderHeight: ${headerHeight}, IsVisible: ${isNowVisible}`
-        );
+        // console.log(
+        //   `[BioTile ${id}] SectionTopRel: ${sectionTopRelativeToContainer.toFixed(2)}, SectionBottomRel: ${sectionBottomRelativeToContainer.toFixed(2)}, ContainerHeight: ${containerVisibleHeight}, HeaderHeight: ${headerHeight}, IsVisible: ${isNowVisible}`
+        // );
 
-        // State update logic based on isNowVisible
         if (isNowVisible && !isVisibleRef.current) {
           isVisibleRef.current = true;
-          console.log(`[BioTile ${id}] Became visible. Starting timer...`);
-          if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current); // Clear just in case
+          // console.log(`[BioTile ${id}] Became visible. Starting timer...`);
+          if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
           timeoutIdRef.current = setTimeout(() => {
-            // Double-check visibility RIGHT BEFORE showing the overlay
             const currentSection = document.getElementById(id);
-            const currentScrollElement = scrollContainerRef.current; // Re-access ref
+            const currentScrollElement = scrollContainerRef.current;
             let stillVisible = false;
             if (currentSection && currentScrollElement) {
               const currentContainerRect =
@@ -113,57 +93,47 @@ const BioTile: React.FC<BioTileProps> = ({
               const currentBottomRel =
                 currentSectionRect.bottom - currentContainerRect.top;
               const currentContainerHeight = currentScrollElement.clientHeight;
-              // Use the same visibility logic including headerHeight
               stillVisible =
                 currentBottomRel > headerHeight &&
                 currentTopRel < currentContainerHeight;
             }
 
             if (stillVisible) {
-              console.log(
-                `[BioTile ${id}] Timer finished, tile STILL visible. Setting overlay TRUE.`
-              );
+              // console.log(`[BioTile ${id}] Timer finished, tile STILL visible. Setting overlay TRUE.`);
               setShowOverlay(true);
             } else {
-              console.log(
-                `[BioTile ${id}] Timer finished, but tile NO LONGER visible. NOT setting overlay TRUE.`
-              );
-              // Optional: Ensure state is false if somehow became true
+              // console.log(`[BioTile ${id}] Timer finished, but tile NO LONGER visible. NOT setting overlay TRUE.`);
               setShowOverlay(false);
             }
-            timeoutIdRef.current = null; // Clear ref after execution
-          }, 1000);
+            timeoutIdRef.current = null;
+          }, 800);
         } else if (!isNowVisible && isVisibleRef.current) {
           isVisibleRef.current = false;
-          console.log(`[BioTile ${id}] Became hidden.`);
+          // console.log(`[BioTile ${id}] Became hidden.`);
           if (timeoutIdRef.current) {
-            console.log(`[BioTile ${id}] Clearing pending timer.`);
+            // console.log(`[BioTile ${id}] Clearing pending timer.`);
             clearTimeout(timeoutIdRef.current);
             timeoutIdRef.current = null;
           }
-          console.log(`[BioTile ${id}] Setting overlay state to FALSE.`);
+          // console.log(`[BioTile ${id}] Setting overlay state to FALSE.`);
           setShowOverlay(false);
         }
       }
     };
 
     requestAnimationFrame(handleScroll);
-
     scrollElement.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      console.log(
-        `[BioTile ${id}] Cleaning up listener for element:`,
-        scrollElement
-      );
-      scrollElement.removeEventListener("scroll", handleScroll);
+      // console.log(`[BioTile ${id}] Cleaning up listener for element:`, scrollElement);
+      if (scrollElement) {
+        scrollElement.removeEventListener("scroll", handleScroll);
+      }
       if (timeoutIdRef.current) {
         clearTimeout(timeoutIdRef.current);
       }
     };
   }, [id, scrollContainerRef]);
-
-  console.log(`[BioTile ${id}] State showOverlay:`, showOverlay);
 
   return (
     <section id={id} style={{ backgroundImage: `url(${imageUrl})` }}>

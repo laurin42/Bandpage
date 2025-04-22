@@ -1,1 +1,21 @@
 /* Add styles for Hero.tsx here */
+
+/* Class to apply the animation */
+.logo-animate {
+  animation: fadeOut 3.5s ease-in-out forwards; /* Use new keyframe name */
+}
+
+/* --- Hero Background Fade Overlay --- */
+.hero-background-overlay {
+  position: absolute;
+  inset: 0; /* Covers the entire parent section */
+  background-color: black;
+  opacity: 1; /* Start opaque */
+  transition: opacity 1s ease-in-out; /* Fade duration */
+  z-index: 5; /* Below logo container, above section background */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.hero-background-overlay.overlay-hidden {
+  opacity: 0; /* Fade out */
+}

@@ -54,11 +54,22 @@ main > section {
   width: 100vw;
   scroll-snap-align: start; /* Ensure all sections snap */
   display: flex;
+  /* Adjust default alignment based on common content */
   justify-content: center;
   align-items: center;
-  position: relative; /* For potential absolute positioning of content inside */
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
-  color: white; /* Set text color */
+  position: relative;
+  box-sizing: border-box;
+  color: white;
+}
+
+/* Add specific styles for #music section */
+#music {
+  /* Inherits general section styles */
+  background-color: black; /* Example background */
+  /* Override alignment if needed, e.g., align items top */
+  /* align-items: flex-start; */
+  /* Add padding if content shouldn't touch edges */
+  /* padding-top: var(--header-height); */
 }
 
 /* Override styles specifically for the Bio section REMOVED */
@@ -76,11 +87,10 @@ main > section {
 #home {
   background-color: black;
   /* Replace with your actual image path */
-  background-image: url("/images/hero-background.png"); /* Example path */
+  background-image: url("/bpBackground.png"); /* Example path */
   background-repeat: no-repeat;
   background-position: center;
-  /* background-size: auto; is default, so image appears in its original size */
-  /* Or set a specific size e.g., background-size: 50%; */
+  background-size: 88%;
 }
 
 #bio {
@@ -90,12 +100,27 @@ main > section {
   padding-top: var(--header-height);
   padding-bottom: 1rem;
   box-sizing: border-box;
-  background-color: black;
+  /* background-color: black; */ /* Replace with gradient */
+  background: linear-gradient(
+    to bottom,
+    black 0%,
+    /* Start fully black */ black 66%,
+    /* Black until 2/3 down */ rgba(0, 0, 0, 0) 100%
+      /* Fade to transparent at the bottom */
+  );
   color: white;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Ensure paragraphs within #bio use the correct font */
+#bio p {
+  font-family: var(--font-titillium-web), sans-serif;
+  /* Inherit other text styles or set explicitly */
+  margin-bottom: 1rem; /* Example existing style */
+  line-height: 1.6; /* Example existing style */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -170,11 +195,11 @@ main > section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* Darker background */
-  color: white;
+  background-color: rgba(0, 0, 0, 0.4); /* Darker background */
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end; /* Align content to the bottom */
   align-items: flex-start;
   padding: 2rem;
   text-align: left;
@@ -189,3 +214,11 @@ main > section {
   pointer-events: auto; /* Allow mouse events when visible */
   transition: opacity 0.5s ease-in-out; /* ADD transition here */
 }
+
+/* Moved to globals.css */
+/*
+.overlay-base h2 {
+  font-family: var(--font-calistoga);
+  font-weight: 400;
+}
+*/

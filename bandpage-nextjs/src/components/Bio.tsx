@@ -16,16 +16,9 @@ const Bio = () => {
           Brüder: Luca, der kreative Geist, taucht in den Wirbelwind der
           Sologitarre ein, während Max, das Uhrwerk der Melodie, mit seinen
           Rhythmusgitarrenklängen die Seelen berührt. Lenny, Meister der
-          Schießbude und Taktgeber, lenkt die Truppe durch sternenübersäten
-          Nächte, während Laurin - für die tiefen Frequenzen zuständig -
-          kosmische Basslines durch die Galaxien schickt.
-        </p>
-        <p>
-          Die Reise von Burnheart Mockery geht durch die Wirren der Zeit und die
-          Dunkelheit der Nacht. Während sie sich ihren Weg durch die Galaxien
-          der Musik bahnen, bleiben sie vereint im Geist der Freiheit und der
-          Liebe zur kosmischen Melodie, die sie zusammenbringt und ihre Seele in
-          ewigem Glanz erstrahlen lässt...
+          Schießbude und Taktgeber, lenkt die Truppe durch lange Nächte, während
+          Laurin - für die tiefen Frequenzen zuständig - kosmische Basslines
+          durch die Galaxien schickt.
         </p>
       </div>{" "}
       {/* Close inner formatting div */}
