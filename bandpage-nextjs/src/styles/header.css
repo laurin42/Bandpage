@@ -39,8 +39,8 @@ header.header-hidden {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  /* Ensure no transition here */
+  padding: 0; /* Adjust padding as needed */
+  height: 100%;
 }
 
 /* Ensure no animation here */
@@ -51,22 +51,45 @@ header.header-hidden {
 }
 */
 
+.brand-name-wrapper {
+  position: relative;
+  overflow: hidden;
+  /* Add some width/height if needed, or let content define it */
+  /* Might need adjustment based on text length */
+  min-width: 150px; /* Example minimum width */
+  text-align: left; /* Align text within wrapper */
+  /* Initial state */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out 1s; /* Match delay with hero content */
+}
+
 .brand-name {
   font-size: 1.5rem;
   font-weight: 400;
-  /* font-family: var(--font-calistoga); */ /* Moved to globals.css */
+  font-family: var(--font-calistoga);
   color: whitesmoke;
   text-decoration: none;
+  display: inline-block; /* Allow transform */
+  white-space: nowrap; /* Prevent wrapping during animation */
+  /* Animation will be applied here */
 }
 
 .menu-button,
 .close-button {
   background: none;
   border: none;
-  color: white;
+  color: white; /* Ensure color is white for both */
   cursor: pointer;
   padding: 0;
-  transition: opacity 0.3s ease-in-out; /* Add transition for smooth fade */
+  /* transition: opacity 0.3s ease-in-out; // Keep transition for menu-button fade */
+  opacity: 0; /* Start invisible for menu-button fade */
+  transition: opacity 0.5s ease-in-out 1s; /* Delay for menu-button fade */
+}
+
+/* State when elements should be visible */
+.brand-name-wrapper.element-visible,
+.menu-button.element-visible {
+  opacity: 1;
 }
 
 .mobile-menu {
@@ -95,6 +118,8 @@ header.header-hidden {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  opacity: 1; /* Ensure close button is always visible when menu is open */
+  transition: none; /* No fade transition needed for close button */
 }
 
 .mobile-menu ul {
@@ -107,10 +132,27 @@ header.header-hidden {
   margin-bottom: 1.5rem;
 }
 
-.mobile-menu a {
+.mobile-menu a,
+.mobile-menu .menu-parent-button {
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
+  /* Set font family */
+  font-family: var(--font-titillium-web), sans-serif;
+}
+
+/* Apply font specifically to button if needed */
+.mobile-menu .menu-parent-button {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 1.2rem; /* Match link size */
+  /* Reset other button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
 .menu-backdrop {
@@ -190,8 +232,8 @@ header.header-hidden {
 }
 
 .sub-menu a {
-  font-size: 1rem; /* Slightly smaller font size for sub-items */
-  /* Inherits color: white; text-decoration: none; from parent */
+  font-size: 1rem;
+  /* Inherit font family */
 }
 
 /* Style for the wrapper around icon and text */
@@ -230,3 +272,35 @@ header.header-hidden {
   
 }
 */
+
+/* --- Header Text Animation --- */
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-out {
+  animation: slideOutLeft 0.3s ease-in-out forwards;
+}
+
+.slide-in {
+  animation: slideInRight 0.3s ease-in-out forwards;
+}

@@ -2,81 +2,110 @@
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Bio from "@/components/Bio";
+// import Bio from "@/components/Bio"; // Removed import
 import BioTile from "@/components/BioTile";
 import IntroAnimation from "@/components/IntroAnimation";
 import MusicSection from "@/components/MusicSection";
+import Concerts from "@/components/Concerts";
+import SocialLinks from "@/components/SocialLinks";
+import Footer from "@/components/Footer";
 import "@/styles/page.css";
+import "@/styles/social-section.css";
 import { useRef, useState, useEffect } from "react";
-
-// Simple throttle function (simplified types)
-function throttle(
-  func: (...args: any[]) => void,
-  limit: number
-): (...args: any[]) => void {
-  let inThrottle: boolean;
-  return function (...args) {
-    if (!inThrottle) {
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-      func.apply(this, args);
-    }
-  };
-}
 
 // Define bio descriptions
 const bioDescriptions: { [key: string]: string } = {
   alex: "ist der charismatische Frontmann und Lead-Sänger. Seine kraftvolle Stimme und energiegeladene Bühnenpräsenz ziehen das Publikum in den Bann. Er schreibt die meisten Songtexte.",
   luca: "zaubert an der Leadgitarre. Seine Soli sind legendär und reichen von gefühlvollen Melodien bis zu schnellen Riffs. Er ist der kreative Kopf hinter vielen Arrangements.",
   lenny:
-    "sorgt am Schlagzeug für den richtigen Groove. Mit präzisem Timing und dynamischem Spiel bildet er das rhythmische Rückgrat der Band. Er ist der Puls von Burnheart Mockery.",
+    "sorgt am Schlagzeug für den nötigen Groove und ein sicheres Timing – das Rückgrat unseres Sounds. Nebenbei kümmert er sich auch um alles, was mit Musikproduktion zu tun hat: Aufnehmen, Mixen und Mastern – alles aus einer Hand.",
   max: "liefert an der Rhythmusgitarre das solide Fundament. Seine Akkorde und Rhythmen geben den Songs Struktur und Drive. Er ist das harmonische Uhrwerk der Band.",
   laurin:
     "bedient den Bass und sorgt für die tiefen Frequenzen. Seine Basslines sind groovig und melodisch zugleich. Er verbindet Rhythmus und Harmonie auf einzigartige Weise.",
 };
 
-// Section IDs in display order
+// Section IDs in display order - UPDATED
 const sectionIds = [
   "home",
-  "bio",
   "music",
+  // "bio", // Removed bio section
   "alex",
   "luca",
   "lenny",
   "max",
   "laurin",
+  "konzerte",
+  "social",
+  "footer-section", // Add footer ID
 ];
+
+// Map section IDs to logical groups for header text
+const sectionToLogicalGroup = (id: string): string => {
+  if (["alex", "luca", "lenny", "max", "laurin"].includes(id)) {
+    return "ueber-uns";
+  }
+  if (id === "music") {
+    return "musik";
+  }
+  if (id === "konzerte") {
+    return "konzerte";
+  }
+  if (id === "social") {
+    return "social";
+  }
+  if (id === "footer-section") {
+    // Map footer to its group
+    return "footer";
+  }
+  // 'home' maps to 'default' (Burnheart Mockery)
+  // 'bio' removed
+  return "default";
+};
 
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
   const [showIntro, setShowIntro] = useState(true);
-  const [activeSectionId, setActiveSectionId] = useState("home"); // State for active section
-  const [headerText, setHeaderText] = useState("Burnheart Mockery"); // State for header text
+  const [activeSectionId, setActiveSectionId] = useState("home");
+  const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
+  const [headerText, setHeaderText] = useState("Burnheart Mockery");
 
   const handleIntroComplete = () => {
     setShowIntro(false);
   };
 
-  // Update header text based on active section
+  // Update logical group directly when active section ID changes
   useEffect(() => {
-    let newHeaderText = "Burnheart Mockery"; // Default
-    if (activeSectionId === "music") {
-      newHeaderText = "Musik";
-    } else if (
-      ["alex", "luca", "lenny", "max", "laurin"].includes(activeSectionId)
-    ) {
-      newHeaderText = "Über uns";
-    } // 'home' and 'bio' keep the default
-    setHeaderText(newHeaderText);
+    const newGroup = sectionToLogicalGroup(activeSectionId);
+    setActiveLogicalGroup((prevGroup) =>
+      prevGroup !== newGroup ? newGroup : prevGroup
+    );
   }, [activeSectionId]);
 
-  // Effect to handle scroll and update active section
+  // Update header text based on the active logical group
+  useEffect(() => {
+    let newHeaderText = "Burnheart Mockery"; // Default for 'home'
+    if (activeLogicalGroup === "musik") {
+      newHeaderText = "Unsere Musik";
+    } else if (activeLogicalGroup === "ueber-uns") {
+      newHeaderText = "Über uns";
+    } else if (activeLogicalGroup === "konzerte") {
+      newHeaderText = "Konzerte";
+    } else if (activeLogicalGroup === "social") {
+      newHeaderText = "Social Media";
+    } else if (activeLogicalGroup === "footer") {
+      // Add case for footer
+      newHeaderText = "Navigation"; // Or "Sitemap"
+    }
+    // Removed check for activeSectionId === 'bio'
+    setHeaderText(newHeaderText);
+  }, [activeLogicalGroup]); // Remove activeSectionId dependency
+
+  // Effect to handle Intersection Observer (remains the same, observes fewer IDs)
   useEffect(() => {
     const scrollElement = mainRef.current;
-    if (!scrollElement) return;
-
-    // Get header height (similar logic to BioTile)
-    let headerHeight = 60; // Default fallback
+    if (!scrollElement || showIntro) return;
+    let headerHeight = 60;
+    // ... header height calculation ...
     if (typeof window !== "undefined") {
       try {
         const rootStyle = window.getComputedStyle(document.documentElement);
@@ -93,69 +122,55 @@ export default function Home() {
         }
       } catch {}
     }
-
-    const handleScroll = () => {
-      let currentActiveId = "home"; // Default to home
-      let minDistance = Infinity;
-
-      for (const id of sectionIds) {
-        const section = document.getElementById(id);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const containerRect = scrollElement.getBoundingClientRect();
-          const topRelativeToContainer = rect.top - containerRect.top;
-
-          // Consider a section active if its top is within a certain range below the header
-          // Adjust the threshold (e.g., 150) as needed for sensitivity
-          const activationThreshold = headerHeight + 150;
-          if (
-            topRelativeToContainer >= 0 &&
-            topRelativeToContainer < activationThreshold
-          ) {
-            // Calculate distance of the section's top from the header bottom
-            const distance = Math.abs(topRelativeToContainer - headerHeight);
-            if (distance < minDistance) {
-              minDistance = distance;
-              currentActiveId = id;
-            }
-          }
+    const observerOptions = {
+      root: scrollElement,
+      rootMargin: `-${headerHeight}px 0px 0px 0px`,
+      threshold: 0.6,
+    };
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSectionId((prevId) =>
+            entry.target.id !== prevId ? entry.target.id : prevId
+          );
         }
+      });
+    };
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+    // Observe remaining sections
+    sectionIds.forEach((id) => {
+      const sectionElement = document.getElementById(id);
+      if (sectionElement) {
+        observer.observe(sectionElement);
       }
-      // Only update state if the active section has actually changed
-      setActiveSectionId((prevId) =>
-        prevId !== currentActiveId ? currentActiveId : prevId
-      );
-    };
-
-    // Throttle the scroll handler
-    const throttledHandleScroll = throttle(handleScroll, 150); // Check every 150ms
-
-    scrollElement.addEventListener("scroll", throttledHandleScroll, {
-      passive: true,
     });
-    // Initial check
-    handleScroll();
-
     return () => {
-      scrollElement.removeEventListener("scroll", throttledHandleScroll);
+      observer.disconnect();
     };
-  }, [showIntro]); // Re-run if showIntro changes (e.g., after intro completes)
+  }, [showIntro]);
 
   return (
     <div>
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
 
-      <Header headerText={headerText} />
+      <Header headerText={headerText} introComplete={!showIntro} />
+
       <main ref={mainRef}>
         <section id="home">
           <Hero introComplete={!showIntro} />
         </section>
 
+        <MusicSection />
+
+        {/* Bio section removed */}
+        {/* 
         <section id="bio">
           <Bio />
-        </section>
-
-        <MusicSection />
+        </section> 
+        */}
 
         <BioTile
           id="alex"
@@ -166,6 +181,7 @@ export default function Home() {
           <></>
         </BioTile>
 
+        {/* ... other BioTiles ... */}
         <BioTile
           id="luca"
           imageUrl="/lucaBg.png"
@@ -174,7 +190,6 @@ export default function Home() {
         >
           <></>
         </BioTile>
-
         <BioTile
           id="lenny"
           imageUrl="/lennyBg.png"
@@ -183,7 +198,6 @@ export default function Home() {
         >
           <></>
         </BioTile>
-
         <BioTile
           id="max"
           imageUrl="/maxBg.png"
@@ -192,7 +206,6 @@ export default function Home() {
         >
           <></>
         </BioTile>
-
         <BioTile
           id="laurin"
           imageUrl="/laurinBg.png"
@@ -201,6 +214,23 @@ export default function Home() {
         >
           <></>
         </BioTile>
+
+        {/* Add Social Section (Now before Konzerte) */}
+        <section id="social" className="social-section-bg">
+          <div className="social-section-overlay">
+            <SocialLinks />
+          </div>
+        </section>
+
+        {/* Konzerte Section (Now after Social) */}
+        <section id="konzerte">
+          <Concerts />
+        </section>
+
+        {/* Wrap Footer in a section for consistent layout and scroll spying */}
+        <section id="footer-section">
+          <Footer />
+        </section>
       </main>
     </div>
   );

@@ -1,0 +1,52 @@
+/* src/styles/concerts.css */
+
+/* Outer wrapper for centering the inner content vertically/horizontally */
+.concerts-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* Justify content back to center */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+/* Inner container with the semi-transparent background */
+.text-background {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 700px;
+  /* Remove fixed height/width, let content define size up to max-width */
+  /* width: 90%; */
+  /* height: 80%; */
+  box-sizing: border-box;
+  color: whitesmoke;
+  text-align: left;
+  position: relative;
+  /* Remove overflow */
+  /* overflow-y: auto; */
+}
+
+/* Style the paragraph inside the text-background box */
+.text-background p {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  /* Re-apply max-width on paragraph */
+  max-width: 600px;
+  margin: 0;
+}
+
+/* Style for the warning icon */
+.concert-warning-icon {
+  position: absolute;
+  /* Position relative to .text-background (parent) */
+  top: -0.7rem; /* Place slightly above the container */
+  left: -0.7rem; /* Place slightly left of the container */
+  font-size: 1.8rem; /* Adjust icon size */
+  color: whitesmoke; /* Neutral color */
+  z-index: 100; /* Higher z-index just in case */
+}

@@ -1,0 +1,32 @@
+/* src/styles/globals.css */
+
+/* Prevent horizontal scrolling */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Needed for overflow-x: hidden to work reliably */
+body {
+  position: relative;
+  /* You might already have other body styles here */
+}
+
+/* Apply box-sizing and basic max-width globally */
+/* Be cautious with max-width: 100% on everything, */
+/* it might interfere with specific layouts. Remove if it causes issues. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* max-width: 100%; */ /* Commented out initially, can uncomment if needed */
+}
+
+/* Add any other global styles here */
+:root {
+  /* Define CSS Variables if not already done */
+  /* Example: */
+  /* --header-height: 5rem; */
+  /* --font-calistoga: ... */
+  /* --font-titillium-web: ... */
+}

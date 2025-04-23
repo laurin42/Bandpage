@@ -181,6 +181,29 @@ main > section {
   width: 100%; /* Ensure footer takes full width within flex container */
 }
 
+/* Add styles for the new concerts section */
+#konzerte {
+  background-image: url("/bandfoto3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Ensure position context for ::before */
+  position: relative;
+  z-index: 0; /* Optional: Define base stack level */
+}
+
+/* Add overlay to darken the background image */
+#konzerte::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
+  z-index: 1; /* Place overlay above background, below content */
+}
+
 /* Media Query for larger screens (example breakpoint: 768px) */
 /* We can add overrides for larger screens here later */
 @media (min-width: 768px) {
@@ -201,7 +224,8 @@ main > section {
   flex-direction: column;
   justify-content: flex-end; /* Align content to the bottom */
   align-items: flex-start;
-  padding: 2rem;
+  /* Update padding: Top/Bottom=2rem, Left/Right=1rem */
+  padding: 2rem 1rem;
   text-align: left;
   box-sizing: border-box;
   overflow-y: auto;
@@ -215,10 +239,19 @@ main > section {
   transition: opacity 0.5s ease-in-out; /* ADD transition here */
 }
 
-/* Moved to globals.css */
-/*
-.overlay-base h2 {
-  font-family: var(--font-calistoga);
-  font-weight: 400;
+/* Apply Titillium Web font to paragraphs inside the BioTile overlay */
+.overlay-base p {
+  font-family: var(--font-titillium-web), sans-serif;
+  /* Add other desired paragraph styles here if needed */
+  font-size: 1rem; /* Example size */
+  line-height: 1.6; /* Example line height */
 }
-*/
+
+/* Apply Calistoga font to h2 inside the BioTile overlay */
+.overlay-base h2 {
+  font-family: var(--font-calistoga), serif; /* Use Calistoga variable */
+  font-weight: 400; /* Calistoga typically has 400 weight */
+  /* Keep existing margins from BioTile.tsx (style prop) or adjust here */
+  /* margin-top: 0; */
+  /* margin-bottom: 1rem; */
+}

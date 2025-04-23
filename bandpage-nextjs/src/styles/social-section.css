@@ -1,0 +1,86 @@
+/* src/styles/social-section.css */
+
+.social-section-bg {
+  position: relative; /* For overlay positioning */
+  min-height: 100vh; /* Make section take full viewport height */
+  box-sizing: border-box;
+  background-image: url("/epk/bandfotoElevator.png");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  display: flex; /* Use flexbox to center content container */
+  justify-content: center;
+  align-items: center; /* Center content vertically */
+}
+
+.social-section-overlay {
+  padding: 5rem 1rem 4rem 1rem; /* 80px = 5rem */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Adjust darkness */
+  z-index: 1; /* Below content */
+}
+
+/* Reuse styles from previous social-page.css for the links container */
+.social-links-container {
+  position: relative; /* Ensure it's above the overlay */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center link items horizontally */
+  gap: 1rem; /* Space between link buttons */
+  width: 90%;
+  max-width: 400px; /* Limit width of the link buttons */
+  margin: 0 auto;
+}
+
+.social-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content within button */
+  gap: 0.8rem;
+  width: 100%; /* Make buttons take full container width */
+  box-sizing: border-box; /* Include padding in width */
+  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+  color: whitesmoke;
+  padding: 1rem;
+  border-radius: 25px; /* Rounded pill shape */
+  text-decoration: none;
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px); /* Optional: Frosted glass effect */
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.social-link-item:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.02); /* Slight scale effect on hover */
+}
+
+.social-link-icon {
+  font-size: 1.3em; /* Make icon slightly larger than text */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
+  .social-links-container {
+    margin-top: 80px; /* Reduce top margin on small screens */
+    gap: 0.8rem; /* Slightly reduce gap */
+  }
+
+  .social-link-item {
+    padding: 0.8rem; /* Reduce padding */
+    font-size: 1rem; /* Slightly smaller font */
+  }
+
+  .social-link-icon {
+    font-size: 1.2em;
+  }
+}

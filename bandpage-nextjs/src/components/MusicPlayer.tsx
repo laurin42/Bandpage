@@ -1,54 +1,168 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactHowler from "react-howler";
+import Image from "next/image"; // For album covers
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  VolumeX,
+} from "lucide-react"; // Icons
 import "@/styles/music-player.css"; // Add import for player styles
 
-// TODO: Enhance to play multiple songs (e.g., Witches.mp3, StillRock.mp3)
+// Define the structure for a song
+export interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  src: string; // Path to audio file
+  coverSrc: string; // Path to cover image
+}
 
-export default function MusicPlayer() {
-  const [playing, setPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.8); // Start slightly lower
+// Define props for the MusicPlayer component
+interface MusicPlayerProps {
+  song: Song | null; // The currently selected song
+  isPlaying: boolean;
+  volume: number;
+  onPlayPause: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  onVolumeChange: (newVolume: number) => void;
+  onEnded: () => void; // Callback when song ends
+}
+
+const MusicPlayer: React.FC<MusicPlayerProps> = ({
+  song,
+  isPlaying,
+  volume,
+  onPlayPause,
+  onNext,
+  onPrev,
+  onVolumeChange,
+  onEnded,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const previousVolumeRef = useRef(volume);
 
-  // Optional: Add functions for seeking, displaying duration/progress, etc.
+  useEffect(() => {
+    // Store previous volume when volume changes
+    if (!isMuted) {
+      previousVolumeRef.current = volume;
+    }
+  }, [volume, isMuted]);
+
+  const toggleMute = () => {
+    if (isMuted) {
+      // Unmute: Restore previous volume
+      onVolumeChange(
+        previousVolumeRef.current > 0.05 ? previousVolumeRef.current : 0.5
+      );
+      setIsMuted(false);
+    } else {
+      // Mute: Set volume to 0
+      previousVolumeRef.current = volume; // Store current volume before muting
+      onVolumeChange(0);
+      setIsMuted(true);
+    }
+  };
+
+  // Handle edge case where external volume change unmutes
+  useEffect(() => {
+    if (volume > 0 && isMuted) {
+      setIsMuted(false);
+    }
+    if (volume === 0 && !isMuted) {
+      setIsMuted(true);
+    }
+  }, [volume, isMuted]);
+
+  if (!song) {
+    return (
+      <div className="music-player placeholder">Wähle einen Song aus.</div>
+    ); // Placeholder if no song is selected
+  }
 
   return (
     <div className="music-player">
+      {/* Howler instance - hidden, controls playback */}
       <ReactHowler
-        src="/Witches.mp3" // Use an existing song from /public
-        playing={playing}
+        src={song.src}
+        playing={isPlaying}
         volume={volume}
         ref={playerRef}
-        html5={true} // Recommended for broader compatibility
-        // Add event handlers if needed (onLoad, onPlay, onEnd, etc.)
-        // onEnd={() => setPlaying(false)}
+        html5={true}
+        onEnd={onEnded} // Call parent's onEnd handler
+        // format={['mp3']} // Specify format if needed
       />
 
-      <div className="player-controls">
-        <button
-          onClick={() => setPlaying(!playing)}
-          className="play-pause-button"
-        >
-          {playing ? "Pause" : "Play"}
-        </button>
+      {/* Visible Player UI */}
+      <div className="player-ui">
+        <div className="cover-art">
+          <Image
+            src={song.coverSrc}
+            alt={`${song.title} Album Cover`}
+            width={60} // Adjust size as needed
+            height={60}
+            priority // Prioritize loading cover art
+          />
+        </div>
+
+        <div className="track-info">
+          <div className="title">{song.title}</div>
+          <div className="artist">{song.artist}</div>
+        </div>
+
+        <div className="controls">
+          <button
+            onClick={onPrev}
+            className="control-button"
+            aria-label="Previous Song"
+          >
+            <SkipBack size={24} />
+          </button>
+          <button
+            onClick={onPlayPause}
+            className="control-button play-pause"
+            aria-label={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? <Pause size={32} /> : <Play size={32} />}
+          </button>
+          <button
+            onClick={onNext}
+            className="control-button"
+            aria-label="Next Song"
+          >
+            <SkipForward size={24} />
+          </button>
+        </div>
 
         <div className="volume-control">
-          <label htmlFor="volumeSlider">Volume:</label>
+          <button
+            onClick={toggleMute}
+            className="control-button mute-button"
+            aria-label={isMuted ? "Unmute" : "Mute"}
+          >
+            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+          </button>
           <input
-            id="volumeSlider"
             type="range"
             min={0}
             max={1}
             step={0.01}
             value={volume}
-            onChange={(e) => setVolume(parseFloat(e.target.value))}
+            onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
             className="volume-slider"
+            aria-label="Volume"
           />
         </div>
       </div>
-      {/* TODO: Add song title display and selection */}
     </div>
   );
-}
+};
+
+export default MusicPlayer;

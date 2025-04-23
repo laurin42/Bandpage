@@ -1,13 +1,103 @@
 /* Add styles for Footer.tsx here */
 
-footer {
-  position: static; /* Keep default positioning */
-  background-color: black; /* Changed background to black */
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  width: 100%; /* Ensure it takes full width */
-  box-sizing: border-box; /* Include padding in width */
+.site-footer {
+  background-color: #111; /* Very dark background */
+  color: #aaa; /* Light grey text */
+  padding: 2rem 1rem; /* Adjust padding as needed */
+  font-family: var(--font-titillium-web), sans-serif;
+  /* Make footer behave like a full-height section */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  scroll-snap-align: start; /* Snap like other sections */
+  box-sizing: border-box;
+  display: flex; /* Use flex to center content */
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: space-between; /* Space out nav and info */
+  align-items: flex-start; /* Align items to the top */
+  gap: 2rem; /* Gap between nav and info */
+  width: 100%;
+  max-width: 900px; /* Max width for footer content */
+}
+
+.footer-nav {
+  flex: 1; /* Allow nav to take available space */
+  min-width: 200px; /* Minimum width for the nav */
+}
+
+.footer-nav h3 {
+  color: #eee; /* Brighter heading */
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #444;
+  padding-bottom: 0.5rem;
+  display: inline-block; /* Keep border tight */
+}
+
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Simple list layout */
+}
+
+.footer-nav li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-nav a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 1rem;
+}
+
+.footer-nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-info {
+  flex: 1; /* Allow info to take available space */
+  min-width: 200px; /* Minimum width */
+  text-align: right; /* Align copyright to the right */
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: #888; /* Dimmer color for copyright */
+  margin-top: 1rem; /* Add space if logo is above */
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column; /* Stack vertically on small screens */
+    align-items: center; /* Center items */
+    text-align: center; /* Center text */
+  }
+
+  .footer-nav h3 {
+    display: block; /* Allow border full width */
+    text-align: center;
+  }
+
+  .footer-nav ul {
+    text-align: center;
+  }
+
+  .footer-info {
+    text-align: center; /* Center copyright */
+    margin-top: 1rem;
+  }
 }
 
 /* Optional: Style the dialog and button if needed */
@@ -21,12 +111,6 @@ footer dialog {
 footer button {
   /* Add styles for the buttons */
   margin-left: 0.5rem;
-}
-
-.footer-content {
-  max-width: 1200px; /* Optional: Limit content width */
-  margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .footer-links {

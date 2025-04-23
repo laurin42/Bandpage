@@ -1,30 +1,28 @@
 import type { Metadata } from "next";
 import { Calistoga, Titillium_Web } from "next/font/google"; // Import fonts
-import "./globals.css";
+import "@/styles/globals.css"; // Import the newly created globals.css
 import "@/styles/layout.css"; // Added import for CSS file
 
 // Configure fonts
 const calistoga = Calistoga({
+  weight: "400", // Calistoga usually only has 400 weight
   subsets: ["latin"],
-  weight: "400",
+  variable: "--font-calistoga", // CSS variable name
   display: "swap",
-  variable: "--font-calistoga",
 });
 
 const titilliumWeb = Titillium_Web({
+  weight: ["400", "600", "700"], // Include needed weights
   subsets: ["latin"],
-  weight: ["200", "300", "400", "600", "700", "900"], // Specify needed weights
-  style: ["normal", "italic"], // Specify needed styles
+  variable: "--font-titillium-web", // CSS variable name
   display: "swap",
-  variable: "--font-titillium-web", // CSS variable for Titillium Web
-  // Optionally set one as the default by uncommenting className here
-  // and applying it to body instead of html
-  // className: "font-titillium",
 });
 
+// const inter = Inter({ subsets: ["latin"] }); // Keep if needed, otherwise remove
+
 export const metadata: Metadata = {
-  title: "Burnheart Mockery", // Updated Title
-  description: "Official website for the band Burnheart Mockery", // Updated Description
+  title: "Burnheart Mockery",
+  description: "Official Website of the Band Burnheart Mockery",
 };
 
 export default function RootLayout({
@@ -33,16 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      dir="ltr"
-      // Apply font variables
-      className={`${calistoga.variable} ${titilliumWeb.variable}`}
-    >
-      <head>{/* Font Awesome script removed */}</head>
-      {/* Use Tailwind's dark mode and apply base styles */}
-      {/* Apply the default font class here if needed */}
-      <body>{children}</body>
+    <html lang="en">
+      {/* Apply font variables to body */}
+      <body className={`${calistoga.variable} ${titilliumWeb.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

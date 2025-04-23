@@ -1,33 +1,113 @@
 /* src/styles/music-player.css */
 
 .music-player {
-  color: whitesmoke; /* Match other text color */
-  padding: 1rem;
-  /* background-color: rgba(255, 255, 255, 0.1); */ /* Optional subtle background */
-  border-radius: 8px;
-  margin-top: 1.5rem;
-  display: inline-block; /* Or flex if needed */
+  background-color: #1a1a1a; /* Dark background */
+  padding: 1rem 1rem 0.5rem 1rem; /* T, R, B, L - Reduced bottom padding */
+  width: 100%;
+  max-width: 500px; /* Limit player width */
+  box-sizing: border-box; /* Include padding in width */
+  margin: 1rem auto 0 auto; /* Remove bottom margin */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #e0e0e0; /* Light grey text */
+  border-radius: 8px 8px 0 0; /* Round only top corners now */
+  /* Set base font for the player */
+  font-family: var(--font-titillium-web), sans-serif;
 }
 
-.player-controls {
+.music-player.placeholder {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.player-ui {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Space between button and volume */
-  margin-top: 0.5rem;
+  gap: 1rem; /* Spacing between elements */
+  flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
 }
 
-.play-pause-button {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid whitesmoke;
-  color: whitesmoke;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+.cover-art {
+  flex-shrink: 0; /* Prevent image from shrinking */
+  width: 60px; /* Default width */
+  height: 60px; /* Default height */
+}
+
+.cover-art img {
+  border-radius: 4px; /* Slightly rounded corners for cover */
+  display: block; /* Remove extra space below image */
+  width: 100%; /* Make image fill container */
+  height: 100%;
+  object-fit: cover; /* Ensure image covers the area */
+}
+
+.track-info {
+  flex-grow: 1; /* Allow track info to take available space */
+  text-align: left;
+  overflow: hidden; /* Prevent long text overflow */
+}
+
+.track-info .title {
+  font-size: 1rem;
+  font-weight: 600; /* Keep semi-bold for title */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ... for long titles */
+  margin-bottom: 0.1rem;
+  color: #ffffff; /* White title */
+  /* font-family will be inherited */
+}
+
+.track-info .artist {
+  font-size: 0.85rem;
+  color: #b0b0b0; /* Lighter grey for artist */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* font-family will be inherited */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Spacing between control buttons */
+}
+
+.control-button {
+  background: none;
+  border: none;
+  color: #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  padding: 0.4rem;
+  border-radius: 50%; /* Circular buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.play-pause-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+.control-button svg {
+  width: 18px; /* Default icon size */
+  height: 18px;
+}
+
+.control-button:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
+}
+
+.control-button.play-pause {
+  /* Make play/pause slightly larger */
+  padding: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly more prominent */
+}
+
+.control-button.play-pause svg {
+  width: 20px; /* Default play/pause icon size */
+  height: 20px;
+}
+
+.control-button.play-pause:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .volume-control {
@@ -36,12 +116,38 @@
   gap: 0.5rem;
 }
 
-.volume-control label {
-  font-size: 0.9rem;
-}
-
 .volume-slider {
   cursor: pointer;
-  /* Basic styling - can be customized further */
-  accent-color: whitesmoke; /* Color for the slider track/thumb */
+  width: 80px; /* Adjust width */
+  height: 4px;
+  background: #555; /* Slider track color */
+  border-radius: 2px;
+  appearance: none; /* Override default look */
+  -webkit-appearance: none;
+  outline: none;
+}
+
+/* Styling for Chrome/Safari */
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #e0e0e0; /* Thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Styling for Firefox */
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none; /* Remove default border */
+}
+
+.mute-button {
+  padding: 0.3rem; /* Smaller padding for mute */
 }

@@ -6,16 +6,86 @@
 }
 
 /* --- Hero Background Fade Overlay --- */
-.hero-background-overlay {
-  position: absolute;
-  inset: 0; /* Covers the entire parent section */
-  background-color: black;
-  opacity: 1; /* Start opaque */
-  transition: opacity 1s ease-in-out; /* Fade duration */
-  z-index: 5; /* Below logo container, above section background */
-  pointer-events: none; /* Allow clicks to pass through */
+.hero-section {
+  position: relative;
+  /* Remove display: flex if it's not needed for other content */
+  /* display: flex; */
+  text-align: center;
+  height: 100vh;
+  min-height: 100vh;
+  /* Ensure full width for centering context */
+  width: 100%;
 }
 
-.hero-background-overlay.overlay-hidden {
-  opacity: 0; /* Fade out */
+.hero-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  z-index: 1;
+}
+
+.overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: white;
+  /* Start hidden */
+  opacity: 0;
+  /* Add transition for opacity with delay */
+  transition: opacity 0.5s ease-in-out 1s; /* 0.5s duration, 1s delay */
+}
+
+/* Class to make content visible */
+.hero-content.content-visible {
+  opacity: 1;
+}
+
+.cta-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0.6rem 2rem;
+  font-size: 0.9rem;
+  /* Use Titillium Web font */
+  font-family: var(--font-titillium-web), sans-serif;
+  font-weight: bold; /* Re-apply bold for Titillium */
+  border-radius: 5px;
+  cursor: pointer;
+  /* Apply transition to background-color and transform */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  /* Base transform state (no translation) */
+  transform: translateY(0);
+}
+
+/* Style the icon within the button */
+.cta-button .arrow-icon {
+  margin-left: 0.7rem;
+}
+
+.cta-button:hover {
+  background-color: #d32f2f;
+  /* Apply only vertical transform on hover */
+  transform: translateY(-2px);
+}
+
+.cta-button:active {
+  background-color: #b71c1c;
+  /* Apply only vertical transform on active */
+  transform: translateY(1px);
 }
