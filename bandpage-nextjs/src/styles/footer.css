@@ -3,31 +3,38 @@
 .site-footer {
   background-color: #111; /* Very dark background */
   color: #aaa; /* Light grey text */
-  padding: 2rem 1rem; /* Adjust padding as needed */
+  padding: 2rem 1rem; /* Keep side padding, top/bottom adjusted by content */
   font-family: var(--font-titillium-web), sans-serif;
   /* Make footer behave like a full-height section */
   height: 100vh; /* Full viewport height */
   width: 100vw; /* Full viewport width */
   scroll-snap-align: start; /* Snap like other sections */
   box-sizing: border-box;
-  display: flex; /* Use flex to center content */
-  justify-content: center;
-  align-items: center;
+  /* Remove flex centering from footer itself */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
 .footer-content {
+  /* Use flexbox to stack/align/distribute children */
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  justify-content: space-between; /* Space out nav and info */
-  align-items: flex-start; /* Align items to the top */
-  gap: 2rem; /* Gap between nav and info */
+  flex-direction: column; /* Stack nav and info */
+  justify-content: space-between; /* Push nav up, info down */
+  align-items: center; /* Center items horizontally */
+  /* Remove flex-wrap */
+  /* flex-wrap: wrap; */
+  gap: 2rem;
   width: 100%;
-  max-width: 900px; /* Max width for footer content */
+  max-width: 900px;
+  height: 100%; /* Fill the padded space of parent */
+  margin: 0 auto; /* Center content block horizontally */
 }
 
 .footer-nav {
-  flex: 1; /* Allow nav to take available space */
-  min-width: 200px; /* Minimum width for the nav */
+  padding-top: var(--header-height);
+  width: 100%; /* Take full width for centering */
+  text-align: center; /* Center nav heading and list */
 }
 
 .footer-nav h3 {
@@ -45,7 +52,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  /* Simple list layout */
 }
 
 .footer-nav li {
@@ -65,39 +71,33 @@
 }
 
 .footer-info {
-  flex: 1; /* Allow info to take available space */
-  min-width: 200px; /* Minimum width */
-  text-align: right; /* Align copyright to the right */
+  /* Remove flex properties */
+  /* flex: 1; */
+  /* min-width: 200px; */
+  width: 100%; /* Take full width */
+  text-align: center; /* Center copyright always */
+  /* Remove margin-top, space-between handles it */
+  /* margin-top: 1rem; */
 }
 
 .copyright {
   font-size: 0.9rem;
   color: #888; /* Dimmer color for copyright */
-  margin-top: 1rem; /* Add space if logo is above */
-  margin-bottom: 0;
+  /* margin-top: 1rem; */ /* Remove top margin */
+  margin-bottom: 0; /* Ensure it's at the very bottom */
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - Remove rules that are now default */
 @media (max-width: 600px) {
-  .footer-content {
-    flex-direction: column; /* Stack vertically on small screens */
-    align-items: center; /* Center items */
-    text-align: center; /* Center text */
+  /* Keep only if specific font/padding adjustments are needed */
+  /* Example: 
+  .footer-nav a {
+    font-size: 0.9rem;
   }
-
-  .footer-nav h3 {
-    display: block; /* Allow border full width */
-    text-align: center;
+  .copyright {
+    font-size: 0.8rem;
   }
-
-  .footer-nav ul {
-    text-align: center;
-  }
-
-  .footer-info {
-    text-align: center; /* Center copyright */
-    margin-top: 1rem;
-  }
+  */
 }
 
 /* Optional: Style the dialog and button if needed */

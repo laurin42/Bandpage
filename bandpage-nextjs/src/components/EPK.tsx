@@ -98,7 +98,7 @@ const EPK = () => {
         doc.link(margin, currentY - 3, 50, 5, {
           url: `mailto:${bandInfo.contact.email}`,
         });
-      } catch (_e: any) {
+      } catch {
         console.warn("Could not create email link in PDF");
       }
       currentY += 6;
@@ -123,7 +123,7 @@ const EPK = () => {
         doc.text(`${social.platform}: ${social.url}`, margin, currentY);
         try {
           doc.link(margin, currentY - 3, usableWidth, 5, { url: social.url });
-        } catch (_e: any) {
+        } catch {
           console.warn("Could not create social link in PDF");
         }
         currentY += 6;
