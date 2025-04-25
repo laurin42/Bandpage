@@ -8,9 +8,6 @@
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  display: flex; /* Use flexbox to center content container */
-  justify-content: center;
-  align-items: center; /* Center content vertically */
 }
 
 .social-section-overlay {
@@ -59,6 +56,8 @@
   line-height: 1.6;
   font-family: var(--font-titillium-web), sans-serif;
   overflow-wrap: break-word;
+  width: 100%;
+  letter-spacing: normal; /* Add for testing */
 }
 
 .social-link-item {

@@ -65,7 +65,7 @@ const SocialLinks = () => {
 
       {/* Wrapper specifically for CTA background and text (Now second)*/}
       <p className="cta-text">
-        Folgt uns, hinterlasst ein Like oder Follow und zeigt eure
+        Folgt uns, hinterlasst ein Like und Follow da und zeigt eure
         Unterstützung. Wir freuen uns über jeden Support, besonders aber wenn
         ihr unsere Musik hört.
       </p>
