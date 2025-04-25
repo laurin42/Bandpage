@@ -11,7 +11,6 @@ import {
   FileText,
   BookUser,
   Info,
-  CornerDownRight,
 } from "lucide-react"; // Import icons
 import "@/styles/footer.css"; // Styles for the footer
 
