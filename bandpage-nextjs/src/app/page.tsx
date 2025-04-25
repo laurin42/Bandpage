@@ -24,19 +24,19 @@ const bioDescriptions: { [key: string]: string } = {
     "bedient den Bass und sorgt für die tiefen Frequenzen. Seine Basslines sind groovig und melodisch zugleich. Er verbindet Rhythmus und Harmonie auf einzigartige Weise.",
 };
 
-// Section IDs in display order - UPDATED
+// Section IDs in display order - REORDERED
 const sectionIds = [
   "home",
   "music",
+  "social", // Moved up
   // "bio", // Removed bio section
   "alex",
   "luca",
   "lenny",
   "max",
   "laurin",
-  "konzerte",
-  "social",
-  "footer-section", // Add footer ID
+  "konzerte", // Moved down
+  "footer-section",
 ];
 
 // Map section IDs to logical groups for header text
@@ -96,15 +96,13 @@ export default function Home() {
 
   // Update header text based on the active logical group
   useEffect(() => {
-    let newHeaderText = "Burnheart Mockery"; // Default for 'home'
+    let newHeaderText = "Burnheart Mockery"; // Default for 'home' and now also 'social'
     if (activeLogicalGroup === "musik") {
       newHeaderText = "Unsere Musik";
     } else if (activeLogicalGroup === "ueber-uns") {
       newHeaderText = "Über uns";
     } else if (activeLogicalGroup === "konzerte") {
       newHeaderText = "Konzerte";
-    } else if (activeLogicalGroup === "social") {
-      newHeaderText = "Social Media";
     } else if (activeLogicalGroup === "footer") {
       // Add case for footer
       newHeaderText = "Navigation"; // Or "Sitemap"
@@ -178,13 +176,16 @@ export default function Home() {
 
         <MusicSection />
 
-        {/* Bio section removed */}
-        {/* 
-        <section id="bio">
-          <Bio />
-        </section> 
-        */}
+        {/* === NEW ORDER START === */}
 
+        {/* 1. Social Section */}
+        <section id="social" className="social-section-bg">
+          <div className="social-section-overlay">
+            <SocialLinks />
+          </div>
+        </section>
+
+        {/* 2. BioTiles Section (Über uns) */}
         <BioTile
           id="alex"
           imageUrl="/alexBg.png"
@@ -193,8 +194,6 @@ export default function Home() {
         >
           <></>
         </BioTile>
-
-        {/* ... other BioTiles ... */}
         <BioTile
           id="luca"
           imageUrl="/lucaBg.png"
@@ -228,22 +227,17 @@ export default function Home() {
           <></>
         </BioTile>
 
-        {/* Add Social Section (Now before Konzerte) */}
-        <section id="social" className="social-section-bg">
-          <div className="social-section-overlay">
-            <SocialLinks />
-          </div>
-        </section>
-
-        {/* Konzerte Section (Now after Social) */}
+        {/* 3. Konzerte Section */}
         <section id="konzerte">
           <Concerts />
         </section>
 
-        {/* Wrap Footer in a section for consistent layout and scroll spying */}
+        {/* 4. Footer Section (Sitemap) */}
         <section id="footer-section">
           <Footer />
         </section>
+
+        {/* === NEW ORDER END === */}
       </main>
     </div>
   );

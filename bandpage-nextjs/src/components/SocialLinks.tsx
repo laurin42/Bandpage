@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image"; // Ensure Image is imported
+import NeugierigIcon from "@/assets/icons/neugierig.svg"; // Import SVG from src/assets as component
 import {
   FaTiktok,
   FaInstagram,
@@ -32,7 +34,7 @@ const socialLinksData: SocialLink[] = [
     Icon: FaSpotify,
   },
   {
-    platform: "YouTube",
+    platform: "YouTube Music",
     url: "https://www.youtube.com/channel/UCSIHktug-Pryjjs9wtSrZmg",
     Icon: FaYoutube,
   },
@@ -45,30 +47,52 @@ const socialLinksData: SocialLink[] = [
 
 const SocialLinks = () => {
   return (
-    // Renamed outer container for positioning/width
-    <div className="social-section-content">
-      {/* Container for the links themselves (Now first) */}
-      <div className="social-links-container">
-        {socialLinksData.map((link, index) => (
-          <a
-            key={index}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link-item"
-          >
-            <link.Icon className="social-link-icon" />
-            <span>{link.platform}</span>
-          </a>
-        ))}
-      </div>
+    <div className="social-links-container">
+      {/* Removed H3 heading */}
+      {/* <h1 className="cta-subheading">Neugierig geworden?</h1> */}
 
-      {/* Wrapper specifically for CTA background and text (Now second)*/}
-      <p className="cta-text">
-        Folgt uns, hinterlasst ein Like und Follow da und zeigt eure
-        Unterstützung. Wir freuen uns über jeden Support, besonders aber wenn
-        ihr unsere Musik hört.
-      </p>
+      {/* Removed old SVG Call to Action */}
+      {/* <div className="cta-svg-link">
+        <span>Sieh dir hier mehr an</span>
+        <Image
+          src="/icons/redo.svg"
+          alt="Mehr ansehen Pfeil"
+          className="cta-redo-svg"
+          width={32}
+          height={32}
+        />
+      </div> */}
+
+      {/* Render SVG component inline */}
+      <NeugierigIcon className="cta-neugierig-svg" />
+
+      {socialLinksData.map((link, index) => (
+        <a
+          key={index}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-link-item"
+        >
+          <link.Icon className="social-link-icon" />
+          <span>{link.platform}</span>
+        </a>
+      ))}
+
+      {/* Removed the horizontal rule */}
+      {/* <hr className="cta-separator" /> */}
+
+      {/* New SVG Scroll CTA - Ensure Image is used here too */}
+      <div className="cta-scroll-svg">
+        <span>...oder hier</span>
+        <Image // Ensure Image is used here
+          src="/icons/arrow-down.svg" // Using arrow-down.svg
+          alt="Nach unten scrollen"
+          className="cta-arrow-down-svg"
+          width={32} // Adjust size as needed
+          height={32}
+        />
+      </div>
     </div>
   );
 };

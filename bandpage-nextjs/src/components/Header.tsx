@@ -129,19 +129,18 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/#alex" onClick={toggleMenu}>
-                  <span className="menu-item-content">
-                    <Users size={18} className="menu-icon" />
-                    Über uns
-                  </span>
-                </Link>
-              </li>{" "}
-              {/* Assuming #bio is the target */}
-              <li>
                 <Link href="/#social" onClick={toggleMenu}>
                   <span className="menu-item-content">
                     <Share2 size={18} className="menu-icon" />
                     Social Media
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#alex" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Users size={18} className="menu-icon" />
+                    Über uns
                   </span>
                 </Link>
               </li>
@@ -152,8 +151,7 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                     Konzerte
                   </span>
                 </Link>
-              </li>{" "}
-              {/* Add concert section later */}
+              </li>
               <li className="menu-item-has-children">
                 <button
                   onClick={toggleKontaktSubMenu}
@@ -185,7 +183,6 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                   </ul>
                 )}
               </li>
-              {/* Impressum as top-level item */}
               <li>
                 <Link href="/impressum" onClick={toggleMenu}>
                   <span className="menu-item-content">

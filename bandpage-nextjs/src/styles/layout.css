@@ -1,11 +1,6 @@
 :root {
   --header-height: 6rem; /* Further increased header height */
-  --content-container-bg: rgba(
-    26,
-    26,
-    26,
-    0.8
-  ); /* New variable for content bg */
+  --content-container-bg: rgba(0, 0, 0, 0.8); /* New variable for content bg */
   /* Add other global variables if needed */
 }
 
@@ -70,43 +65,37 @@ main > section {
   align-items: flex-end; /* Align content to the BOTTOM */
   position: relative;
   box-sizing: border-box;
-  color: white;
+  color: whitesmoke;
   /* Add consistent padding: Top (for header), Sides, Bottom */
   padding: var(--header-height) 1rem 2rem 1rem;
 }
 
 /* Add specific styles for #footer-section */
 #footer-section {
-  background-color: #111; /* Dark background for the whole section */
-  /* align-items: center; REMOVE - No longer a flex container */
-  /* Override display flex from main > section */
-  display: block;
-  /* Adjust padding to match impressum page container? */
-  /* Default section padding is: var(--header-height) 1rem 2rem 1rem */
-  /* Impressum page padding (roughly): var(--header-height) 2rem 2rem 2rem */
-  padding: var(--header-height) 2rem 2rem 2rem; /* Adopt Impressum-like padding */
+  background-color: black; /* Dark background for the whole section */
+  /* display: flex; Remove this */
+  /* flex-direction: column; Remove this */
+  /* justify-content: space-between; Remove this */
+  display: block; /* Revert to block */
+  /* Keep existing padding */
+  padding: var(--header-height) 2rem 2rem 2rem;
+  /* Inherits height: 100dvh from main > section */
+  box-sizing: border-box;
 }
 
 /* Add specific styles for #music section */
 #music {
   /* Inherits general section styles */
-  background-color: black; /* Example background */
+  /* background-color: black; Remove this or keep as fallback */
+  background-image: url("/music/musicSectionBg2.png"); /* Add background image */
+  background-size: cover; /* Ensure image covers the section */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repeating */
   /* Override alignment if needed, e.g., align items top */
   /* align-items: flex-start; */
   /* Add padding if content shouldn't touch edges */
   /* padding-top: var(--header-height); */
 }
-
-/* Override styles specifically for the Bio section REMOVED */
-/*
-#bio {
-  height: auto;
-  scroll-snap-align: none;
-  display: block;
-  background-color: black;
-  color: white;
-}
-*/
 
 /* --- Specific Section Backgrounds --- */
 #home {
@@ -133,7 +122,7 @@ main > section {
     /* Black until 2/3 down */ rgba(0, 0, 0, 0) 100%
       /* Fade to transparent at the bottom */
   );
-  color: white;
+  color: whitesmoke;
 
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */

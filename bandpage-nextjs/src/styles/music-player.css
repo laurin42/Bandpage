@@ -1,10 +1,10 @@
 /* src/styles/music-player.css */
 
 .music-player {
-  background-color: rgb(26, 26, 26); /* Dark background */
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
   padding: 1rem 1rem 0.5rem 1rem; /* T, R, B, L - Reduced bottom padding */
   width: 100%;
-  max-width: 500px; /* Limit player width */
+  max-width: 650px; /* INCREASE max-width to match song list */
   box-sizing: border-box; /* Include padding in width */
   margin: 1rem auto 0 auto; /* Remove bottom margin */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -23,9 +23,8 @@
   display: flex;
   align-items: center;
   gap: 1rem; /* Spacing between elements */
-  /* flex-wrap: wrap; */ /* REMOVE this to keep items in one line */
-  flex-wrap: nowrap; /* Explicitly set nowrap (default) */
-  overflow: hidden; /* Hide potential overflow if container is extremely narrow */
+  flex-wrap: wrap; /* Allow wrapping */
+  overflow: hidden; /* Keep hiding overflow for now */
 }
 
 .cover-art {
@@ -172,3 +171,21 @@
 
 /* No Laptop specific overrides needed currently */
 /* @media (min-width: 1024px) { ... } */
+
+/* --- Media Query for Small Screens --- */
+@media (max-width: 420px) {
+  /* Adjust breakpoint as needed */
+  .player-ui {
+    gap: 0.5rem; /* Reduce gap slightly */
+  }
+
+  .volume-control {
+    width: 100%; /* Take full width to force wrap */
+    justify-content: center; /* Center the items (mute button, slider) */
+    margin-top: 0.5rem; /* Add some space above when wrapped */
+  }
+
+  .volume-slider {
+    width: 100px; /* Slightly wider slider when wrapped */
+  }
+}

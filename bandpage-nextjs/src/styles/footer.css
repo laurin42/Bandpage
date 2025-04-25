@@ -1,49 +1,51 @@
 /* Add styles for Footer.tsx here */
 
+/* REMOVE .site-footer rule */
+/*
 .site-footer {
-  /* This is the main content box */
-  display: flex; /* Use Flexbox */
-  flex-direction: column; /* Stack children vertically */
+  display: flex; 
+  flex-direction: column; 
   width: 100%;
-  max-width: 800px; /* Match impressum */
-  margin: 0 auto; /* Center the block */
-  background-color: #2a2a2a; /* Background from impressum */
-  padding: 1.5rem 2rem; /* Padding from impressum */
-  border-radius: 8px; /* Border-radius from impressum */
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Shadow from impressum */
-  color: #e0e0e0; /* Text color from impressum */
-  text-align: left; /* Default text align */
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 1.5rem 2rem; 
+  border-radius: 8px; 
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); 
+  color: #e0e0e0; 
+  text-align: left; 
   box-sizing: border-box;
 }
+*/
 
-/* Style h3 directly within .site-footer */
-.site-footer h3 {
-  font-family: var(--font-calistoga), serif;
-  /* H2 size range */
-  font-size: 1.6rem; /* Mobile H2 (25.6px) */
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: white;
+/* Style h3 directly (now child of #footer-section) */
+h3 {
+  margin-top: 0; /* Align to top padding of parent */
+  margin-bottom: 1.5rem; /* Space below */
+  margin-left: 0; /* Rely on parent padding */
   border-bottom: 1px solid #555;
   padding-bottom: 0.5rem;
-  font-weight: 400;
 }
 
-/* Style ul directly within .site-footer */
+/* REMOVE .site-footer ul rule */
+/*
 .site-footer ul {
   list-style: none;
   padding: 0;
-  margin: 1rem 0; /* Keep some vertical margin */
-  margin-top: auto; /* Push list (and copyright) to the bottom */
+  margin: 1rem 0; 
+  margin-top: auto; 
 }
+*/
 
-/* Style li directly within .site-footer */
+/* REMOVE .site-footer li rule */
+/*
 .site-footer li {
   margin-bottom: 0.8rem;
   line-height: 1.7;
 }
+*/
 
-/* Style a directly within .site-footer */
+/* REMOVE .site-footer a rule */
+/*
 .site-footer a {
   font-family: var(--font-titillium-web), sans-serif;
   font-size: 1rem;
@@ -51,64 +53,32 @@
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
 .site-footer a:hover {
   color: #fff;
   text-decoration: underline;
 }
+*/
 
-/* Style .copyright directly within .site-footer */
+/* Style .copyright directly (now child of #footer-section) */
 .copyright {
   font-family: var(--font-titillium-web), sans-serif;
-  /* Smaller body text */
   font-size: 0.9375rem; /* Mobile (15px) */
   line-height: 1.7;
-  margin-bottom: 0; /* Ensure it's at the very bottom */
+  align-self: center;
+  margin-top: 0; /* Align to bottom padding */
   color: #888;
+  text-align: center; /* Center copyright text */
+  bottom: 0;
 }
 
-/* Keep button styles if needed */
-footer button {
-  margin-left: 0.5rem;
-}
-
-/* Keep footer-links styles if needed */
-.footer-links {
-  margin-top: 0.5rem;
-}
-
-.footer-link {
-  color: white;
-  text-decoration: underline;
-  margin: 0 0.75rem;
-}
-
-.footer-link:hover {
-  text-decoration: none;
-}
-
-/* REMOVED Class to make the footer visible */
+/* REMOVE unused button/link styles? Assuming they were inside .site-footer */
 /*
-footer.footer-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
+footer button { ... }
+.footer-links { ... }
+.footer-link { ... }
 */
 
-/* --- Remove old Sitemap Flow / List Styles --- */
-/*
-.sitemap-flow {
-  ...
-}
-.site-footer ul {
-  ...
-}
-.site-footer li {
-  ...
-}
-*/
-
-/* --- New Sitemap Tree Styles with Icons --- */
+/* --- Keep Sitemap Tree Styles --- */
 .sitemap-tree {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
@@ -170,7 +140,8 @@ footer.footer-visible {
 
 @media (min-width: 768px) {
   /* Tablet Overrides */
-  .site-footer h3 {
+  /* REMOVE .site-footer h3 */
+  h3 {
     font-size: 1.875rem; /* Tablet H2 (30px) */
   }
   .sitemap-node a,
@@ -185,11 +156,39 @@ footer.footer-visible {
 
 @media (min-width: 1024px) {
   /* Laptop Overrides */
-  .site-footer h3 {
+  /* REMOVE .site-footer h3 */
+  h3 {
     font-size: 2rem; /* Laptop H2 (32px) */
   }
   /* sitemap-node sizes already set by 768px query */
   /* copyright size already set */
 
   /* Add other Laptop overrides here */
+}
+
+/* Style the container for the main footer content (h3 + tree) */
+.footer-content-main {
+  width: 100%; /* Take full width initially */
+  max-width: 800px; /* Restore max-width like old .site-footer */
+  /* margin: 0 auto; Keep removed for left alignment */
+}
+
+/* ADD Styles for the inner wrapper */
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; /* Ensure it takes full height of parent section */
+  /* If parent doesn't have explicit height, consider height: 100% 
+     or adjust based on actual parent height behavior */
+}
+
+/* Style .copyright directly (now child of .footer-inner) */
+.copyright {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 0.9375rem; /* Mobile (15px) */
+  line-height: 1.7;
+  margin-top: auto; /* Add this back to push to bottom */
+  margin-bottom: 0; /* Align to bottom padding */
+  color: #888;
+  text-align: center; /* Center copyright text */
 }

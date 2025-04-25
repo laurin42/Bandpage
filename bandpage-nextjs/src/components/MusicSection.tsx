@@ -19,13 +19,34 @@ const songs: Song[] = [
     coverSrc: "/cover/stillRock.png",
   },
   // Add more songs here...
-  // {
-  //   id: 3,
-  //   title: "Another Song",
-  //   artist: "Burnheart Mockery",
-  //   src: "/path/to/another.mp3",
-  //   coverSrc: "/covers/another_cover.png",
-  // },
+  {
+    id: 3,
+    title: "Dignity Blues",
+    artist: "Burnheart Mockery", // Placeholder
+    src: "/placeholder.mp3", // Placeholder
+    coverSrc: "/cover/placeholder.png", // Placeholder
+  },
+  {
+    id: 4,
+    title: "Mary",
+    artist: "Burnheart Mockery", // Placeholder
+    src: "/placeholder.mp3", // Placeholder
+    coverSrc: "/cover/placeholder.png", // Placeholder
+  },
+  {
+    id: 5,
+    title: "Like The Good Times",
+    artist: "Burnheart Mockery", // Placeholder
+    src: "/placeholder.mp3", // Placeholder
+    coverSrc: "/cover/placeholder.png", // Placeholder
+  },
+  {
+    id: 6,
+    title: "Midnight Roller",
+    artist: "Burnheart Mockery", // Placeholder
+    src: "/placeholder.mp3", // Placeholder
+    coverSrc: "/cover/placeholder.png", // Placeholder
+  },
 ];
 
 const MusicSection = () => {
@@ -109,13 +130,6 @@ const MusicSection = () => {
   return (
     <section id="music" ref={sectionRef}>
       <div className="music-content-wrapper">
-        <p>
-          Die Reise von Burnheart Mockery geht durch die Wirren der Zeit und die
-          Dunkelheit der Nacht. Während sie sich ihren Weg durch die Galaxien
-          der Musik bahnen, bleiben sie vereint im Geist der Freiheit und der
-          Liebe zur Melodie...
-        </p>
-
         <MusicPlayer
           song={currentSong}
           isPlaying={isPlaying}

@@ -40,7 +40,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  color: white;
+  color: whitesmoke;
   /* Start hidden */
   opacity: 0;
   /* Add transition for opacity with delay */
@@ -54,7 +54,7 @@
 
 .cta-button {
   background-color: #f44336;
-  color: white;
+  color: whitesmoke;
   border: none;
   padding: 0.6rem 2rem;
   font-size: 0.9rem;

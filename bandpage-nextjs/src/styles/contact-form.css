@@ -28,7 +28,7 @@
   text-align: center;
   font-family: "Calistoga", serif; /* Ensure font is applied */
   margin-bottom: 1rem; /* Equivalent to mb-4 */
-  color: white;
+  color: whitesmoke;
 }
 
 .form-group {
@@ -98,7 +98,7 @@
   box-sizing: border-box;
   width: 100%;
   background-color: #dc2626; /* Equivalent to bg-red-600 */
-  color: white;
+  color: whitesmoke;
   font-weight: 600; /* Equivalent to font-semibold */
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
