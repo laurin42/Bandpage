@@ -64,13 +64,8 @@ const sectionToLogicalGroup = (id: string): string => {
 
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
-  // Initialize state based on sessionStorage
-  const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("introPlayed") !== "true";
-    }
-    return true; // Default server-side or if window is not available yet
-  });
+  // Initialize state consistently for server and initial client render
+  const [showIntro, setShowIntro] = useState(true);
   const [activeSectionId, setActiveSectionId] = useState("home");
   const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
   const [headerText, setHeaderText] = useState("Burnheart Mockery");
@@ -82,6 +77,14 @@ export default function Home() {
       sessionStorage.setItem("introPlayed", "true");
     }
   };
+
+  // Effect to check sessionStorage AFTER hydration and update state if needed
+  useEffect(() => {
+    if (sessionStorage.getItem("introPlayed") === "true") {
+      setShowIntro(false);
+    }
+    // Run only once on mount
+  }, []);
 
   // Update logical group directly when active section ID changes
   useEffect(() => {

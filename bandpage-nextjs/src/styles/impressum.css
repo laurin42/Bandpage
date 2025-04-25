@@ -19,7 +19,8 @@
 
 .impressum-container h2 {
   font-family: var(--font-calistoga), serif;
-  font-size: 1.8rem;
+  /* H2 size range */
+  font-size: 1.6rem; /* Mobile H2 (25.6px) */
   margin-bottom: 1.5rem;
   color: white; /* White heading */
   border-bottom: 1px solid #555; /* Lighter border */
@@ -28,7 +29,8 @@
 
 .impressum-container h3 {
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.3rem;
+  /* Slightly larger than body, smaller than H2 */
+  font-size: 1.25rem; /* Mobile (20px) */
   font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 0.8rem;
@@ -37,7 +39,8 @@
 
 .impressum-container p {
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1rem;
+  /* Base body size */
+  font-size: 1rem; /* Mobile (16px) */
   line-height: 1.7;
   margin-bottom: 1rem;
 }
@@ -53,4 +56,28 @@
 
 .impressum-container a:hover {
   text-decoration: underline;
+}
+
+/* --- Media Queries for Responsive Font Sizes --- */
+
+@media (min-width: 768px) {
+  /* Tablet Overrides */
+  .impressum-container h2 {
+    font-size: 1.875rem; /* Tablet H2 (30px) */
+  }
+  .impressum-container h3 {
+    font-size: 1.375rem; /* Tablet (22px) */
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Laptop Overrides */
+  .impressum-container h2 {
+    font-size: 2rem; /* Laptop H2 (32px) */
+  }
+  .impressum-container h3 {
+    font-size: 1.5rem; /* Laptop (24px) */
+  }
+  /* p inherits from body */
+  /* Add other Laptop overrides here */
 }

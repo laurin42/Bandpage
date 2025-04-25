@@ -24,17 +24,41 @@
   z-index: 1; /* Below content */
 }
 
-/* Reuse styles from previous social-page.css for the links container */
-.social-links-container {
-  position: relative; /* Ensure it's above the overlay */
+/* Renamed container for overall positioning and width */
+.social-section-content {
+  width: 90%;
+  max-width: 500px; /* Keep this for mobile */
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center link items horizontally */
-  gap: 1rem; /* Space between link buttons */
-  width: 90%;
-  max-width: 400px; /* Limit width of the link buttons */
-  margin: 0 auto;
+  align-items: center;
+}
+
+/* Container for links - adjust spacing */
+.social-links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%; /* Still fill the outer container width */
+  margin-bottom: 2rem; /* Increase space below border, above CTA */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 2rem; /* Increase space between last link and border */
+}
+
+/* Style for the Call to Action text */
+.cta-text {
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 0; /* Remove browser default top margin */
+  margin-bottom: 1rem; /* Keep space below the text */
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-family: var(--font-titillium-web), sans-serif;
+  overflow-wrap: break-word;
 }
 
 .social-link-item {
@@ -46,11 +70,14 @@
   box-sizing: border-box; /* Include padding in width */
   background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
   color: whitesmoke;
-  padding: 1rem;
+  padding: 1rem; /* Existing padding (Top/Sides) */
+  padding-bottom: 1.5rem; /* Add specific bottom padding */
   border-radius: 25px; /* Rounded pill shape */
   text-decoration: none;
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.1rem;
+  /* font-size: 1.1rem; */
+  /* Responsive Button/Link size */
+  font-size: 1.125rem; /* Mobile (18px) */
   font-weight: 600;
   text-align: center;
   transition: background-color 0.2s ease, transform 0.1s ease;
@@ -64,23 +91,20 @@
   transform: scale(1.02); /* Slight scale effect on hover */
 }
 
-.social-link-icon {
-  font-size: 1.3em; /* Make icon slightly larger than text */
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 480px) {
-  .social-links-container {
-    margin-top: 80px; /* Reduce top margin on small screens */
-    gap: 0.8rem; /* Slightly reduce gap */
+/* Tablet+ Overrides */
+@media (min-width: 768px) {
+  /* Increase max-width for larger screens */
+  .social-section-content {
+    max-width: 650px; /* Adjust this value as needed */
   }
 
   .social-link-item {
-    padding: 0.8rem; /* Reduce padding */
-    font-size: 1rem; /* Slightly smaller font */
+    font-size: 1.25rem; /* Tablet (20px) */
+    padding: 1.1rem; /* Slightly larger padding */
   }
-
   .social-link-icon {
-    font-size: 1.2em;
+    font-size: 1.3em; /* Keep relative or adjust if needed */
   }
 }
+
+/* Laptop+ overrides can inherit from tablet for now */

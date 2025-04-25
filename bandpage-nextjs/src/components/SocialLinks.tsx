@@ -32,7 +32,7 @@ const socialLinksData: SocialLink[] = [
     Icon: FaSpotify,
   },
   {
-    platform: "YouTube Music",
+    platform: "YouTube",
     url: "https://www.youtube.com/channel/UCSIHktug-Pryjjs9wtSrZmg",
     Icon: FaYoutube,
   },
@@ -45,19 +45,30 @@ const socialLinksData: SocialLink[] = [
 
 const SocialLinks = () => {
   return (
-    <div className="social-links-container">
-      {socialLinksData.map((link, index) => (
-        <a
-          key={index}
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link-item"
-        >
-          <link.Icon className="social-link-icon" />
-          <span>{link.platform}</span>
-        </a>
-      ))}
+    // Renamed outer container for positioning/width
+    <div className="social-section-content">
+      {/* Container for the links themselves (Now first) */}
+      <div className="social-links-container">
+        {socialLinksData.map((link, index) => (
+          <a
+            key={index}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link-item"
+          >
+            <link.Icon className="social-link-icon" />
+            <span>{link.platform}</span>
+          </a>
+        ))}
+      </div>
+
+      {/* Wrapper specifically for CTA background and text (Now second)*/}
+      <p className="cta-text">
+        Folgt uns, hinterlasst ein Like oder Follow und zeigt eure
+        Unterstützung. Wir freuen uns über jeden Support, besonders aber wenn
+        ihr unsere Musik hört.
+      </p>
     </div>
   );
 };

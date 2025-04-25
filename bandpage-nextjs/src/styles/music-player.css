@@ -1,7 +1,7 @@
 /* src/styles/music-player.css */
 
 .music-player {
-  background-color: #1a1a1a; /* Dark background */
+  background-color: rgb(26, 26, 26); /* Dark background */
   padding: 1rem 1rem 0.5rem 1rem; /* T, R, B, L - Reduced bottom padding */
   width: 100%;
   max-width: 500px; /* Limit player width */
@@ -60,7 +60,7 @@
 }
 
 .track-info .artist {
-  font-size: 0.85rem;
+  font-size: 0.875rem; /* Slightly smaller than body (14px) */
   color: #b0b0b0; /* Lighter grey for artist */
   white-space: nowrap;
   overflow: hidden;
@@ -156,3 +156,19 @@
 .mute-button {
   padding: 0.3rem; /* Smaller padding for mute */
 }
+
+/* --- Media Queries for Responsive Font Sizes --- */
+
+@media (min-width: 768px) {
+  /* Tablet Overrides */
+  .track-info .title {
+    font-size: 1.125rem; /* Tablet Body (18px) */
+  }
+  .track-info .artist {
+    font-size: 0.9375rem; /* Tablet smaller (15px) */
+  }
+  /* Add other Tablet overrides here */
+}
+
+/* No Laptop specific overrides needed currently */
+/* @media (min-width: 1024px) { ... } */

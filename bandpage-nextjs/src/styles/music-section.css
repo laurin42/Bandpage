@@ -4,11 +4,10 @@
 .music-content-wrapper {
   max-width: 800px; /* Or your preferred max width */
   width: 90%; /* Use percentage for better responsiveness */
-  margin: 0 auto;
-  padding-top: var(--header-height);
+  margin: 0 auto; /* Keep horizontal centering */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
+  align-items: center; /* Center items within the wrapper */
   text-align: center; /* Center text */
   color: whitesmoke;
 }

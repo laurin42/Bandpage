@@ -1,126 +1,86 @@
 /* Add styles for Footer.tsx here */
 
 .site-footer {
-  background-color: #111; /* Very dark background */
-  color: #aaa; /* Light grey text */
-  padding: 2rem 1rem; /* Keep side padding, top/bottom adjusted by content */
-  font-family: var(--font-titillium-web), sans-serif;
-  /* Make footer behave like a full-height section */
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
-  scroll-snap-align: start; /* Snap like other sections */
-  box-sizing: border-box;
-  /* Remove flex centering from footer itself */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-}
-
-.footer-content {
-  /* Use flexbox to stack/align/distribute children */
-  display: flex;
-  flex-direction: column; /* Stack nav and info */
-  justify-content: space-between; /* Push nav up, info down */
-  align-items: center; /* Center items horizontally */
-  /* Remove flex-wrap */
-  /* flex-wrap: wrap; */
-  gap: 2rem;
+  /* This is the main content box */
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack children vertically */
   width: 100%;
-  max-width: 900px;
-  height: 100%; /* Fill the padded space of parent */
-  margin: 0 auto; /* Center content block horizontally */
+  max-width: 800px; /* Match impressum */
+  margin: 0 auto; /* Center the block */
+  background-color: #2a2a2a; /* Background from impressum */
+  padding: 1.5rem 2rem; /* Padding from impressum */
+  border-radius: 8px; /* Border-radius from impressum */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Shadow from impressum */
+  color: #e0e0e0; /* Text color from impressum */
+  text-align: left; /* Default text align */
+  box-sizing: border-box;
 }
 
-.footer-nav {
-  padding-top: var(--header-height);
-  width: 100%; /* Take full width for centering */
-  text-align: center; /* Center nav heading and list */
-}
-
-.footer-nav h3 {
-  color: #eee; /* Brighter heading */
-  font-size: 1.2rem;
+/* Style h3 directly within .site-footer */
+.site-footer h3 {
+  font-family: var(--font-calistoga), serif;
+  /* H2 size range */
+  font-size: 1.6rem; /* Mobile H2 (25.6px) */
   margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid #444;
+  margin-bottom: 1.5rem;
+  color: white;
+  border-bottom: 1px solid #555;
   padding-bottom: 0.5rem;
-  display: inline-block; /* Keep border tight */
+  font-weight: 400;
 }
 
-.footer-nav ul {
+/* Style ul directly within .site-footer */
+.site-footer ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 1rem 0; /* Keep some vertical margin */
+  margin-top: auto; /* Push list (and copyright) to the bottom */
 }
 
-.footer-nav li {
-  margin-bottom: 0.6rem;
+/* Style li directly within .site-footer */
+.site-footer li {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
 }
 
-.footer-nav a {
+/* Style a directly within .site-footer */
+.site-footer a {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 1rem;
   color: #aaa;
   text-decoration: none;
   transition: color 0.2s ease;
-  font-size: 1rem;
 }
 
-.footer-nav a:hover {
+.site-footer a:hover {
   color: #fff;
   text-decoration: underline;
 }
 
-.footer-info {
-  /* Remove flex properties */
-  /* flex: 1; */
-  /* min-width: 200px; */
-  width: 100%; /* Take full width */
-  text-align: center; /* Center copyright always */
-  /* Remove margin-top, space-between handles it */
-  /* margin-top: 1rem; */
-}
-
+/* Style .copyright directly within .site-footer */
 .copyright {
-  font-size: 0.9rem;
-  color: #888; /* Dimmer color for copyright */
-  /* margin-top: 1rem; */ /* Remove top margin */
+  font-family: var(--font-titillium-web), sans-serif;
+  /* Smaller body text */
+  font-size: 0.9375rem; /* Mobile (15px) */
+  line-height: 1.7;
   margin-bottom: 0; /* Ensure it's at the very bottom */
+  color: #888;
 }
 
-/* Responsive adjustments - Remove rules that are now default */
-@media (max-width: 600px) {
-  /* Keep only if specific font/padding adjustments are needed */
-  /* Example: 
-  .footer-nav a {
-    font-size: 0.9rem;
-  }
-  .copyright {
-    font-size: 0.8rem;
-  }
-  */
-}
-
-/* Optional: Style the dialog and button if needed */
-/* Empty rule removed/commented out */
-/*
-footer dialog {
-  
-}
-*/
-
+/* Keep button styles if needed */
 footer button {
-  /* Add styles for the buttons */
   margin-left: 0.5rem;
 }
 
+/* Keep footer-links styles if needed */
 .footer-links {
-  margin-top: 0.5rem; /* Space between copyright and links */
+  margin-top: 0.5rem;
 }
 
 .footer-link {
   color: white;
   text-decoration: underline;
-  margin: 0 0.75rem; /* Space around links */
+  margin: 0 0.75rem;
 }
 
 .footer-link:hover {
@@ -134,3 +94,102 @@ footer.footer-visible {
   pointer-events: auto;
 }
 */
+
+/* --- Remove old Sitemap Flow / List Styles --- */
+/*
+.sitemap-flow {
+  ...
+}
+.site-footer ul {
+  ...
+}
+.site-footer li {
+  ...
+}
+*/
+
+/* --- New Sitemap Tree Styles with Icons --- */
+.sitemap-tree {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sitemap-node {
+  display: flex; /* Arrange icon and text */
+  align-items: center; /* Vertically align icon and text */
+  gap: 0.6em; /* Space between icon and text */
+  margin-bottom: 0.7rem; /* Vertical spacing between nodes */
+  padding-left: 0; /* Reset base padding */
+}
+
+/* Level-based indentation */
+.sitemap-node.level-0 {
+  padding-left: 0em;
+}
+.sitemap-node.level-1 {
+  padding-left: 1.5em;
+}
+.sitemap-node.level-2 {
+  padding-left: 3em;
+}
+/* Add more levels if needed */
+
+.sitemap-icon {
+  color: #777; /* Icon color */
+  flex-shrink: 0; /* Prevent icon shrinking */
+  position: relative; /* Adjust position slightly if needed */
+  top: 1px;
+}
+
+.sitemap-icon.sub-icon {
+  color: #666; /* Dimmer color for sub-level icon */
+}
+
+/* Link/Text styling within the tree */
+.sitemap-node a,
+.sitemap-node span {
+  font-family: var(--font-titillium-web), sans-serif;
+  /* Button/Link size */
+  font-size: 1.125rem; /* Mobile (18px) */
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sitemap-node a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Optional: Add separator style */
+.sitemap-node.separator {
+  height: 1rem; /* Just adds some space */
+}
+
+/* --- Media Queries for Responsive Font Sizes --- */
+
+@media (min-width: 768px) {
+  /* Tablet Overrides */
+  .site-footer h3 {
+    font-size: 1.875rem; /* Tablet H2 (30px) */
+  }
+  .sitemap-node a,
+  .sitemap-node span {
+    font-size: 1.25rem; /* Tablet (20px) */
+  }
+  .copyright {
+    font-size: 1rem; /* Tablet (16px) */
+  }
+  /* Add other Tablet overrides here */
+}
+
+@media (min-width: 1024px) {
+  /* Laptop Overrides */
+  .site-footer h3 {
+    font-size: 2rem; /* Laptop H2 (32px) */
+  }
+  /* sitemap-node sizes already set by 768px query */
+  /* copyright size already set */
+
+  /* Add other Laptop overrides here */
+}

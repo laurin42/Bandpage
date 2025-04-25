@@ -12,8 +12,8 @@ const Concerts = () => {
         {/* Add the warning icon inside text-background */}
         <FaExclamationTriangle className="concert-warning-icon" />
         <p>
-          Aktuell haben wir keine Auftritte geplant. Wir konzentrieren uns
-          gerade auf neue Aufnahmen und werden Euch hier informieren, sobald wir
+          Aktuell konzentrieren wir uns auf neue Aufnahmen und haben zur Zeit
+          keine Auftritte geplant. Wir werden Euch hier informieren, sobald wir
           wieder auf der Bühne stehen.
         </p>
       </div>

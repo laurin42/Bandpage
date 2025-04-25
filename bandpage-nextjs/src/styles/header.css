@@ -64,7 +64,8 @@ header.header-hidden {
 }
 
 .brand-name {
-  font-size: 1.5rem;
+  /* Responsive Headline H2/H1 size range */
+  font-size: 1.6rem; /* Mobile ~H2 (25.6px) */
   font-weight: 400;
   font-family: var(--font-calistoga);
   color: whitesmoke;
@@ -136,23 +137,16 @@ header.header-hidden {
 .mobile-menu .menu-parent-button {
   color: white;
   text-decoration: none;
-  font-size: 1.2rem;
-  /* Set font family */
+  /* Responsive Button/Link size */
+  font-size: 1.125rem; /* Mobile (18px) */
   font-family: var(--font-titillium-web), sans-serif;
 }
 
 /* Apply font specifically to button if needed */
 .mobile-menu .menu-parent-button {
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.2rem; /* Match link size */
-  /* Reset other button styles */
   background: none;
   border: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
 }
 
 .menu-backdrop {
@@ -232,7 +226,8 @@ header.header-hidden {
 }
 
 .sub-menu a {
-  font-size: 1rem;
+  /* Responsive Body size */
+  font-size: 1rem; /* Mobile (16px) */
   /* Inherit font family */
 }
 
@@ -303,4 +298,36 @@ header.header-hidden {
 
 .slide-in {
   animation: slideInRight 0.3s ease-in-out forwards;
+}
+
+/* --- Media Queries for Responsive Font Sizes --- */
+
+@media (min-width: 768px) {
+  /* Tablet Overrides */
+  .brand-name {
+    font-size: 1.875rem; /* Tablet ~H2 (30px) */
+  }
+
+  .mobile-menu a,
+  .mobile-menu .menu-parent-button {
+    font-size: 1.25rem; /* Tablet (20px) */
+  }
+
+  .sub-menu a {
+    font-size: 1.125rem; /* Tablet Body (18px) */
+  }
+
+  /* Add other Tablet overrides here */
+}
+
+@media (min-width: 1024px) {
+  /* Laptop Overrides */
+  .brand-name {
+    font-size: 2.125rem; /* Laptop ~H1 (34px) */
+  }
+
+  /* mobile-menu sizes already set by 768px query */
+  /* sub-menu sizes already set by 768px query */
+
+  /* Add other Laptop overrides here */
 }
