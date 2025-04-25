@@ -64,13 +64,23 @@ const sectionToLogicalGroup = (id: string): string => {
 
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
-  const [showIntro, setShowIntro] = useState(true);
+  // Initialize state based on sessionStorage
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("introPlayed") !== "true";
+    }
+    return true; // Default server-side or if window is not available yet
+  });
   const [activeSectionId, setActiveSectionId] = useState("home");
   const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
   const [headerText, setHeaderText] = useState("Burnheart Mockery");
 
   const handleIntroComplete = () => {
     setShowIntro(false);
+    // Store the flag in sessionStorage
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("introPlayed", "true");
+    }
   };
 
   // Update logical group directly when active section ID changes

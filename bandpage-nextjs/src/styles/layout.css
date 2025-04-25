@@ -50,7 +50,7 @@ main {
 
 /* Styles for each section (tile) - Target sections inside main again */
 main > section {
-  height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height */
   width: 100vw;
   scroll-snap-align: start; /* Ensure all sections snap */
   display: flex;

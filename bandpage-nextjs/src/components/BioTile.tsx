@@ -21,122 +21,89 @@ const BioTile: React.FC<BioTileProps> = ({
 }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
-  const isVisibleRef = useRef(false);
+  const targetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const scrollElement = scrollContainerRef.current;
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
 
-    let headerHeight = 0;
-    if (typeof window !== "undefined") {
-      // Directly attempt to read the variable without try...catch
-      const rootStyle = window.getComputedStyle(document.documentElement);
-      const headerHeightValue = rootStyle
-        .getPropertyValue("--header-height")
-        .trim();
-      if (headerHeightValue.endsWith("rem")) {
-        const baseFontSize = parseFloat(
-          window.getComputedStyle(document.documentElement).fontSize
-        );
-        headerHeight = parseFloat(headerHeightValue) * (baseFontSize || 16);
-      } else if (headerHeightValue.endsWith("px")) {
-        headerHeight = parseFloat(headerHeightValue);
-      } else if (headerHeightValue) {
-        // console.warn(`[BioTile ${id}] Unknown unit for --header-height: ${headerHeightValue}. Using 0.`);
-      }
-      // If getPropertyValue fails or value is invalid, headerHeight remains 0
-    }
-    // console.log(`[BioTile ${id}] Using Header Height: ${headerHeight}px`);
-
-    if (!scrollElement) {
-      // console.error(`[BioTile ${id}] Scroll container element not found.`);
-      return;
-    }
-
-    // console.log(`[BioTile ${id}] Attaching scroll listener to:`, scrollElement);
-
-    const handleScroll = () => {
-      // console.log("[BioTile SCROLL] Scroll event detected for id:", id, "on element:", scrollElement);
-      const section = document.getElementById(id);
-      // console.log(`[BioTile ${id}] Found section:`, section);
-      if (scrollElement && section) {
-        const containerRect = scrollElement.getBoundingClientRect();
-        const sectionRect = section.getBoundingClientRect();
-
-        const sectionTopRelativeToContainer =
-          sectionRect.top - containerRect.top;
-        const sectionBottomRelativeToContainer =
-          sectionRect.bottom - containerRect.top;
-        const containerVisibleHeight = scrollElement.clientHeight;
-
-        const isNowVisible =
-          sectionBottomRelativeToContainer > headerHeight &&
-          sectionTopRelativeToContainer < containerVisibleHeight;
-
-        // console.log(
-        //   `[BioTile ${id}] SectionTopRel: ${sectionTopRelativeToContainer.toFixed(2)}, SectionBottomRel: ${sectionBottomRelativeToContainer.toFixed(2)}, ContainerHeight: ${containerVisibleHeight}, HeaderHeight: ${headerHeight}, IsVisible: ${isNowVisible}`
-        // );
-
-        if (isNowVisible && !isVisibleRef.current) {
-          isVisibleRef.current = true;
-          // console.log(`[BioTile ${id}] Became visible. Starting timer...`);
-          if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
+      if (entry.isIntersecting) {
+        if (!timeoutIdRef.current) {
           timeoutIdRef.current = setTimeout(() => {
-            const currentSection = document.getElementById(id);
-            const currentScrollElement = scrollContainerRef.current;
-            let stillVisible = false;
-            if (currentSection && currentScrollElement) {
-              const currentContainerRect =
-                currentScrollElement.getBoundingClientRect();
-              const currentSectionRect = currentSection.getBoundingClientRect();
-              const currentTopRel =
-                currentSectionRect.top - currentContainerRect.top;
-              const currentBottomRel =
-                currentSectionRect.bottom - currentContainerRect.top;
-              const currentContainerHeight = currentScrollElement.clientHeight;
-              stillVisible =
-                currentBottomRel > headerHeight &&
-                currentTopRel < currentContainerHeight;
-            }
-
-            if (stillVisible) {
-              // console.log(`[BioTile ${id}] Timer finished, tile STILL visible. Setting overlay TRUE.`);
-              setShowOverlay(true);
-            } else {
-              // console.log(`[BioTile ${id}] Timer finished, but tile NO LONGER visible. NOT setting overlay TRUE.`);
-              setShowOverlay(false);
-            }
+            setShowOverlay(true);
             timeoutIdRef.current = null;
-          }, 800);
-        } else if (!isNowVisible && isVisibleRef.current) {
-          isVisibleRef.current = false;
-          // console.log(`[BioTile ${id}] Became hidden.`);
-          if (timeoutIdRef.current) {
-            // console.log(`[BioTile ${id}] Clearing pending timer.`);
-            clearTimeout(timeoutIdRef.current);
-            timeoutIdRef.current = null;
-          }
-          // console.log(`[BioTile ${id}] Setting overlay state to FALSE.`);
-          setShowOverlay(false);
+          }, 500);
         }
+      } else {
+        if (timeoutIdRef.current) {
+          clearTimeout(timeoutIdRef.current);
+          timeoutIdRef.current = null;
+        }
+        setShowOverlay(false);
       }
     };
 
-    requestAnimationFrame(handleScroll);
-    scrollElement.addEventListener("scroll", handleScroll, { passive: true });
+    const options: IntersectionObserverInit = {
+      root: scrollContainerRef.current,
+      rootMargin: "0px 0px -10% 0px",
+      threshold: 0.1,
+    };
+
+    let headerHeightPx = 0;
+    let baseFontSize = 16; // Default base font size
+    const bufferRem = 1.25; // Define buffer in rem (e.g., 1.25rem = 20px if base is 16px)
+    let bufferPx = bufferRem * baseFontSize; // Default buffer in px
+
+    if (typeof window !== "undefined") {
+      try {
+        const styles = window.getComputedStyle(document.documentElement);
+        baseFontSize = parseFloat(styles.fontSize) || 16; // Get actual base font size
+        bufferPx = bufferRem * baseFontSize; // Recalculate buffer in px
+
+        const headerHeightValue = styles
+          .getPropertyValue("--header-height")
+          ?.trim();
+        if (headerHeightValue) {
+          if (headerHeightValue.endsWith("rem")) {
+            headerHeightPx = parseFloat(headerHeightValue) * baseFontSize;
+          } else if (headerHeightValue.endsWith("px")) {
+            headerHeightPx = parseFloat(headerHeightValue);
+          }
+        }
+      } catch (e) {
+        console.error("Error reading styles or --header-height:", e);
+      }
+      // Adjust rootMargin using the calculated pixel values
+      options.rootMargin = `-${headerHeightPx + bufferPx}px 0px -10% 0px`;
+      // console.log(`[BioTile ${id}] Using baseFontSize: ${baseFontSize}px, buffer: ${bufferPx}px, header: ${headerHeightPx}px -> rootMargin: ${options.rootMargin}`);
+    }
+
+    const observer = new IntersectionObserver(observerCallback, options);
+    const currentTarget = targetRef.current;
+
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    } else {
+      console.error(`[BioTile ${id}] Target element not found for observer.`);
+    }
 
     return () => {
-      // console.log(`[BioTile ${id}] Cleaning up listener for element:`, scrollElement);
-      if (scrollElement) {
-        scrollElement.removeEventListener("scroll", handleScroll);
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
       if (timeoutIdRef.current) {
         clearTimeout(timeoutIdRef.current);
       }
+      observer.disconnect();
     };
-  }, [id, scrollContainerRef]);
+  }, [id, scrollContainerRef, targetRef]);
 
   return (
-    <section id={id} style={{ backgroundImage: `url(${imageUrl})` }}>
+    <section
+      ref={targetRef}
+      id={id}
+      style={{ backgroundImage: `url(${imageUrl})` }}
+    >
       {children}
       <div className={clsx("overlay-base", showOverlay && "overlay-visible")}>
         <h2 style={{ marginTop: 0, marginBottom: "1rem" }}>

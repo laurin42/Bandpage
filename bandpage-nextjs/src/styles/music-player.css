@@ -23,7 +23,9 @@
   display: flex;
   align-items: center;
   gap: 1rem; /* Spacing between elements */
-  flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+  /* flex-wrap: wrap; */ /* REMOVE this to keep items in one line */
+  flex-wrap: nowrap; /* Explicitly set nowrap (default) */
+  overflow: hidden; /* Hide potential overflow if container is extremely narrow */
 }
 
 .cover-art {
@@ -70,6 +72,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem; /* Spacing between control buttons */
+  flex-shrink: 0; /* Prevent controls from shrinking */
 }
 
 .control-button {
@@ -83,6 +86,8 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease, color 0.2s ease;
+  gap: 0.5rem;
+  flex-shrink: 0; /* Prevent volume control from shrinking */
 }
 
 .control-button svg {
