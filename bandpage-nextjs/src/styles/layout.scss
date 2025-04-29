@@ -65,7 +65,7 @@ main::-webkit-scrollbar {
 }
 
 main > section {
-  height: calc(100dvh - var(--header-height)); 
+  height: 100dvh;
   width: 100dvw;
   scroll-snap-align: start; 
   display: flex;
