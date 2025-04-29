@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Howl } from "howler";
+import { Howl, Howler } from "howler";
 import Image from "next/image";
 import {
   Play,
@@ -43,7 +43,6 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
   onVolumeChange,
   onEnded,
 }) => {
-  // Ref to hold the Howl instance
   const howlRef = useRef<Howl | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const previousVolumeRef = useRef(volume);
@@ -51,107 +50,160 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
   const [currentTime, setCurrentTime] = useState<number>(0);
   const seekBarRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null); // For requestAnimationFrame
+  const isSeekingRef = useRef(false); // Flag to prevent state updates during seek
 
-  // --- Howler Initialization and Cleanup ---
+  // --- Howler Initialization and Cleanup (Depends ONLY on song) ---
   useEffect(() => {
     const cleanup = () => {
-      if (howlRef.current) {
-        howlRef.current.stop();
-        howlRef.current.unload();
-        howlRef.current = null;
-        console.log("Previous Howl instance unloaded.");
-      }
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
+      }
+      if (howlRef.current) {
+        howlRef.current.stop(); // Stop playback
+        howlRef.current.unload(); // Release resources
+        howlRef.current = null;
+        console.log("Previous Howl instance unloaded.");
       }
       setCurrentTime(0);
       setDuration(0);
     };
 
     if (song) {
-      cleanup();
+      cleanup(); // Clean up previous instance first
 
       console.log("Creating new Howl instance for:", song.src);
+      // Define handlers outside the Howl constructor to avoid potential context issues
+
+      const handleLoad = () => {
+        if (!howlRef.current) return; // Guard clause
+        const dur = howlRef.current.duration();
+        if (typeof dur === "number" && isFinite(dur)) {
+          setDuration(dur);
+          console.log("Howl loaded, duration:", dur);
+        } else {
+          console.error("Failed to get valid duration from Howler on load");
+          setDuration(0);
+        }
+        setCurrentTime(0);
+        if (isPlaying) {
+          console.log(
+            "Attempting to play after load because isPlaying is true"
+          );
+          howlRef.current.play();
+        }
+      };
+
+      const handleEnd = () => {
+        console.log("Howl onEnd triggered");
+        if (howlRef.current) {
+          const finalDuration = howlRef.current.duration();
+          if (typeof finalDuration === "number" && isFinite(finalDuration)) {
+            setCurrentTime(finalDuration);
+          }
+        }
+        onEnded();
+      };
+
+      const handlePlay = () => {
+        if (!howlRef.current) return;
+        console.log("Howl onPlay triggered");
+        const currentHowl = howlRef.current; // Capture ref for rAF closure
+        const update = () => {
+          if (howlRef.current === currentHowl && !isSeekingRef.current) {
+            const seek = currentHowl.seek();
+            if (typeof seek === "number" && isFinite(seek)) {
+              setCurrentTime(seek);
+            }
+          }
+          if (howlRef.current === currentHowl && currentHowl.playing()) {
+            animationRef.current = requestAnimationFrame(update);
+          }
+        };
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+        animationRef.current = requestAnimationFrame(update);
+      };
+
+      const handlePause = () => {
+        console.log("Howl onPause triggered");
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+          animationRef.current = null;
+        }
+        if (howlRef.current && !isSeekingRef.current) {
+          const seek = howlRef.current.seek();
+          if (typeof seek === "number" && isFinite(seek)) {
+            setCurrentTime(seek);
+          }
+        }
+      };
+
+      const handleStop = () => {
+        if (!howlRef.current) return;
+        console.log("Howl onStop triggered");
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+          animationRef.current = null;
+        }
+        setCurrentTime(0); // Reset time
+      };
+
+      const handleSeek = (seekTime: number) => {
+        if (!howlRef.current) return;
+        console.log("Howl onSeek triggered, time:", seekTime);
+        if (isSeekingRef.current) {
+          if (typeof seekTime === "number" && isFinite(seekTime)) {
+            setCurrentTime(seekTime);
+          }
+          isSeekingRef.current = false;
+        }
+      };
+
+      const handleLoadError = (id: number | string, err: unknown) => {
+        console.error("Howl load error:", id, err);
+        setDuration(0);
+        setCurrentTime(0);
+      };
+
+      const handlePlayError = (id: number | string, err: unknown) => {
+        console.error("Howl play error:", id, err);
+        Howler.ctx
+          .resume()
+          .then(() => {
+            console.log("AudioContext resumed successfully after playerror.");
+          })
+          .catch((e) => {
+            console.error("Error resuming AudioContext:", e);
+          });
+      };
+
       const newHowl = new Howl({
         src: [song.src],
         volume: volume,
         html5: true,
         format: ["mp3"],
-        onload: () => {
-          const dur = newHowl.duration();
-          if (typeof dur === "number" && isFinite(dur)) {
-            setDuration(dur);
-            console.log("Howl loaded, duration:", dur);
-          } else {
-            console.error("Failed to get valid duration from Howler on load");
-            setDuration(0);
-          }
-          setCurrentTime(0);
-          if (isPlaying) {
-            newHowl.play();
-          }
-        },
-        onend: () => {
-          console.log("Howl onEnd triggered");
-          setCurrentTime(duration);
-          onEnded();
-        },
-        onplay: () => {
-          console.log("Howl onPlay triggered");
-          // Start updating seek bar
-          const update = () => {
-            if (howlRef.current) {
-              const seek = howlRef.current.seek();
-              if (typeof seek === "number" && isFinite(seek)) {
-                setCurrentTime(seek);
-              }
-            }
-            if (howlRef.current?.playing()) {
-              animationRef.current = requestAnimationFrame(update);
-            }
-          };
-          animationRef.current = requestAnimationFrame(update);
-        },
-        onpause: () => {
-          console.log("Howl onPause triggered");
-          if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current);
-            animationRef.current = null;
-          }
-          if (howlRef.current) {
-            const seek = howlRef.current.seek();
-            if (typeof seek === "number" && isFinite(seek)) {
-              setCurrentTime(seek);
-            }
-          }
-        },
-        onstop: () => {
-          console.log("Howl onStop triggered");
-          if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current);
-            animationRef.current = null;
-          }
-          setCurrentTime(0);
-        },
-        onloaderror: (id, err) => {
-          console.error("Howl load error:", id, err);
-          setDuration(0);
-          setCurrentTime(0);
-        },
-        onplayerror: (id, err) => {
-          console.error("Howl play error:", id, err);
-          Howler.ctx.resume();
-        },
+        // Assign the externally defined handlers
+        onload: handleLoad,
+        onend: handleEnd,
+        onplay: handlePlay,
+        onpause: handlePause,
+        onstop: handleStop,
+        onseek: handleSeek, // Pass the time argument directly
+        onloaderror: handleLoadError,
+        onplayerror: handlePlayError,
       });
+
       howlRef.current = newHowl;
     } else {
-      cleanup();
+      cleanup(); // Ensure cleanup if song becomes null
     }
 
+    // Cleanup function on component unmount
     return cleanup;
-  }, [song, duration, isPlaying, onEnded, volume]);
+    // This effect ONLY depends on the song object reference
+  }, [song]);
 
+  // --- Play/Pause Handling (Depends ONLY on isPlaying) ---
   useEffect(() => {
     if (!howlRef.current) return;
 
@@ -166,17 +218,20 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
         howlRef.current.pause();
       }
     }
+    // This effect ONLY depends on the isPlaying state
   }, [isPlaying]);
 
-  // --- Volume Handling ---
+  // --- Volume Handling (Depends ONLY on volume) ---
   useEffect(() => {
     if (howlRef.current) {
-      console.log("Effect: Setting volume to:", volume);
+      // Don't log volume on every change, can be spammy
+      // console.log("Effect: Setting volume to:", volume);
       howlRef.current.volume(volume);
     }
+    // This effect ONLY depends on the volume state
   }, [volume]);
 
-  // --- Mute Logic (remains the same) ---
+  // --- Mute Logic (remains mostly the same) ---
   useEffect(() => {
     if (!isMuted) {
       previousVolumeRef.current = volume;
@@ -208,6 +263,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
   const handleSeekBarClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!seekBarRef.current || duration <= 0 || !howlRef.current) return;
 
+    isSeekingRef.current = true; // Set flag before seeking
     const howl = howlRef.current;
     const seekBar = seekBarRef.current;
     const rect = seekBar.getBoundingClientRect();
@@ -220,7 +276,9 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
       `Seek bar clicked: ${clickPercentage * 100}%, seeking to: ${newTime}`
     );
     howl.seek(newTime);
-    setCurrentTime(newTime);
+    // setCurrentTime(newTime); // Let the onseek handler update currentTime
+
+    // No need to reset isSeekingRef here, let onseek do it
   };
 
   if (!song) {
@@ -233,9 +291,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
 
   return (
     <div className="music-player">
-      {/* <ReactHowler ... /> */}
-
-      {/* Visible Player UI (remains mostly the same) */}
+      {/* Visible Player UI */}
       <div className="player-ui">
         {/* -- Top Row Elements -- */}
         <div className="cover-art">
@@ -260,7 +316,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
               onClick={onPrev}
               className="control-button"
               aria-label="Previous Song"
-              disabled={!song} // Disable if no song
+              disabled={!song}
             >
               <SkipBack size={24} />
             </button>
@@ -268,7 +324,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
               onClick={onPlayPause}
               className="control-button play-pause"
               aria-label={isPlaying ? "Pause" : "Play"}
-              disabled={!song} // Disable if no song
+              disabled={!song}
             >
               {isPlaying ? <Pause size={32} /> : <Play size={32} />}
             </button>
@@ -276,7 +332,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
               onClick={onNext}
               className="control-button"
               aria-label="Next Song"
-              disabled={!song} // Disable if no song
+              disabled={!song}
             >
               <SkipForward size={24} />
             </button>
@@ -286,7 +342,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
               onClick={toggleMute}
               className="control-button mute-button"
               aria-label={isMuted ? "Unmute" : "Mute"}
-              disabled={!song} // Disable if no song
+              disabled={!song}
             >
               {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
@@ -295,11 +351,11 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
               min={0}
               max={1}
               step={0.01}
-              value={isMuted ? 0 : volume} // Reflect mute state in slider value
+              value={isMuted ? 0 : volume}
               onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
               className="volume-slider"
               aria-label="Volume"
-              disabled={!song} // Disable if no song
+              disabled={!song}
             />
           </div>
         </div>
@@ -310,7 +366,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
           className="seek-bar-container"
           ref={seekBarRef}
           onClick={handleSeekBarClick}
-          style={{ cursor: duration > 0 ? "pointer" : "default" }} // Add cursor only if seekable
+          style={{ cursor: duration > 0 ? "pointer" : "default" }}
         >
           <div className="seek-bar-track">
             <div
