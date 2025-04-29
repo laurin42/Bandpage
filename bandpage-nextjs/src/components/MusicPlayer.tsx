@@ -201,7 +201,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
     // Cleanup function on component unmount
     return cleanup;
     // This effect ONLY depends on the song object reference
-  }, [song]);
+  }, [song, isPlaying, onEnded, volume]);
 
   // --- Play/Pause Handling (Depends ONLY on isPlaying) ---
   useEffect(() => {
