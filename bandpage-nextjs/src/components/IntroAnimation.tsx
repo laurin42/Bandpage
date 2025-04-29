@@ -3,38 +3,34 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import "@/styles/introAnimation.css"; // Use a dedicated CSS file
+import "@/styles/introAnimation.scss";
 
 interface IntroAnimationProps {
-  onComplete: () => void; // Callback when animation finishes
+  onComplete: () => void;
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   const [startAnimation, setStartAnimation] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // Track mount status
-  const animationDuration = 3500; // Animation duration in ms
+  const [isMounted, setIsMounted] = useState(false);
+  const animationDuration = 3500;
 
   useEffect(() => {
-    setIsMounted(true); // Component is mounted
+    setIsMounted(true);
 
-    // Start animation shortly after mount
     const startTimer = setTimeout(() => {
       setStartAnimation(true);
-    }, 200); // Small delay
+    }, 200);
 
-    // Call onComplete after animation duration
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, animationDuration + 100); // Add delay to ensure animation visually finishes
+    }, animationDuration + 100);
 
-    // Cleanup timers on unmount
     return () => {
       clearTimeout(startTimer);
       clearTimeout(completeTimer);
     };
-  }, [onComplete]); // Include onComplete in dependency array
+  }, [onComplete]);
 
-  // Render null initially or if not mounted to avoid premature rendering server-side
   if (!isMounted) {
     return null;
   }
@@ -49,7 +45,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
         priority
         className={clsx(
           "intro-animated-logo",
-          startAnimation && "intro-logo-animate" // Use specific class names
+          startAnimation && "intro-logo-animate"
         )}
         style={{
           maxWidth: "80%",

@@ -1,16 +1,15 @@
-"use client"; // Mark as client component
+"use client";
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-// import Bio from "@/components/Bio"; // Removed import
 import BioTile from "@/components/BioTile";
 import IntroAnimation from "@/components/IntroAnimation";
 import MusicSection from "@/components/MusicSection";
 import Concerts from "@/components/Concerts";
 import SocialLinks from "@/components/SocialLinks";
 import Footer from "@/components/Footer";
-import "@/styles/page.css";
-import "@/styles/social-section.css";
+import "@/styles/page.scss";
+import "@/styles/social-section.scss";
 import { useRef, useState, useEffect } from "react";
 
 // Define bio descriptions
@@ -24,24 +23,27 @@ const bioDescriptions: { [key: string]: string } = {
     "bedient den Bass und sorgt für die tiefen Frequenzen. Seine Basslines sind groovig und melodisch zugleich. Er verbindet Rhythmus und Harmonie auf einzigartige Weise.",
 };
 
-// Section IDs in display order - REORDERED
+// Section IDs in display order
 const sectionIds = [
   "home",
   "music",
-  "social", // Moved up
-  // "bio", // Removed bio section
+  "social",
   "alex",
   "luca",
   "lenny",
   "max",
   "laurin",
-  "konzerte", // Moved down
+  "ueber-uns-desktop",
+  "konzerte",
   "footer-section",
 ];
 
 // Map section IDs to logical groups for header text
 const sectionToLogicalGroup = (id: string): string => {
   if (["alex", "luca", "lenny", "max", "laurin"].includes(id)) {
+    return "ueber-uns";
+  }
+  if (id === "ueber-uns-desktop") {
     return "ueber-uns";
   }
   if (id === "music") {
@@ -54,17 +56,15 @@ const sectionToLogicalGroup = (id: string): string => {
     return "social";
   }
   if (id === "footer-section") {
-    // Map footer to its group
     return "footer";
   }
-  // 'home' maps to 'default' (Burnheart Mockery)
-  // 'bio' removed
   return "default";
 };
 
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
-  // Initialize state consistently for server and initial client render
+  const scrollbarTrackRef = useRef<HTMLDivElement | null>(null);
+  const scrollbarThumbRef = useRef<HTMLDivElement | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [activeSectionId, setActiveSectionId] = useState("home");
   const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
@@ -72,21 +72,17 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    // Store the flag in sessionStorage
     if (typeof window !== "undefined") {
       sessionStorage.setItem("introPlayed", "true");
     }
   };
 
-  // Effect to check sessionStorage AFTER hydration and update state if needed
   useEffect(() => {
     if (sessionStorage.getItem("introPlayed") === "true") {
       setShowIntro(false);
     }
-    // Run only once on mount
   }, []);
 
-  // Update logical group directly when active section ID changes
   useEffect(() => {
     const newGroup = sectionToLogicalGroup(activeSectionId);
     setActiveLogicalGroup((prevGroup) =>
@@ -94,50 +90,31 @@ export default function Home() {
     );
   }, [activeSectionId]);
 
-  // Update header text based on the active logical group
   useEffect(() => {
-    let newHeaderText = "Burnheart Mockery"; // Default for 'home' and now also 'social'
+    let newHeaderText = "Burnheart Mockery";
     if (activeLogicalGroup === "musik") {
       newHeaderText = "Unsere Musik";
     } else if (activeLogicalGroup === "ueber-uns") {
       newHeaderText = "Über uns";
     } else if (activeLogicalGroup === "konzerte") {
       newHeaderText = "Konzerte";
+    } else if (activeLogicalGroup === "social") {
+      newHeaderText = "Social";
     } else if (activeLogicalGroup === "footer") {
-      // Add case for footer
-      newHeaderText = "Navigation"; // Or "Sitemap"
+      newHeaderText = "Navigation";
     }
-    // Removed check for activeSectionId === 'bio'
     setHeaderText(newHeaderText);
   }, [activeLogicalGroup]); // Remove activeSectionId dependency
 
-  // Effect to handle Intersection Observer (remains the same, observes fewer IDs)
   useEffect(() => {
     const scrollElement = mainRef.current;
     if (!scrollElement || showIntro) return;
-    let headerHeight = 60;
-    // ... header height calculation ...
-    if (typeof window !== "undefined") {
-      try {
-        const rootStyle = window.getComputedStyle(document.documentElement);
-        const headerHeightValue = rootStyle
-          .getPropertyValue("--header-height")
-          .trim();
-        if (headerHeightValue.endsWith("rem")) {
-          const baseFontSize = parseFloat(
-            window.getComputedStyle(document.documentElement).fontSize
-          );
-          headerHeight = parseFloat(headerHeightValue) * (baseFontSize || 16);
-        } else if (headerHeightValue.endsWith("px")) {
-          headerHeight = parseFloat(headerHeightValue);
-        }
-      } catch {}
-    }
+
     const observerOptions = {
       root: scrollElement,
-      rootMargin: `-${headerHeight}px 0px 0px 0px`,
       threshold: 0.6,
     };
+
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -147,21 +124,163 @@ export default function Home() {
         }
       });
     };
+
     const observer = new IntersectionObserver(
       observerCallback,
       observerOptions
     );
-    // Observe remaining sections
+
     sectionIds.forEach((id) => {
       const sectionElement = document.getElementById(id);
       if (sectionElement) {
         observer.observe(sectionElement);
       }
     });
+
     return () => {
       observer.disconnect();
     };
   }, [showIntro]);
+
+  // Effect to control the fake scrollbar
+  useEffect(() => {
+    const mainElement = mainRef.current;
+    const trackElement = scrollbarTrackRef.current;
+    const thumbElement = scrollbarThumbRef.current;
+
+    let hideTimeoutRef: NodeJS.Timeout | null = null;
+    let initialShowTimeoutRef: NodeJS.Timeout | null = null;
+    let animationFrameId: number | null = null;
+    // --- ADDED: Ref for scroll end detection timer ---
+    let scrollEndTimeoutRef: NodeJS.Timeout | null = null;
+    // -------------------------------------------------
+
+    const hideScrollbar = () => {
+      if (trackElement) {
+        trackElement.style.opacity = "0";
+        trackElement.style.pointerEvents = "none";
+      }
+    };
+
+    const showScrollbar = () => {
+      if (trackElement) {
+        trackElement.style.opacity = "1";
+        trackElement.style.pointerEvents = "auto";
+      }
+      if (hideTimeoutRef) {
+        clearTimeout(hideTimeoutRef);
+      }
+      hideTimeoutRef = setTimeout(hideScrollbar, 1500);
+    };
+
+    const handleScrollEnd = () => {
+      if (!mainElement || !thumbElement) return;
+      if (mainElement.scrollTop <= 0.1) {
+        thumbElement.style.top = "0px";
+      }
+    };
+
+    if (!mainElement || !trackElement || !thumbElement) {
+      hideScrollbar();
+      return;
+    }
+
+    if (showIntro) {
+      hideScrollbar();
+      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
+    } else {
+      if (
+        initialShowTimeoutRef === null &&
+        trackElement.style.opacity === "0"
+      ) {
+        requestAnimationFrame(() => {
+          const firstSection = document.getElementById("home");
+          if (firstSection) {
+            firstSection.scrollIntoView({ behavior: "auto", block: "start" });
+          } else {
+            console.warn(
+              "Home: Could not find element with id='home' to scroll to."
+            );
+            mainElement.scrollTop = 0;
+          }
+
+          initialShowTimeoutRef = setTimeout(() => {
+            showScrollbar();
+            handleScroll();
+            initialShowTimeoutRef = null;
+          }, 50);
+        });
+      }
+    }
+
+    const handleScroll = () => {
+      showScrollbar();
+
+      if (scrollEndTimeoutRef) {
+        clearTimeout(scrollEndTimeoutRef);
+      }
+      scrollEndTimeoutRef = setTimeout(handleScrollEnd, 150);
+
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      animationFrameId = requestAnimationFrame(() => {
+        if (!mainElement || !trackElement || !thumbElement) return;
+
+        const { scrollTop, scrollHeight, clientHeight } = mainElement;
+        const trackHeight = parseFloat(
+          window.getComputedStyle(trackElement).height
+        );
+        const thumbHeight = parseFloat(
+          window.getComputedStyle(thumbElement).height
+        );
+        const maxThumbTop = Math.max(0, trackHeight - thumbHeight);
+        const totalScrollableDist = Math.max(0, scrollHeight - clientHeight);
+
+        let calculatedThumbTop = 0;
+
+        if (totalScrollableDist > 0) {
+          const scrollRatio = Math.max(
+            0,
+            Math.min(1, scrollTop / totalScrollableDist)
+          );
+          calculatedThumbTop = scrollRatio * maxThumbTop;
+        } else {
+          calculatedThumbTop = 0;
+        }
+
+        const thumbTop = Math.min(Math.max(0, calculatedThumbTop), maxThumbTop);
+        thumbElement.style.top = `${thumbTop}px`;
+      });
+    };
+
+    const handleTrackMouseEnter = () => {
+      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
+      showScrollbar();
+    };
+    const handleTrackMouseLeave = () => {
+      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
+      hideTimeoutRef = setTimeout(hideScrollbar, 500);
+    };
+
+    mainElement.addEventListener("scroll", handleScroll, { passive: true });
+    trackElement.addEventListener("mouseenter", handleTrackMouseEnter);
+    trackElement.addEventListener("mouseleave", handleTrackMouseLeave);
+    const resizeObserver = new ResizeObserver(handleScroll);
+    resizeObserver.observe(mainElement);
+
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
+      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
+      if (scrollEndTimeoutRef) clearTimeout(scrollEndTimeoutRef);
+      mainElement.removeEventListener("scroll", handleScroll);
+      trackElement?.removeEventListener("mouseenter", handleTrackMouseEnter);
+      trackElement?.removeEventListener("mouseleave", handleTrackMouseLeave);
+      resizeObserver.disconnect();
+    };
+    // Dependency array remains the same as we check opacity to infer initial show
+  }, [showIntro, mainRef, scrollbarTrackRef, scrollbarThumbRef]);
 
   return (
     <div>
@@ -169,10 +288,13 @@ export default function Home() {
 
       <Header headerText={headerText} introComplete={!showIntro} />
 
+      {/* Fake Scrollbar Container - Positioned above Header */}
+      <div ref={scrollbarTrackRef} className="fake-scrollbar-track">
+        <div ref={scrollbarThumbRef} className="fake-scrollbar-thumb"></div>
+      </div>
+
       <main ref={mainRef}>
-        <section id="home">
-          <Hero introComplete={!showIntro} />
-        </section>
+        <Hero id="home" introComplete={!showIntro} />
 
         <MusicSection />
 
@@ -185,7 +307,43 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. BioTiles Section (Über uns) */}
+        {/* 2a. Desktop "Über uns" Section (Hidden below lg) */}
+        <section id="ueber-uns-desktop">
+          <div className="member-grid">
+            <div className="member-item alex">
+              <div className="overlay-base">
+                <h2>Alex</h2>
+                <p>{bioDescriptions.alex}</p>
+              </div>
+            </div>
+            <div className="member-item luca">
+              <div className="overlay-base">
+                <h2>Luca</h2>
+                <p>{bioDescriptions.luca}</p>
+              </div>
+            </div>
+            <div className="member-item lenny">
+              <div className="overlay-base">
+                <h2>Lenny</h2>
+                <p>{bioDescriptions.lenny}</p>
+              </div>
+            </div>
+            <div className="member-item max">
+              <div className="overlay-base">
+                <h2>Max</h2>
+                <p>{bioDescriptions.max}</p>
+              </div>
+            </div>
+            <div className="member-item laurin">
+              <div className="overlay-base">
+                <h2>Laurin</h2>
+                <p>{bioDescriptions.laurin}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2b. Mobile/Tablet BioTiles Section (Hidden above lg) */}
         <BioTile
           id="alex"
           imageUrl="/alexBg.png"

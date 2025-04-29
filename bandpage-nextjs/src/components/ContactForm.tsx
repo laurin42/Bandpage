@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, FormEvent } from "react";
-// Import the standard CSS file
-import "@/styles/contact-form.css";
+import "@/styles/contact-form.scss";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +9,7 @@ const ContactForm = () => {
     email: "",
     message: "",
   });
-  const [status, setStatus] = useState(""); // To show success/error messages
+  const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (
@@ -26,7 +25,7 @@ const ContactForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    setStatus(""); // Reset status
+    setStatus("");
 
     try {
       const response = await fetch("/api/submit-form", {
@@ -41,7 +40,7 @@ const ContactForm = () => {
 
       if (response.ok) {
         setStatus("Nachricht erfolgreich gesendet!");
-        setFormData({ name: "", email: "", message: "" }); // Clear form
+        setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus(`Fehler: ${result.error || "Unbekannter Fehler"}`);
       }
@@ -54,15 +53,16 @@ const ContactForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      // Assign standard CSS class
-      className="contact-form" // Replaced Tailwind classes
-    >
-      {/* Title inside the form */}
-      <h3 /* Removed Tailwind */>Anfrage senden</h3>
-
-      {/* Group for Name and Email */}
+    <form onSubmit={handleSubmit} className="contact-form">
+      <h2>
+        Du möchtest uns für einen Auftritt buchen oder hast andere Fragen?
+        <p>
+          Nutze das Formular oder schreib uns direkt an{" "}
+          <a href="mailto:burnheartmockery@gmail.com">
+            burnheartmockery@gmail.com
+          </a>
+        </p>
+      </h2>
       <div className="form-group form-group-inline">
         <input
           type="text"
@@ -71,7 +71,7 @@ const ContactForm = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="form-input" // Replaced Tailwind classes
+          className="form-input"
         />
         <input
           type="email"
@@ -80,7 +80,7 @@ const ContactForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="form-input" // Replaced Tailwind classes
+          className="form-input"
         />
       </div>
 
@@ -93,23 +93,18 @@ const ContactForm = () => {
           onChange={handleChange}
           required
           rows={5}
-          className="form-textarea" // Replaced Tailwind classes
+          className="form-textarea"
         ></textarea>
       </div>
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="submit-button" // Replaced Tailwind classes
-      >
-        {isLoading ? "Sende..." : "Anfrage senden"}
+      <button type="submit" disabled={isLoading} className="submit-button">
+        {isLoading ? "Sende..." : "Nachricht abschicken"}
       </button>
 
       {/* Status Message */}
       {status && (
         <p
-          // Apply base class and conditional success/error class
           className={`submission-status ${
             status.includes("Fehler") ? "error" : "success"
           }`}
@@ -117,9 +112,6 @@ const ContactForm = () => {
           {status}
         </p>
       )}
-
-      {/* Reminder about API endpoint (as HTML comment) */}
-      {/* HINWEIS: Damit dieses Formular funktioniert, muss ein API-Endpunkt unter /api/submit-form existieren, der die Daten empfängt und verarbeitet (z.B. eine E-Mail sendet). */}
     </form>
   );
 };

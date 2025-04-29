@@ -1,0 +1,28 @@
+@use 'breakpoints';
+
+// Mixin for applying styles ABOVE a certain breakpoint (min-width)
+@mixin respond-above($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: breakpoints.$breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: breakpoints.$breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: breakpoints.$breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: breakpoints.$breakpoint-xl) { @content; }
+  }
+}
+
+// Optional: Mixin for applying styles BELOW a certain breakpoint (max-width)
+@mixin respond-below($breakpoint) {
+   @if $breakpoint == sm {
+    // Note: max-width for sm would affect xs screens
+    @media (max-width: #{breakpoints.$breakpoint-sm - 1px}) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: #{breakpoints.$breakpoint-md - 1px}) { @content; }
+  } @else if $breakpoint == lg {
+     // Note: lg uses 992px, adjust subtraction if needed
+    @media (max-width: #{breakpoints.$breakpoint-lg - 1px}) { @content; }
+  }
+  // No xl needed for max-width typically
+} 

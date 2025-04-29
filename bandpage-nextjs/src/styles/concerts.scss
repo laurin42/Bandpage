@@ -1,0 +1,38 @@
+.concerts-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+.text-background {
+  background-color: var(--content-container-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 70dvw;
+  box-sizing: border-box;
+  color: whitesmoke;
+  text-align: left;
+  position: relative;
+}
+
+.text-background p {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0;
+}
+
+.concert-warning-icon {
+  position: absolute;
+  top: -0.7rem; 
+  left: -0.7rem; 
+  font-size: 1.8rem; 
+  color: yellow; 
+  z-index: 100; 
+}

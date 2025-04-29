@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, RefObject } from "react";
 import clsx from "clsx";
-import "@/styles/layout.css";
+import "@/styles/layout.scss";
 
 interface BioTileProps {
   id: string;
@@ -50,15 +50,15 @@ const BioTile: React.FC<BioTileProps> = ({
     };
 
     let headerHeightPx = 0;
-    let baseFontSize = 16; // Default base font size
-    const bufferRem = 1.25; // Define buffer in rem (e.g., 1.25rem = 20px if base is 16px)
-    let bufferPx = bufferRem * baseFontSize; // Default buffer in px
+    let baseFontSize = 16;
+    const bufferRem = 1.25;
+    let bufferPx = bufferRem * baseFontSize;
 
     if (typeof window !== "undefined") {
       try {
         const styles = window.getComputedStyle(document.documentElement);
-        baseFontSize = parseFloat(styles.fontSize) || 16; // Get actual base font size
-        bufferPx = bufferRem * baseFontSize; // Recalculate buffer in px
+        baseFontSize = parseFloat(styles.fontSize) || 16;
+        bufferPx = bufferRem * baseFontSize;
 
         const headerHeightValue = styles
           .getPropertyValue("--header-height")
@@ -73,9 +73,7 @@ const BioTile: React.FC<BioTileProps> = ({
       } catch (e) {
         console.error("Error reading styles or --header-height:", e);
       }
-      // Adjust rootMargin using the calculated pixel values
       options.rootMargin = `-${headerHeightPx + bufferPx}px 0px -10% 0px`;
-      // console.log(`[BioTile ${id}] Using baseFontSize: ${baseFontSize}px, buffer: ${bufferPx}px, header: ${headerHeightPx}px -> rootMargin: ${options.rootMargin}`);
     }
 
     const observer = new IntersectionObserver(observerCallback, options);

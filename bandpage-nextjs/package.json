@@ -21,21 +21,19 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-howler": "^5.2.0",
-    "react-icons": "^5.5.0",
-    "tailwind-merge": "^3.2.0",
-    "tw-animate-css": "^1.2.5"
+    "react-icons": "^5.5.0"
+
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
-    "tailwindcss-animate": "^1.0.7",
+    "sass": "^1.87.0",
     "typescript": "^5"
   }
 }

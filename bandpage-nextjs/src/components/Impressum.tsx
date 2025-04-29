@@ -1,12 +1,11 @@
 import React from "react";
-import "@/styles/impressum.css"; // Styles for impressum
+import "@/styles/impressum.scss";
 
 const Impressum = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <div className="impressum-container">
-      <h2>Impressum</h2>
       <p>
         <strong>Angaben gemäß § 5 TMG:</strong>
         <br />

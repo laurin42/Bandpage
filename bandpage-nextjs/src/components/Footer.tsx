@@ -1,6 +1,6 @@
-"use client"; // Still needed if any client-side interaction remains, otherwise can remove
+"use client";
 
-import React from "react"; // Removed useRef, useState, useEffect
+import React from "react";
 import Link from "next/link";
 import {
   Home,
@@ -11,17 +11,15 @@ import {
   FileText,
   BookUser,
   Info,
-} from "lucide-react"; // Import icons
-import "@/styles/footer.css"; // Styles for the footer
+} from "lucide-react";
+import "@/styles/footer.scss";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <>
-      {/* Add the inner flex wrapper */}
       <div className="footer-inner">
-        {/* Group header and sitemap tree */}
         <div className="footer-content-main">
           <h3></h3>
           <div className="sitemap-tree">
@@ -46,10 +44,7 @@ const Footer = () => {
               <Link href="/#konzerte">Konzerte</Link>
             </div>
 
-            {/* Links zu externen/separaten Seiten */}
-            <div className="sitemap-node level-0 separator">
-              {/* Optionaler Platzhalter oder Titel für separate Links */}
-            </div>
+            <div className="sitemap-node level-0 separator"></div>
             <div className="sitemap-node level-1">
               <FileText size={16} className="sitemap-icon" />
               <Link href="/epk">EPK</Link>
@@ -65,7 +60,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright is now inside the inner wrapper */}
         <p className="copyright">
           &copy; {currentYear} Burnheart Mockery. Alle Rechte vorbehalten.
         </p>

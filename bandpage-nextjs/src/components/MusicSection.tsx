@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import MusicPlayer, { Song } from "./MusicPlayer";
-import "@/styles/music-section.css"; // Add import for section styles
+import "@/styles/music-section.scss"; // Add import for section styles
 
 // Define song data
 const songs: Song[] = [
@@ -8,56 +8,56 @@ const songs: Song[] = [
     id: 1,
     title: "Lift Me Up",
     artist: "Burnheart Mockery",
-    src: "/Witches.mp3",
+    src: "/audio/LiftMeUp.mp3",
     coverSrc: "/cover/liftMeUp.png",
   },
   {
     id: 2,
     title: "Still Rock",
     artist: "Burnheart Mockery",
-    src: "/StillRock.mp3",
+    src: "/audio/StillRock.mp3",
     coverSrc: "/cover/stillRock.png",
   },
   // Add more songs here...
   {
     id: 3,
     title: "Dignity Blues",
-    artist: "Burnheart Mockery", // Placeholder
-    src: "/placeholder.mp3", // Placeholder
-    coverSrc: "/cover/placeholder.png", // Placeholder
+    artist: "Burnheart Mockery",
+    src: "/audio/DignityBlues.mp3",
+    coverSrc: "/cover/dignityBlues.png",
   },
   {
     id: 4,
     title: "Mary",
-    artist: "Burnheart Mockery", // Placeholder
-    src: "/placeholder.mp3", // Placeholder
-    coverSrc: "/cover/placeholder.png", // Placeholder
+    artist: "Burnheart Mockery",
+    src: "/audio/Mary.mp3",
+    coverSrc: "/cover/mary.png",
   },
   {
     id: 5,
-    title: "Like The Good Times",
-    artist: "Burnheart Mockery", // Placeholder
-    src: "/placeholder.mp3", // Placeholder
-    coverSrc: "/cover/placeholder.png", // Placeholder
+    title: "Fast Living World",
+    artist: "Burnheart Mockery",
+    src: "/audio/FastLivingWorld.mp3",
+    coverSrc: "/cover/fastLivingWorld.png",
   },
   {
     id: 6,
     title: "Midnight Roller",
-    artist: "Burnheart Mockery", // Placeholder
-    src: "/placeholder.mp3", // Placeholder
-    coverSrc: "/cover/placeholder.png", // Placeholder
+    artist: "Burnheart Mockery",
+    src: "/audio/MidnightRoller.mp3",
+    coverSrc: "/cover/midnightRoller.png",
   },
 ];
 
 const MusicSection = () => {
-  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0); // Start with the first song
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
-  const sectionRef = useRef<HTMLDivElement>(null); // Ref for intersection observer
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const currentSong = songs[currentSongIndex];
 
-  // --- Player Control Handlers ---
+  // --- Player Control Handlers (Revert to simple logic) ---
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
@@ -71,33 +71,29 @@ const MusicSection = () => {
     setCurrentSongIndex(
       (prevIndex) => (prevIndex - 1 + songs.length) % songs.length
     );
-    setIsPlaying(true); // Optional: Auto-play previous song
+    setIsPlaying(true);
   };
+  // --- End Player Control Handlers ---
 
   const handleVolumeChange = (newVolume: number) => {
     setVolume(newVolume);
   };
 
   const handleSongEnd = () => {
-    // Optional: Automatically play the next song when one ends
     handleNext();
-    // Or just stop playback:
-    // setIsPlaying(false);
   };
 
   // --- Automatic Pause Logic ---
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // If section is not intersecting (not visible), pause playback
         if (!entry.isIntersecting) {
           setIsPlaying(false);
-          // console.log("Music section out of view, pausing.");
         }
       },
       {
-        root: null, // Observe intersection relative to viewport
-        threshold: 0.1, // Trigger when less than 10% is visible
+        root: null,
+        threshold: 0.1,
       }
     );
 
@@ -123,9 +119,8 @@ const MusicSection = () => {
       // If direct control is needed, the Howl instance needs to be managed.
       // For now, relying on state should suffice for pausing on navigation.
       setIsPlaying(false);
-      // console.log("MusicSection unmounting, ensuring playback is paused.");
     };
-  }, []); // Run only once on mount/unmount
+  }, []);
 
   return (
     <section id="music" ref={sectionRef}>
@@ -148,12 +143,11 @@ const MusicSection = () => {
               className={index === currentSongIndex ? "active-song" : ""}
               onClick={() => {
                 setCurrentSongIndex(index);
-                setIsPlaying(true); // Start playing on selection
+                setIsPlaying(true);
               }}
             >
               <span className="song-index">{index + 1}.</span>
               <span className="song-title">{song.title}</span>
-              {/* Optional: Add artist or duration */}
             </li>
           ))}
         </ul>

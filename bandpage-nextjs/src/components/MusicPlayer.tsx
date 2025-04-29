@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import ReactHowler from "react-howler";
-import Image from "next/image"; // For album covers
+import Image from "next/image";
 import {
   Play,
   Pause,
@@ -10,28 +10,29 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
-} from "lucide-react"; // Icons
-import "@/styles/music-player.css"; // Add import for player styles
+} from "lucide-react";
+import "@/styles/music-player.scss";
+import "@/styles/seek-bar.scss";
 
 // Define the structure for a song
 export interface Song {
   id: number;
   title: string;
   artist: string;
-  src: string; // Path to audio file
-  coverSrc: string; // Path to cover image
+  src: string;
+  coverSrc: string;
 }
 
 // Define props for the MusicPlayer component
 interface MusicPlayerProps {
-  song: Song | null; // The currently selected song
+  song: Song | null;
   isPlaying: boolean;
   volume: number;
   onPlayPause: () => void;
   onNext: () => void;
   onPrev: () => void;
   onVolumeChange: (newVolume: number) => void;
-  onEnded: () => void; // Callback when song ends
+  onEnded: () => void;
 }
 
 const MusicPlayer: React.FC<MusicPlayerProps> = ({
@@ -44,13 +45,74 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
   onVolumeChange,
   onEnded,
 }) => {
+  // REVERT Ref type to any to avoid incorrect typing
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<any | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const previousVolumeRef = useRef(volume);
+  const [duration, setDuration] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const seekBarRef = useRef<HTMLDivElement>(null);
+
+  // --- Howler Event Handlers ---
+  const handleOnLoad = useCallback(() => {
+    if (playerRef.current?.howler) {
+      const howl = playerRef.current.howler;
+      const dur = howl.duration();
+      if (typeof dur === "number" && isFinite(dur)) {
+        setDuration(dur);
+        setCurrentTime(0);
+        console.log("Audio loaded, duration:", dur);
+      } else {
+        console.error("Failed to get valid duration from Howler on load");
+        setDuration(0);
+        setCurrentTime(0);
+      }
+    }
+  }, []);
+
+  // Interval timer for time updates
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null;
+
+    const updateCurrentTime = () => {
+      if (playerRef.current?.howler) {
+        const howl = playerRef.current.howler;
+        if (isPlaying) {
+          const seek = howl.seek();
+          if (typeof seek === "number" && isFinite(seek)) {
+            setCurrentTime(seek);
+          }
+        }
+      }
+    };
+
+    if (isPlaying) {
+      updateCurrentTime();
+      intervalId = setInterval(updateCurrentTime, 250);
+    } else if (intervalId) {
+      clearInterval(intervalId);
+      const howl = playerRef.current?.howler;
+      if (howl) {
+        const seek = howl.seek();
+        if (typeof seek === "number" && isFinite(seek)) {
+          setCurrentTime(seek);
+        }
+      }
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isPlaying]);
 
   useEffect(() => {
-    // Store previous volume when volume changes
+    setCurrentTime(0);
+    setDuration(0);
+  }, [song]);
+
+  // --- Mute Logic (remains the same) ---
+  useEffect(() => {
     if (!isMuted) {
       previousVolumeRef.current = volume;
     }
@@ -58,20 +120,17 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
 
   const toggleMute = () => {
     if (isMuted) {
-      // Unmute: Restore previous volume
       onVolumeChange(
         previousVolumeRef.current > 0.05 ? previousVolumeRef.current : 0.5
       );
       setIsMuted(false);
     } else {
-      // Mute: Set volume to 0
-      previousVolumeRef.current = volume; // Store current volume before muting
+      previousVolumeRef.current = volume;
       onVolumeChange(0);
       setIsMuted(true);
     }
   };
 
-  // Handle edge case where external volume change unmutes
   useEffect(() => {
     if (volume > 0 && isMuted) {
       setIsMuted(false);
@@ -81,11 +140,33 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
     }
   }, [volume, isMuted]);
 
+  const handleSeekBarClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!seekBarRef.current || duration <= 0 || !playerRef.current?.howler)
+      return;
+
+    const howl = playerRef.current.howler;
+    const seekBar = seekBarRef.current;
+    const rect = seekBar.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const width = rect.width;
+    const clickPercentage = Math.max(0, Math.min(1, clickX / width));
+    const newTime = clickPercentage * duration;
+
+    console.log(
+      `Seek bar clicked: ${clickPercentage * 100}%, seeking to: ${newTime}`
+    );
+    howl.seek(newTime);
+    setCurrentTime(newTime);
+  };
+
   if (!song) {
     return (
       <div className="music-player placeholder">Wähle einen Song aus.</div>
-    ); // Placeholder if no song is selected
+    );
   }
+
+  // Calculate progress percentage
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className="music-player">
@@ -96,19 +177,20 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
         volume={volume}
         ref={playerRef}
         html5={true}
-        onEnd={onEnded} // Call parent's onEnd handler
-        // format={['mp3']} // Specify format if needed
+        onLoad={handleOnLoad}
+        onEnd={onEnded}
       />
 
       {/* Visible Player UI */}
       <div className="player-ui">
+        {/* -- Top Row Elements -- */}
         <div className="cover-art">
           <Image
             src={song.coverSrc}
             alt={`${song.title} Album Cover`}
-            width={60} // Adjust size as needed
+            width={60}
             height={60}
-            priority // Prioritize loading cover art
+            priority
           />
         </div>
 
@@ -117,49 +199,67 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
           <div className="artist">{song.artist}</div>
         </div>
 
-        <div className="controls">
-          <button
-            onClick={onPrev}
-            className="control-button"
-            aria-label="Previous Song"
-          >
-            <SkipBack size={24} />
-          </button>
-          <button
-            onClick={onPlayPause}
-            className="control-button play-pause"
-            aria-label={isPlaying ? "Pause" : "Play"}
-          >
-            {isPlaying ? <Pause size={32} /> : <Play size={32} />}
-          </button>
-          <button
-            onClick={onNext}
-            className="control-button"
-            aria-label="Next Song"
-          >
-            <SkipForward size={24} />
-          </button>
+        {/* -- Controls & Volume Row (Grouped) -- */}
+        <div className="controls-volume-wrapper">
+          <div className="controls">
+            <button
+              onClick={onPrev}
+              className="control-button"
+              aria-label="Previous Song"
+            >
+              <SkipBack size={24} />
+            </button>
+            <button
+              onClick={onPlayPause}
+              className="control-button play-pause"
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? <Pause size={32} /> : <Play size={32} />}
+            </button>
+            <button
+              onClick={onNext}
+              className="control-button"
+              aria-label="Next Song"
+            >
+              <SkipForward size={24} />
+            </button>
+          </div>
+          <div className="volume-control">
+            <button
+              onClick={toggleMute}
+              className="control-button mute-button"
+              aria-label={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
+              onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
+              className="volume-slider"
+              aria-label="Volume"
+            />
+          </div>
         </div>
+        {/* -- End Controls & Volume Row -- */}
 
-        <div className="volume-control">
-          <button
-            onClick={toggleMute}
-            className="control-button mute-button"
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-          </button>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.01}
-            value={volume}
-            onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-            className="volume-slider"
-            aria-label="Volume"
-          />
+        {/* -- Seek Bar Row (Full Width) -- */}
+        <div
+          className="seek-bar-container"
+          ref={seekBarRef}
+          onClick={handleSeekBarClick}
+        >
+          <div className="seek-bar-track">
+            <div
+              className="seek-bar-fill"
+              style={{ width: `${progressPercent}%` }}
+            ></div>
+          </div>
         </div>
+        {/* -- End Seek Bar -- */}
       </div>
     </div>
   );

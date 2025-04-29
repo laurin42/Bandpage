@@ -1,0 +1,74 @@
+.logo-animate {
+  animation: fadeOut 3.5s ease-in-out forwards;
+}
+
+.hero-section {
+  position: relative;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  z-index: 1;
+}
+
+.overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: whitesmoke;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out 1s;
+}
+
+.hero-content.content-visible {
+  opacity: 1;
+}
+
+.cta-button {
+  background-color: #f44336;
+  color: whitesmoke;
+  border: none;
+  padding: 0.6rem 2rem;
+  font-size: 0.9rem;
+  font-family: var(--font-titillium-web), sans-serif;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(0);
+}
+
+.cta-button .arrow-icon {
+  margin-left: 0.7rem;
+}
+
+.cta-button:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.cta-button:active {
+  background-color: #b71c1c;
+  transform: translateY(1px);
+}

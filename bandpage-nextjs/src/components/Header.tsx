@@ -1,8 +1,8 @@
-"use client"; // Make it a client component for useState and onClick
+"use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link"; // Use Next.js Link for navigation
-import { clsx } from "clsx"; // Import clsx
+import Link from "next/link";
+import { clsx } from "clsx";
 import {
   Menu,
   X,
@@ -14,53 +14,48 @@ import {
   Mail,
   Dot,
   Info,
-} from "lucide-react"; // Import icons and needed icons
-import "@/styles/header.css"; // Import header styles
+} from "lucide-react";
+import "@/styles/header.scss";
 
-// Define props interface
 interface HeaderProps {
   headerText: string;
   introComplete: boolean;
 }
 
-const animationDuration = 300; // ms, should match CSS animation duration
+const animationDuration = 300;
 
-// Update component signature to accept props
 const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isKontaktSubMenuOpen, setIsKontaktSubMenuOpen] = useState(false);
 
-  // State for text animation
   const [displayedText, setDisplayedText] = useState(headerText);
   const [animationClass, setAnimationClass] = useState("");
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref for timeouts
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Clear any previous timeouts if headerText changes rapidly
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
 
     if (headerText !== displayedText) {
-      setAnimationClass("slide-out"); // Start slide-out animation
+      setAnimationClass("slide-out");
 
       timeoutRef.current = setTimeout(() => {
-        setDisplayedText(headerText); // Update text after slide-out
-        setAnimationClass("slide-in"); // Start slide-in animation
+        setDisplayedText(headerText);
+        setAnimationClass("slide-in");
 
         timeoutRef.current = setTimeout(() => {
-          setAnimationClass(""); // Reset animation class after slide-in
+          setAnimationClass("");
         }, animationDuration);
       }, animationDuration);
     }
 
-    // Cleanup timeout on unmount or before next effect run
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [headerText, displayedText]); // Rerun effect if prop changes or internal text updates
+  }, [headerText, displayedText]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -74,17 +69,14 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
 
   return (
     <>
-      {/* The visible header bar - Applies animation */}
-      <header className={`${isMenuOpen ? "header-hidden" : ""}`}>
+      <header>
         <div className="header-content">
-          {/* Add wrapper for animation clipping */}
           <div
             className={clsx(
               "brand-name-wrapper",
               introComplete && "element-visible"
             )}
           >
-            {/* Replace Link with span for non-interactive display */}
             <span className={clsx("brand-name", animationClass)}>
               {displayedText}
             </span>
@@ -99,8 +91,6 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
           </button>
         </div>
       </header>
-
-      {/* Mobile Menu & Backdrop - Siblings to header, rendered conditionally */}
       {isMenuOpen && (
         <>
           <nav className={`mobile-menu open`}>
@@ -192,11 +182,7 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 </Link>
               </li>
             </ul>
-
-            {/* Remove logo image */}
-            {/* <img src="/logo.png" alt="Logo" className="menu-logo" /> */}
           </nav>
-          {/* Backdrop - Also rendered conditionally */}
           <div className="menu-backdrop" onClick={toggleMenu}></div>
         </>
       )}

@@ -1,0 +1,108 @@
+@use "mixins";
+@use "breakpoints";
+
+.music-content-wrapper {
+  padding: var(--header-height) 0;
+  max-width: 80dvw;
+  width: 90dvw; 
+  max-height: 80dvh;
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+  text-align: center; 
+  color: whitesmoke;
+}
+
+.music-content-wrapper h2 {
+  font-family: var(--font-calistoga); 
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.music-content-wrapper p {
+  font-family: var(--font-titillium-web), sans-serif; 
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: left; 
+}
+
+
+
+.song-list {
+  list-style: none;
+  padding: 0.5rem 1rem 1rem 1rem; 
+  margin: 0 auto; 
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%; 
+  max-width: 650px; 
+  box-sizing: border-box; 
+  border-radius: 0 0 8px 8px;
+}
+
+.song-list li {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  font-family: var(--font-titillium-web), sans-serif;
+  font-weight: 400;
+}
+
+.song-list li:last-child {
+  margin-bottom: 0; /* Remove margin from last item */
+}
+
+.song-list li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.song-list li.active-song {
+  background-color: #f44336;
+  color: whitesmoke;
+  font-weight: 600;
+}
+
+.song-list .song-index {
+  min-width: 2em;
+  color: #a0a0a0;
+  margin-right: 0.5rem;
+}
+
+.song-list li.active-song .song-index {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.song-list .song-title {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .music-content-wrapper > .music-player {
+    order: 1; 
+  }
+  .music-content-wrapper > .song-list {
+    order: 2; 
+  }
+  .music-content-wrapper > p {
+    order: 3; 
+    margin-top: 1.5rem; 
+    margin-bottom: 0; 
+  }
+}
+
+@include mixins.respond-above(md) {
+  .music-content {
+    padding: 4rem; 
+  }
+}

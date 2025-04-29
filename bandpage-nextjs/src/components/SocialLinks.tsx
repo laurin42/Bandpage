@@ -1,22 +1,20 @@
-import React from "react";
-import Image from "next/image"; // Ensure Image is imported
-import NeugierigIcon from "@/assets/icons/neugierig.svg"; // Import SVG from src/assets as component
+import React, { useState, useEffect, useRef } from "react";
+import CuriousIcon from "@/assets/icons/curious.svg";
+import FingerScrollIcon from "@/assets/icons/finger-scroll.svg";
 import {
   FaTiktok,
   FaInstagram,
   FaSpotify,
   FaYoutube,
   FaAmazon,
-} from "react-icons/fa"; // Import necessary icons
+} from "react-icons/fa";
 
-// Define the structure for a social link
 interface SocialLink {
   platform: string;
   url: string;
-  Icon: React.ElementType; // Type for React component (icon)
+  Icon: React.ElementType;
 }
 
-// Placeholder data - REPLACE URLS LATER!
 const socialLinksData: SocialLink[] = [
   {
     platform: "TikTok",
@@ -46,52 +44,66 @@ const socialLinksData: SocialLink[] = [
 ];
 
 const SocialLinks = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      }
+    );
+
+    const currentRef = containerRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
   return (
-    <div className="social-links-container">
-      {/* Removed H3 heading */}
-      {/* <h1 className="cta-subheading">Neugierig geworden?</h1> */}
-
-      {/* Removed old SVG Call to Action */}
-      {/* <div className="cta-svg-link">
-        <span>Sieh dir hier mehr an</span>
-        <Image
-          src="/icons/redo.svg"
-          alt="Mehr ansehen Pfeil"
-          className="cta-redo-svg"
-          width={32}
-          height={32}
-        />
-      </div> */}
-
-      {/* Render SVG component inline */}
-      <NeugierigIcon className="cta-neugierig-svg" />
-
-      {socialLinksData.map((link, index) => (
-        <a
-          key={index}
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link-item"
-        >
-          <link.Icon className="social-link-icon" />
-          <span>{link.platform}</span>
-        </a>
-      ))}
+    <div
+      ref={containerRef}
+      className={`social-links-container ${isVisible ? "visible" : ""}`}
+    >
+      <CuriousIcon className="cta-curious-svg animate-item-1" />
+      <div className="social-links-group">
+        {socialLinksData.map((link, index) => (
+          <a
+            key={index}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link-item animate-link-item"
+          >
+            <link.Icon className="social-link-icon" />
+            <span>{link.platform}</span>
+          </a>
+        ))}
+      </div>
 
       {/* Removed the horizontal rule */}
       {/* <hr className="cta-separator" /> */}
 
-      {/* New SVG Scroll CTA - Ensure Image is used here too */}
-      <div className="cta-scroll-svg">
-        <span>...oder hier</span>
-        <Image // Ensure Image is used here
-          src="/icons/arrow-down.svg" // Using arrow-down.svg
-          alt="Nach unten scrollen"
-          className="cta-arrow-down-svg"
-          width={32} // Adjust size as needed
-          height={32}
-        />
+      {/* New SVG Scroll CTA - Icon on the right */}
+      <div className="cta-scroll-svg animate-item-3">
+        {/* Text first */}
+        <span>...oder scroll weiter</span>
+        {/* Icon second */}
+        <FingerScrollIcon className="cta-arrow-down-svg" />
       </div>
     </div>
   );

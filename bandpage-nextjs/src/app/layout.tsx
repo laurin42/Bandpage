@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Calistoga, Titillium_Web } from "next/font/google"; // Import fonts
-import "@/styles/globals.css"; // Import the newly created globals.css
-import "@/styles/layout.css"; // Added import for CSS file
+import { Calistoga, Titillium_Web } from "next/font/google";
+import "@/styles/globals.scss";
+import "@/styles/layout.scss";
 
-// Configure fonts
 const calistoga = Calistoga({
-  weight: "400", // Calistoga usually only has 400 weight
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-calistoga", // CSS variable name
+  variable: "--font-calistoga",
   display: "swap",
 });
 
 const titilliumWeb = Titillium_Web({
-  weight: ["400", "600", "700"], // Include needed weights
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-titillium-web", // CSS variable name
+  variable: "--font-titillium-web",
   display: "swap",
 });
-
-// const inter = Inter({ subsets: ["latin"] }); // Keep if needed, otherwise remove
 
 export const metadata: Metadata = {
   title: "Burnheart Mockery",
@@ -32,7 +29,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Apply font variables to body */}
       <body className={`${calistoga.variable} ${titilliumWeb.variable}`}>
         {children}
       </body>
