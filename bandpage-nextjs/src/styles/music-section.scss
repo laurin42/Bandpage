@@ -2,7 +2,7 @@
 @use "breakpoints";
 
 .music-content-wrapper {
-  padding: var(--header-height) 0;
+  padding-top: calc(var(--header-height) + 2rem);
   max-width: 80dvw;
   width: 90dvw; 
   max-height: 80dvh;
@@ -101,8 +101,9 @@
   }
 }
 
+/* Responsive adjustments */
 @include mixins.respond-above(md) {
   .music-content {
-    padding: 4rem; 
+    padding: 4rem; /* Increase padding on larger screens */
   }
 }

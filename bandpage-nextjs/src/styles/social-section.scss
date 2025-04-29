@@ -16,7 +16,7 @@
 }
 
 .social-section-overlay {
-  padding-top: var(--header-height); 
+  padding-top: calc(var(--header-height) + 2rem);
   position: absolute;
   top: 0;
   left: 0;
