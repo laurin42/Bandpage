@@ -52,8 +52,7 @@ main {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   overflow-x: hidden; 
-  height: 100vh;
-  scroll-padding-top: var(--header-height); 
+  height: 100dvh; 
   box-sizing: border-box;
   background-color: transparent;
   scrollbar-width: none;
@@ -65,7 +64,7 @@ main::-webkit-scrollbar {
 }
 
 main > section {
-  height: calc(100dvh - var(--header-height));
+  height: calc(100dvh + var(--header-height));
   width: 100dvw;
   scroll-snap-align: start; 
   display: flex;
@@ -74,7 +73,7 @@ main > section {
   position: relative;
   box-sizing: border-box;
   color: whitesmoke;
-  padding: var(--header-height) 2rem var(--header-height) 2rem;
+  padding: 2rem;
 }
 
 #footer-section {
@@ -85,6 +84,7 @@ main > section {
 }
 
 #music {
+  max-height: 100dvh;
   background-image: url("/music/musicSectionBg2.png"); 
   background-size: cover; 
   background-position: center; 
@@ -93,12 +93,15 @@ main > section {
 
 /* --- Home Section Backgrounds --- */
 #home {
+  max-height: 100dvh;
   background-repeat: no-repeat;
   background-position: center;
 
   @include mixins.respond-below(lg) { 
     background-image: url("/backgrounds/heroBackgroundMobile.png");
-    background-size: cover; 
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+    background-position: center; 
   }
   
   @include mixins.respond-above(lg) {
@@ -142,6 +145,7 @@ main > section {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  max-height: 100dvh;
 }
 
 #alex {
@@ -149,7 +153,7 @@ main > section {
 }
 
 #luca {
-  background-image: url("/lucaBg.png"); 
+  background-image: url("/lucaBg.png");
 }
 
 #lenny {
