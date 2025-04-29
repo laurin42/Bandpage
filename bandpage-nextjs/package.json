@@ -11,10 +11,8 @@
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.0",
-    "@types/howler": "^2.2.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "howler": "^2.2.4",
     "jspdf": "^3.0.1",
     "lucide-react": "^0.492.0",
     "next": "15.3.0",
