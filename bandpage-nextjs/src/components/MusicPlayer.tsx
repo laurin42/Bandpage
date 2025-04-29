@@ -201,7 +201,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
     // Cleanup function on component unmount
     return cleanup;
     // This effect ONLY depends on the song object reference
-  }, [song, isPlaying, onEnded, volume]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [song]);
 
   // --- Play/Pause Handling (Depends ONLY on isPlaying) ---
   useEffect(() => {

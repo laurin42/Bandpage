@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import MusicPlayer, { Song } from "./MusicPlayer";
 import "@/styles/music-section.scss"; // Add import for section styles
 
@@ -57,31 +57,29 @@ const MusicSection = () => {
 
   const currentSong = songs[currentSongIndex];
 
-  // --- Player Control Handlers (Revert to simple logic) ---
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+  const handlePlayPause = useCallback(() => {
+    setIsPlaying((prev) => !prev);
+  }, []);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
-    setIsPlaying(true); // Optional: Auto-play next song
-  };
+    setIsPlaying(true);
+  }, []);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentSongIndex(
       (prevIndex) => (prevIndex - 1 + songs.length) % songs.length
     );
     setIsPlaying(true);
-  };
-  // --- End Player Control Handlers ---
+  }, []);
 
-  const handleVolumeChange = (newVolume: number) => {
+  const handleVolumeChange = useCallback((newVolume: number) => {
     setVolume(newVolume);
-  };
+  }, []);
 
-  const handleSongEnd = () => {
+  const handleSongEnd = useCallback(() => {
     handleNext();
-  };
+  }, [handleNext]);
 
   // --- Automatic Pause Logic ---
   useEffect(() => {
