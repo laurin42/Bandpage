@@ -62,6 +62,28 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
     setIsKontaktSubMenuOpen(false);
   };
 
+  const handleScrollTo = (targetIdMobile: string, targetIdDesktop: string) => {
+    toggleMenu(); // Close the menu
+
+    // Check if we are likely in desktop view based on screen width
+    const isDesktop = window.innerWidth >= 1024; // Assuming 'lg' breakpoint is 1024px
+
+    const targetId = isDesktop ? targetIdDesktop : targetIdMobile;
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      // Use smooth scrolling
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Fallback or error handling if element not found
+      console.warn(`Element with ID ${targetId} not found.`);
+      // Optionally, try the other ID as a fallback
+      const fallbackId = isDesktop ? targetIdMobile : targetIdDesktop;
+      const fallbackElement = document.getElementById(fallbackId);
+      fallbackElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const toggleKontaktSubMenu = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsKontaktSubMenuOpen(!isKontaktSubMenuOpen);
@@ -127,12 +149,15 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/#alex" onClick={toggleMenu}>
+                <button
+                  onClick={() => handleScrollTo("alex", "ueber-uns-desktop")}
+                  className="menu-link-button"
+                >
                   <span className="menu-item-content">
                     <Users size={18} className="menu-icon" />
                     Über uns
                   </span>
-                </Link>
+                </button>
               </li>
               <li>
                 <Link href="/#konzerte" onClick={toggleMenu}>
