@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <!-- Linksbündiger Titel -->
+  <text
+    x="12"
+    y="32"
+    font-size="2.4em"
+    font-family="var(--font-titillium-web), sans-serif"
+    fill="whitesmoke"
+    text-anchor="start"
+  >
+    Neugierig geworden?
+  </text>
+
+  <!-- Lucide Redo Icon eingebettet -->
+  <g transform="translate(324, 48) scale(1.6) rotate(80)" stroke="whitesmoke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M21 7v6h-6"/>
+    <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/>
+  </g>
+
+  <!-- Rechtsbündiger Untertitel -->
+  <text
+    x="280"
+    y="62"
+    font-size="1.6em"
+    font-family="var(--font-titillium-web), sans-serif"
+    fill="whitesmoke"
+    text-anchor="end"
+  >
+    sieh Dir hier mehr an...
+  </text>
+</svg>

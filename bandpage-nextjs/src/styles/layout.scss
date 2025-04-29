@@ -1,0 +1,449 @@
+@use "mixins";
+@use "breakpoints";
+
+:root {
+  --content-container-bg: rgba(0, 0, 0, 0.8); 
+  --header-height: 6.2rem;
+}
+
+@include mixins.respond-below(md) {
+  :root {
+    --header-height: 3.8rem;
+  }
+}
+
+/* Basic reset and body styles */
+html,
+body {
+  margin: 0;
+  padding: 0; 
+}
+
+body {
+  font-family: sans-serif; 
+  overflow-x: hidden; 
+  font-size: 1rem; 
+  line-height: 1.6; 
+  height: 100%; 
+  background-color: black; 
+}
+
+@include mixins.respond-above(md) {
+  body {
+    font-size: 1.125rem; 
+  }
+}
+
+/* Basic responsive image handling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; 
+}
+
+/* Ensure the direct child div of body doesn't force height */
+body > div {
+  height: auto; 
+  display: block; 
+}
+
+/* Container for scroll snapping */
+main {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  overflow-x: hidden; 
+  height: 100vh;
+  scroll-padding-top: var(--header-height); 
+  box-sizing: border-box;
+  background-color: transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+main::-webkit-scrollbar {
+  display: none; 
+}
+
+main > section {
+  height: calc(100dvh - var(--header-height)); 
+  width: 100dvw;
+  scroll-snap-align: start; 
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+  position: relative;
+  box-sizing: border-box;
+  color: whitesmoke;
+  padding: var(--header-height) 2rem var(--header-height) 2rem;
+}
+
+#footer-section {
+  background-color: black; 
+  display: block; 
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+#music {
+  background-image: url("/music/musicSectionBg2.png"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+/* --- Home Section Backgrounds --- */
+#home {
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @include mixins.respond-below(lg) { 
+    background-image: url("/backgrounds/heroBackgroundMobile.png");
+    background-size: cover; 
+  }
+  
+  @include mixins.respond-above(lg) {
+    background-image: url("/backgrounds/heroBackgroundDesktop.png"); 
+    background-size: cover; 
+    background-color: transparent; 
+  }
+}
+
+#bio {
+  display: block; 
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: linear-gradient(
+    to bottom,
+    black 0%,
+    black 66%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  color: whitesmoke;
+
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+#bio p {
+  font-family: var(--font-titillium-web), sans-serif;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+#bio::-webkit-scrollbar {
+  display: none;
+}
+
+#alex,
+#luca,
+#lenny,
+#max,
+#laurin {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#alex {
+  background-image: url("/alexBg.png"); 
+}
+
+#luca {
+  background-image: url("/lucaBg.png"); 
+}
+
+#lenny {
+  background-image: url("/lennyBg.png"); 
+}
+
+#max {
+  background-image: url("/maxBg.png"); 
+}
+
+#laurin {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  background-image: url("/laurinBg.png"); 
+}
+
+#laurin > footer {
+  margin-top: auto; 
+  width: 100%; 
+}
+
+@include mixins.respond-above(lg) {
+  #alex,
+  #luca,
+  #lenny,
+  #max,
+  #laurin {
+    display: none;
+  }
+}
+
+/* Desktop Container Styling */
+#ueber-uns-desktop {
+  display: none; 
+  scroll-snap-align: start; 
+  background-color: black; 
+  box-sizing: border-box;
+  position: relative; 
+
+  @include mixins.respond-above(lg) {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+}
+
+.member-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; 
+  gap: 1.5rem; 
+  width: 100%;
+  height: 100%; 
+  max-width: 1600px; 
+}
+
+.member-item {
+  flex: 1; 
+  position: relative;
+  background-size: cover;
+  background-position: center 20%; 
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden; 
+  border-radius: 10px;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: none; 
+  opacity: 1; 
+
+  &.alex { background-image: url("/alexBg.png"); }
+  &.luca { background-image: url("/lucaBg.png"); }
+  &.lenny { background-image: url("/lennyBg.png"); }
+  &.max { background-image: url("/maxBg.png"); }
+  &.laurin { background-image: url("/laurinBg.png"); }
+
+  .overlay-base {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0; 
+    transition: opacity 0.4s ease-in-out; 
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    text-align: left;
+    box-sizing: border-box;
+
+    h2 {
+      font-family: var(--font-calistoga), serif;
+      font-weight: 400;
+      font-size: 1.6rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-family: var(--font-titillium-web), sans-serif;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+
+    .overlay-base {
+      opacity: 1; 
+      pointer-events: auto;
+    }
+  }
+}
+
+#konzerte {
+  background-image: url("/bandfoto3.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  align-items: flex-end;
+}
+
+#konzerte::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3); 
+  z-index: 1; 
+}
+
+/* --- BioTile Overlay Fade Styles --- */
+.overlay-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); 
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  text-align: left;
+  box-sizing: border-box;
+  overflow-y: auto;
+  opacity: 0; 
+  pointer-events: none;
+}
+
+.overlay-visible {
+  opacity: 1; 
+  pointer-events: auto; 
+  transition: opacity 0.5s ease-in-out; 
+}
+
+.overlay-base p {
+  font-family: var(--font-titillium-web), sans-serif;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.overlay-base h2 {
+  font-family: var(--font-calistoga), serif;
+  font-weight: 400;
+  font-size: 1.6rem; 
+  margin-top: 0; 
+  margin-bottom: 1rem; 
+}
+
+
+@include mixins.respond-above(lg) {
+  .overlay-base h2 {
+    font-size: 2.5rem; 
+  }
+
+  #konzerte {
+    background-image: url("/backgrounds/concertsBgDesktop.png");
+    background-size: cover; 
+    background-position: center;
+  }
+
+  .member-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; 
+    gap: 1.5rem; 
+    width: 100%;
+    height: 100%; 
+    max-width: 1600px; 
+  }
+
+  .member-item {
+    flex: 1; 
+    position: relative;
+    background-size: cover;
+    background-position: center 20%; 
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden; 
+    border-radius: 10px;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: none; 
+    opacity: 1; 
+
+    &.alex { background-image: url("/alexBg.png"); }
+    &.luca { background-image: url("/lucaBg.png"); }
+    &.lenny { background-image: url("/lennyBg.png"); }
+    &.max { background-image: url("/maxBg.png"); }
+    &.laurin { background-image: url("/laurinBg.png"); }
+
+    /* Base overlay style */
+    .overlay-base {
+       position: absolute; 
+       top: 0; left: 0; right: 0; bottom: 0; 
+       opacity: 0; /* Hidden by default */
+       transition: opacity 0.4s ease-in-out; /* Simple fade transition */
+       pointer-events: none; 
+       background-color: rgba(0, 0, 0, 0.7); 
+       color: whitesmoke;
+       display: flex;
+       flex-direction: column;
+       justify-content: flex-end; 
+       align-items: flex-start;
+       padding: 2rem 1rem; 
+       text-align: left;
+       box-sizing: border-box;
+    }
+
+    &:hover {
+      transform: scale(1.03) translateY(-5px); 
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); 
+
+      .overlay-base {
+        opacity: 1; /* Show overlay */
+        pointer-events: auto; 
+      }
+    }
+  }
+}
+
+/* --- Fake Scrollbar Styles --- */
+.fake-scrollbar-track {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100dvh;
+  width: 8px; 
+  background-color: transparent; 
+  z-index: 1001; 
+  opacity: 0; 
+  pointer-events: none; 
+  transition: opacity 0.3s ease-out; 
+}
+
+.fake-scrollbar-thumb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0; 
+  width: 100%;
+  background-color: whitesmoke; 
+  border-radius: 0; 
+  opacity: 1; 
+  transition: opacity 0.2s ease-out; 
+  height: var(--header-height); 
+
+  @include mixins.respond-above(md) {
+    height: var(--header-height);
+  }
+
+}
+
+.fake-scrollbar-thumb:hover {
+  background-color: #777; 
+  opacity: 1; 
+}
+
+
+body.intro-active .fake-scrollbar-track {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
