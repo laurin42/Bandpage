@@ -12,6 +12,7 @@ import {
   BookUser,
   Info,
 } from "lucide-react";
+import UserLock from "@/assets/icons/userLock.svg";
 import "@/styles/footer.scss";
 
 const Footer = () => {
@@ -56,6 +57,10 @@ const Footer = () => {
             <div className="sitemap-node level-1">
               <Info size={16} className="sitemap-icon" />
               <Link href="/impressum">Impressum</Link>
+            </div>
+            <div className="sitemap-node level-1">
+              <UserLock size={16} className="sitemap-icon" />
+              <Link href="/privacyPolicy">Datenschutz</Link>
             </div>
           </div>
         </div>
