@@ -6,6 +6,7 @@ const Impressum = () => {
 
   return (
     <div className="impressum-container">
+      <hr style={{ border: "0.125rem solid #444", marginBottom: "2rem" }}></hr>
       <p>
         <strong>Angaben gemäß § 5 TMG:</strong>
         <br />
@@ -17,19 +18,16 @@ const Impressum = () => {
         <br />
         51381 Leverkusen
       </p>
-
       <p>
         <strong>Kontakt:</strong>
         <br />
         E-Mail: burnheart.mockery@gmail.com
       </p>
-
       <p>
         Diese Website wird von einer Privatperson betrieben und dient
         ausschließlich der nicht-kommerziellen Präsentation der Band Burnheart
         Mockery.
       </p>
-
       <h3>Haftung für Inhalte</h3>
       <p>
         Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf
@@ -44,7 +42,6 @@ const Impressum = () => {
         entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend
         entfernen.
       </p>
-
       <h3>Haftung für Links</h3>
       <p>
         Unser Angebot enthält Links zu externen Websites Dritter, auf deren
@@ -58,7 +55,6 @@ const Impressum = () => {
         Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden
         von Rechtsverletzungen werden wir derartige Links umgehend entfernen.
       </p>
-
       <h3>Urheberrecht</h3>
       <p>
         Die durch die Betreiber dieser Seite erstellten Inhalte und Werke auf
@@ -75,31 +71,7 @@ const Impressum = () => {
         Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte
         umgehend entfernen.
       </p>
-
-      <h3>Datenschutz</h3>
-      <p>
-        Die Nutzung unserer Webseite ist in der Regel ohne Angabe
-        personenbezogener Daten möglich. Soweit auf unseren Seiten
-        personenbezogene Daten (beispielsweise Name, Anschrift oder
-        E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf
-        freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche
-        Zustimmung nicht an Dritte weitergegeben.
-      </p>
-      <p>
-        Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei
-        der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein
-        lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht
-        möglich.
-      </p>
-      <p>
-        Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten
-        Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich
-        angeforderter Werbung und Informationsmaterialien wird hiermit
-        ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich
-        ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von
-        Werbeinformationen, etwa durch Spam-Mails, vor.
-      </p>
-
+      <hr style={{ border: "0.125rem solid #444", marginTop: "2rem" }}></hr>{" "}
       <p className="copyright">
         © {currentYear} Burnheart Mockery. Alle Rechte vorbehalten.
       </p>

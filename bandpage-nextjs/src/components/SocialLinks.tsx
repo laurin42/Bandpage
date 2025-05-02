@@ -7,6 +7,7 @@ import {
   FaSpotify,
   FaYoutube,
   FaAmazon,
+  FaApple,
 } from "react-icons/fa";
 
 interface SocialLink {
@@ -40,6 +41,11 @@ const socialLinksData: SocialLink[] = [
     platform: "Amazon Music",
     url: "https://music.amazon.de/artists/B0BKVPFYYZ/burnheart-mockery",
     Icon: FaAmazon,
+  },
+  {
+    platform: "Apple Music",
+    url: "https://music.apple.com/de/artist/burnheart-mockery/1658880000",
+    Icon: FaApple,
   },
 ];
 

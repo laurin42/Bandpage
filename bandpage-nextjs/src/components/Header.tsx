@@ -15,6 +15,7 @@ import {
   Dot,
   Info,
 } from "lucide-react";
+import UserLock from "@/assets/icons/userLock.svg";
 import "@/styles/header.scss";
 
 interface HeaderProps {
@@ -63,21 +64,17 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
   };
 
   const handleScrollTo = (targetIdMobile: string, targetIdDesktop: string) => {
-    toggleMenu(); // Close the menu
+    toggleMenu();
 
-    // Check if we are likely in desktop view based on screen width
-    const isDesktop = window.innerWidth >= 1024; // Assuming 'lg' breakpoint is 1024px
+    const isDesktop = window.innerWidth >= 1024;
 
     const targetId = isDesktop ? targetIdDesktop : targetIdMobile;
     const element = document.getElementById(targetId);
 
     if (element) {
-      // Use smooth scrolling
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      // Fallback or error handling if element not found
-      console.warn(`Element with ID ${targetId} not found.`);
-      // Optionally, try the other ID as a fallback
+      console.warn(`Element mit ID ${targetId} nicht gefunden.`);
       const fallbackId = isDesktop ? targetIdMobile : targetIdDesktop;
       const fallbackElement = document.getElementById(fallbackId);
       fallbackElement?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -203,6 +200,14 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                   <span className="menu-item-content">
                     <Info size={18} className="menu-icon" />
                     Impressum
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacyPolicy" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <UserLock size={18} className="menu-icon" />
+                    Datenschutz
                   </span>
                 </Link>
               </li>

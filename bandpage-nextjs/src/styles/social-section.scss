@@ -193,6 +193,13 @@
   animation-delay: 3.98s; 
 }
 
+.social-links-container.visible
+  .social-links-group
+  .animate-link-item:nth-child(6) {
+  transition-delay: 1.8s;
+  animation-delay: 4.05s;
+}
+
 .social-links-container.visible .animate-link-item {
   opacity: 1;
   transform: translateY(0);

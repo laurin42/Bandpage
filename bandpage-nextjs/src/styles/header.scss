@@ -114,17 +114,23 @@ header.menu-is-open .brand-name-wrapper {
 }
 
 .mobile-menu a,
-.mobile-menu .menu-parent-button {
+.mobile-menu .menu-parent-button,
+.mobile-menu .menu-link-button {
   color: white;
   text-decoration: none;
-  font-size: 1.125rem; 
+  font-size: 1.125rem;
   font-family: var(--font-titillium-web), sans-serif;
 }
 
+.mobile-menu .menu-link-button,
 .mobile-menu .menu-parent-button {
-  font-family: var(--font-titillium-web), sans-serif;
   background: none;
   border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
 .menu-backdrop {
@@ -189,6 +195,9 @@ header.menu-is-open .brand-name-wrapper {
 .menu-item-content {
   display: flex;
   align-items: center;
+  svg {
+    color: inherit;
+  }
 }
 
 .menu-icon {
@@ -237,7 +246,8 @@ header.menu-is-open .brand-name-wrapper {
   }
 
   .mobile-menu a,
-  .mobile-menu .menu-parent-button {
+  .mobile-menu .menu-parent-button,
+  .mobile-menu .menu-link-button {
     font-size: 1.25rem; 
   }
 
