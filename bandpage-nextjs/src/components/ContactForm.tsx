@@ -59,7 +59,7 @@ const ContactForm = () => {
         <p>
           Nutze das Formular oder schreib uns direkt an{" "}
           <a href="mailto:burnheartmockery@gmail.com">
-            burnheartmockery@gmail.com
+            burnheart.mockery@gmail.com
           </a>
         </p>
       </h2>
