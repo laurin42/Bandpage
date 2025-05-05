@@ -63,24 +63,6 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
     setIsKontaktSubMenuOpen(false);
   };
 
-  const handleScrollTo = (targetIdMobile: string, targetIdDesktop: string) => {
-    toggleMenu();
-
-    const isDesktop = window.innerWidth >= 1024;
-
-    const targetId = isDesktop ? targetIdDesktop : targetIdMobile;
-    const element = document.getElementById(targetId);
-
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      console.warn(`Element mit ID ${targetId} nicht gefunden.`);
-      const fallbackId = isDesktop ? targetIdMobile : targetIdDesktop;
-      const fallbackElement = document.getElementById(fallbackId);
-      fallbackElement?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
   const toggleKontaktSubMenu = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsKontaktSubMenuOpen(!isKontaktSubMenuOpen);
@@ -146,15 +128,16 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleScrollTo("alex", "ueber-uns-desktop")}
+                <Link
+                  href="/#ueber-uns-desktop"
+                  onClick={toggleMenu}
                   className="menu-link-button"
                 >
                   <span className="menu-item-content">
                     <Users size={18} className="menu-icon" />
                     Über uns
                   </span>
-                </button>
+                </Link>
               </li>
               <li>
                 <Link href="/#konzerte" onClick={toggleMenu}>

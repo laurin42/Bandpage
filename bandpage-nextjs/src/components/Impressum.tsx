@@ -6,7 +6,6 @@ const Impressum = () => {
 
   return (
     <div className="impressum-container">
-      <hr style={{ border: "0.125rem solid #444", marginBottom: "2rem" }}></hr>
       <p>
         <strong>Angaben gemäß § 5 TMG:</strong>
         <br />
@@ -21,7 +20,7 @@ const Impressum = () => {
       <p>
         <strong>Kontakt:</strong>
         <br />
-        E-Mail: burnheart.mockery@gmail.com
+        E-Mail: kontakt@burnheart-mockery.de
       </p>
       <p>
         Diese Website wird von einer Privatperson betrieben und dient
@@ -71,7 +70,7 @@ const Impressum = () => {
         Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte
         umgehend entfernen.
       </p>
-      <hr style={{ border: "0.125rem solid #444", marginTop: "2rem" }}></hr>{" "}
+      <hr style={{ border: "1px solid #444", marginTop: "2rem" }}></hr>{" "}
       <p className="copyright">
         © {currentYear} Burnheart Mockery. Alle Rechte vorbehalten.
       </p>
