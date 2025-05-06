@@ -24,6 +24,18 @@ const nextConfig: NextConfig = {
     return config;
   },
   /* other config options here */
+
+  // Add rewrites for clean URLs
+  async rewrites() {
+    return [
+      { source: '/musik', destination: '/' },
+      { source: '/konzerte', destination: '/' },
+      { source: '/social', destination: '/' },
+      { source: '/ueber-uns', destination: '/' },
+      // You can add more specific rewrites if needed, e.g., for individual band members
+      // { source: '/ueber-uns/alex', destination: '/' }, 
+    ];
+  },
 };
 
 export default nextConfig;

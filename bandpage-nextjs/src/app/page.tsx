@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import "@/styles/page.scss";
 import "@/styles/social-section.scss";
 import { useRef, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 // Define bio descriptions
 const bioDescriptions: { [key: string]: string } = {
@@ -61,6 +62,13 @@ const sectionToLogicalGroup = (id: string): string => {
   return "default";
 };
 
+const pathToSectionId: { [key: string]: string } = {
+  "/musik": "music",
+  "/konzerte": "konzerte",
+  "/social": "social",
+  "/ueber-uns": "ueber-uns-desktop", // Default to desktop, mobile handled by visibility or further logic if needed
+};
+
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
   const scrollbarTrackRef = useRef<HTMLDivElement | null>(null);
@@ -69,6 +77,7 @@ export default function Home() {
   const [activeSectionId, setActiveSectionId] = useState("home");
   const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
   const [headerText, setHeaderText] = useState("Burnheart Mockery");
+  const pathname = usePathname();
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -151,10 +160,9 @@ export default function Home() {
     let hideTimeoutRef: NodeJS.Timeout | null = null;
     let initialShowTimeoutRef: NodeJS.Timeout | null = null;
     let animationFrameId: number | null = null;
-    // --- ADDED: Ref for scroll end detection timer ---
     let scrollEndTimeoutRef: NodeJS.Timeout | null = null;
-    // -------------------------------------------------
 
+    // Define helper functions at the beginning of the useEffect
     const hideScrollbar = () => {
       if (trackElement) {
         trackElement.style.opacity = "0";
@@ -180,40 +188,9 @@ export default function Home() {
       }
     };
 
-    if (!mainElement || !trackElement || !thumbElement) {
-      hideScrollbar();
-      return;
-    }
-
-    if (showIntro) {
-      hideScrollbar();
-      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
-    } else {
-      if (
-        initialShowTimeoutRef === null &&
-        trackElement.style.opacity === "0"
-      ) {
-        requestAnimationFrame(() => {
-          const firstSection = document.getElementById("home");
-          if (firstSection) {
-            firstSection.scrollIntoView({ behavior: "auto", block: "start" });
-          } else {
-            console.warn(
-              "Home: Could not find element with id='home' to scroll to."
-            );
-            mainElement.scrollTop = 0;
-          }
-
-          initialShowTimeoutRef = setTimeout(() => {
-            showScrollbar();
-            handleScroll();
-            initialShowTimeoutRef = null;
-          }, 50);
-        });
-      }
-    }
-
     const handleScroll = () => {
+      if (!mainElement || !trackElement || !thumbElement) return;
+
       showScrollbar();
 
       if (scrollEndTimeoutRef) {
@@ -224,6 +201,7 @@ export default function Home() {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
+
       animationFrameId = requestAnimationFrame(() => {
         if (!mainElement || !trackElement || !thumbElement) return;
 
@@ -254,6 +232,135 @@ export default function Home() {
       });
     };
 
+    // Original logic continues here, after function definitions
+    if (!mainElement || !trackElement || !thumbElement) {
+      hideScrollbar();
+      return;
+    }
+
+    if (showIntro) {
+      hideScrollbar();
+      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
+    } else {
+      if (
+        initialShowTimeoutRef === null &&
+        trackElement.style.opacity === "0"
+      ) {
+        requestAnimationFrame(() => {
+          let scrolledSuccessfully = false;
+          const targetSectionIdFromPath = pathToSectionId[pathname];
+
+          // 1. Try scrolling based on pathname
+          if (targetSectionIdFromPath) {
+            const targetElement = document.getElementById(
+              targetSectionIdFromPath
+            );
+            if (targetElement) {
+              if (mainElement) {
+                const headerHeight =
+                  parseFloat(
+                    getComputedStyle(document.documentElement).getPropertyValue(
+                      "--header-height"
+                    )
+                  ) || 0;
+                const elementRect = targetElement.getBoundingClientRect();
+                const elementTopRelativeToMain =
+                  elementRect.top - mainElement.getBoundingClientRect().top;
+                const scrollTopPosition =
+                  mainElement.scrollTop +
+                  elementTopRelativeToMain -
+                  headerHeight;
+                mainElement.scrollTo({
+                  top: scrollTopPosition,
+                  behavior: "auto",
+                });
+              } else {
+                targetElement.scrollIntoView({
+                  behavior: "auto",
+                  block: "start",
+                });
+              }
+              scrolledSuccessfully = true;
+            } else {
+              console.warn(
+                `Home: Could not find element with id='${targetSectionIdFromPath}' from pathname '${pathname}'.`
+              );
+            }
+          }
+
+          // 2. If not scrolled by pathname, try scrolling based on hash (existing logic)
+          if (
+            !scrolledSuccessfully &&
+            typeof window !== "undefined" &&
+            window.location.hash
+          ) {
+            const hashId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(hashId);
+            if (targetElement) {
+              if (mainElement) {
+                const headerHeight =
+                  parseFloat(
+                    getComputedStyle(document.documentElement).getPropertyValue(
+                      "--header-height"
+                    )
+                  ) || 0;
+                const elementRect = targetElement.getBoundingClientRect();
+                const elementTopRelativeToMain =
+                  elementRect.top - mainElement.getBoundingClientRect().top;
+                const scrollTopPosition =
+                  mainElement.scrollTop +
+                  elementTopRelativeToMain -
+                  headerHeight;
+                mainElement.scrollTo({
+                  top: scrollTopPosition,
+                  behavior: "auto",
+                });
+              } else {
+                targetElement.scrollIntoView({
+                  behavior: "auto",
+                  block: "start",
+                });
+              }
+              scrolledSuccessfully = true;
+            } else {
+              console.warn(
+                `Home: Could not find element with id='${hashId}' from URL hash.`
+              );
+            }
+          }
+
+          // 3. If still not scrolled, scroll to home (fallback)
+          if (!scrolledSuccessfully) {
+            const firstSection = document.getElementById("home");
+            if (firstSection) {
+              if (mainElement) {
+                mainElement.scrollTo({ top: 0, behavior: "auto" });
+              } else {
+                firstSection.scrollIntoView({
+                  behavior: "auto",
+                  block: "start",
+                });
+              }
+            } else {
+              console.warn(
+                "Home: Could not find element with id='home' to scroll to."
+              );
+              if (mainElement) mainElement.scrollTop = 0;
+            }
+          }
+
+          initialShowTimeoutRef = setTimeout(() => {
+            showScrollbar();
+            handleScroll();
+            initialShowTimeoutRef = null;
+          }, 50);
+        });
+      } else if (trackElement.style.opacity === "0") {
+        showScrollbar();
+        handleScroll();
+      }
+    }
+
     const handleTrackMouseEnter = () => {
       if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
       showScrollbar();
@@ -279,8 +386,7 @@ export default function Home() {
       trackElement?.removeEventListener("mouseleave", handleTrackMouseLeave);
       resizeObserver.disconnect();
     };
-    // Dependency array remains the same as we check opacity to infer initial show
-  }, [showIntro, mainRef, scrollbarTrackRef, scrollbarThumbRef]);
+  }, [showIntro, mainRef, scrollbarTrackRef, scrollbarThumbRef, pathname]);
 
   return (
     <div>
