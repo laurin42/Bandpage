@@ -13,11 +13,14 @@ h3 {
   font-family: var(--font-titillium-web), sans-serif;
   font-size: 0.9375rem; 
   line-height: 1.7;
-  align-self: center;
-  margin-top: 0; 
+  margin-top: auto;
+  margin-bottom: 0; 
   color: #888;
   text-align: center; 
+  padding-top: 1.5rem;
+  position: absolute;
   bottom: 0;
+  justify-self: anchor-center;
 }
 
 
@@ -85,6 +88,9 @@ h3 {
   .copyright {
     font-size: 1rem; 
   }
+  .footer-inner {
+    padding: 3rem 1rem;
+  }
 }
 
 @include mixins.respond-above(lg) {
@@ -97,21 +103,13 @@ h3 {
   width: 100%; 
   max-width: 800px; 
 }
-
 .footer-inner {
   display: flex;
   flex-direction: column;
-  min-height: 100%; 
-}
-
-.copyright {
-  font-family: var(--font-titillium-web), sans-serif;
-  font-size: 0.9375rem; 
-  line-height: 1.7;
-  margin-top: auto; 
-  margin-bottom: 0; 
-  color: #888;
-  text-align: center; 
+  width: 100%;
+  max-width: 900px;
+  padding: var(--header-height) 0.8rem 0rem 0.8rem;
+  box-sizing: border-box;
 }
 
 @include mixins.respond-above(md) {

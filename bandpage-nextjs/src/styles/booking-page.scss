@@ -26,18 +26,10 @@
 
 .booking-content {
   width: 100%;
-  max-width: 48%; 
-  margin-top: 2rem;
-  margin-bottom: 4rem;
   text-align: center;
 }
 
 @include mixins.respond-below(md) {
-  .booking-content {
-    max-width: 90%;
-  }
-}
-
 .booking-content h2 {
   font-family: var(--font-calistoga), serif;
   font-size: 2rem;
@@ -69,4 +61,5 @@
   @include mixins.respond-below(md) {
     margin-top: 0rem;
   }
+}
 }

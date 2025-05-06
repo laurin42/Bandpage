@@ -61,8 +61,7 @@ const Concerts = () => {
           />
           <p className="concert-info-text">
             Aktuell konzentrieren wir uns auf neue Aufnahmen und haben zur Zeit
-            keine Auftritte geplant. Wir werden Euch hier informieren, sobald
-            wir wieder auf der Bühne stehen.
+            keine Auftritte geplant.
           </p>
         </div>
         <p className="newsletter-prompt">

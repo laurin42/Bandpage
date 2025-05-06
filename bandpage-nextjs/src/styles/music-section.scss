@@ -2,17 +2,19 @@
 @use "breakpoints";
 
 .music-content-wrapper {
-  padding-top: calc(var(--header-height) + 2rem);
-  max-width: 80dvw;
-  width: 90dvw; 
-  max-height: 80dvh;
-  margin: 0 auto; 
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
-  height: 100%; 
-  text-align: center; 
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem));
+  padding-bottom: clamp(1.5rem, 4vh, 3rem);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  width: 90dvw;
+  min-height: calc(100vh - var(--header-height) - clamp(3rem, 7vh, 6rem));
+  text-align: center;
   color: whitesmoke;
 }
 
@@ -29,23 +31,20 @@
   text-align: left; 
 }
 
-
-
 .song-list {
   list-style: none;
-  padding: 0.5rem 1rem 1rem 1rem; 
+  padding: clamp(0.8rem, 2vh, 1.8rem) clamp(1rem, 2.5vw, 2rem);
   margin: 0 auto; 
   background-color: rgba(0, 0, 0, 0.8);
-  width: 100%; 
-  max-width: 650px; 
+  width: 100%;  
   box-sizing: border-box; 
   border-radius: 0 0 8px 8px;
 }
 
 .song-list li {
   background-color: rgba(255, 255, 255, 0.15);
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
+  padding: clamp(0.5rem, 1.2vh, 0.8rem) 1rem;
+  margin-bottom: clamp(0.3rem, 1vh, 0.9rem);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -54,6 +53,7 @@
   text-align: left;
   font-family: var(--font-titillium-web), sans-serif;
   font-weight: 400;
+  font-size: clamp(0.8rem, 1.7vh, 1.05rem);
 }
 
 .song-list li:last-child {
@@ -103,7 +103,7 @@
 
 /* Responsive adjustments */
 @include mixins.respond-above(md) {
-  .music-content {
-    padding: 4rem; /* Increase padding on larger screens */
+  .music-content-wrapper {
+    padding: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem)) 0;
   }
 }

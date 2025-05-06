@@ -3,11 +3,10 @@
 
 .music-player {
   background-color: rgba(0, 0, 0, 0.8);   
-  padding: 1rem 1rem 0.5rem 1rem; 
+  padding: clamp(0.5rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
   width: 100%;
-  max-width: 650px; 
   box-sizing: border-box; 
-  margin: 1rem auto 0 auto; 
+  margin: clamp(0.5rem, 1.8vh, 1.5rem) auto 0 auto;
   color: #e0e0e0; 
   border-radius: 8px 8px 0 0; 
   font-family: var(--font-titillium-web), sans-serif;
@@ -21,14 +20,14 @@
 .player-ui {
   display: flex;
   align-items: center;
-  gap: 1rem; 
+  gap: clamp(0.5rem, 1.8vw, 1.1rem);
   flex-wrap: wrap; 
 }
 
 .cover-art {
   flex-shrink: 0; 
-  width: 60px; 
-  height: 60px; 
+  width: clamp(40px, 9vh, 65px);
+  height: clamp(40px, 9vh, 65px);
 }
 
 .cover-art img {
@@ -47,7 +46,7 @@
 }
 
 .track-info .title {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 2vh, 1.2rem);
   font-weight: 600; 
   white-space: nowrap;
   overflow: hidden;
@@ -57,7 +56,7 @@
 }
 
 .track-info .artist {
-  font-size: 0.875rem; 
+  font-size: clamp(0.75rem, 1.8vh, 0.95rem);
   color: #b0b0b0; 
   white-space: nowrap;
   overflow: hidden;
@@ -67,7 +66,7 @@
 .controls {
   display: flex;
   align-items: center;
-  gap: 0.5rem; 
+  gap: clamp(0.3rem, 1.1vw, 0.6rem);
   flex-shrink: 0; 
 }
 
@@ -76,7 +75,7 @@
   border: none;
   color: #e0e0e0;
   cursor: pointer;
-  padding: 0.4rem;
+  padding: clamp(0.2rem, 0.7vh, 0.45rem);
   border-radius: 50%; 
   display: flex;
   align-items: center;
@@ -87,8 +86,8 @@
 }
 
 .control-button svg {
-  width: 18px; 
-  height: 18px;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .control-button:hover {
@@ -97,13 +96,13 @@
 }
 
 .control-button.play-pause {
-  padding: 0.6rem;
+  padding: clamp(0.4rem, 0.9vh, 0.7rem);
   background-color: rgba(255, 255, 255, 0.1); 
 }
 
 .control-button.play-pause svg {
-  width: 20px; 
-  height: 20px;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 .control-button.play-pause:hover {
@@ -113,13 +112,13 @@
 .volume-control {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: clamp(0.3rem, 1.1vw, 0.6rem);
   flex-shrink: 0; 
 }
 
 .volume-slider {
   cursor: pointer;
-  width: 80px; 
+  width: clamp(50px, 11vw, 90px);
   height: 4px;
   background: #555; 
   border-radius: 2px;
@@ -158,7 +157,7 @@
 /* --- Styles for Seek Bar positioning --- */
 .seek-bar-container {
   width: 100%; 
-  margin-top: 0.5rem; 
+  margin-top: clamp(0.2rem, 0.9vh, 0.6rem);
 }
 /* --- End Seek Bar positioning --- */
 
@@ -178,7 +177,7 @@
   .player-ui {
     flex-direction: column; 
     align-items: center; 
-    gap: 0.5rem; 
+    gap: clamp(0.3rem, 1.2vh, 0.7rem);
   }
 
   .track-info {
@@ -192,7 +191,7 @@
     display: flex; 
     justify-content: center; 
     align-items: center;
-    gap: 1rem; 
+    gap: clamp(0.8rem, 2.2vw, 1.1rem);
     order: 2; 
     width: 100%; 
   }
@@ -209,7 +208,7 @@
   .seek-bar-container {
     order: 3; 
     width: 90%; 
-    margin-top: 0.2rem; 
+    margin-top: clamp(0.1rem, 0.6vh, 0.3rem); 
     margin-bottom: 0; 
   }
 
@@ -226,4 +225,7 @@
     height: 18px;
   }
 }
+
+// Styles for low-height screens
+// @media (max-height: 600px) { ... entire block removed ... }
 

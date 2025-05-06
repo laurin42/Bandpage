@@ -1,39 +1,37 @@
 @use "mixins";
 @use "breakpoints";
 
-// Passe die Klassen an die Privacy Policy Seite an
+// Remove or simplify the outer wrapper
 .privacy-policy-page-container {
-  padding: var(--header-height) 2rem 2rem 2rem; 
-  margin: auto; 
-  color: whitesmoke; 
-  background-color: black;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: var(--font-titillium-web), sans-serif; // Stelle Basisschriftart sicher
+  // Remove height, complex padding, flex properties etc.
 }
 
 .privacy-policy-container {
-  padding: 2rem;
-  background-color: #2a2a2a;
+  // height: 100%; // REMOVE if present
+  padding-top: calc(var(--header-height) + 2rem); // Standard top padding
+  padding-bottom: 4rem; // Standard bottom padding
+  padding-left: clamp(1rem, 5vw, 4rem); // Standard horizontal padding
+  padding-right: clamp(1rem, 5vw, 4rem); // Standard horizontal padding
+  margin: 0 auto; // Center
+  max-width: 800px; // Adjusted max-width for text content
+  background-color: #1f1f1f; // Match EPK/Impressum background color
+  color: #e0e0e0; // Match EPK/Impressum color
   border-radius: 8px;
+  font-family: var(--font-titillium-web), sans-serif;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  max-width: 80dvw;
 }
 
-// Verwende dieselbe Klasse für den Hauptcontainer
-.privacy-policy-page-container h3 {
+// Target elements *inside* the new container
+.privacy-policy-container h3 { // Assuming h3 is inside .privacy-policy-container
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.375rem; // Etwas größer für Hauptüberschrift
+  font-size: 1.375rem; 
   font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem; // Mehr Abstand nach der Hauptüberschrift
+  margin-top: 1rem; // Reduced margin-top as container has padding
+  margin-bottom: 1.2rem; 
   color: whitesmoke; 
 }
 
-.privacy-policy-page-container p {
+.privacy-policy-container p { // Assuming p is inside .privacy-policy-container
   font-family: var(--font-titillium-web), sans-serif;
   font-size: 1rem; 
   line-height: 1.7;
@@ -41,30 +39,20 @@
 }
 
 
-/* --- Media Queries for Responsive Font Sizes --- */
+/* --- Media Queries for Responsive Font Sizes (Target elements inside .privacy-policy-container) --- */
 
 @media (min-width: 768px) {
-  .privacy-policy-page-container h3 {
+  .privacy-policy-container h3 {
     font-size: 1.5rem; 
   }
 }
 
 @media (min-width: 1024px) {
-  /* Laptop Overrides */
-  .privacy-policy-page-container h3 {
+  .privacy-policy-container h3 {
     font-size: 1.625rem; 
   }
 }
 
-/* Responsive adjustments */
-@include mixins.respond-above(md) {
-  .privacy-policy-page-container { // Wende max-width auf den Hauptcontainer an
-    max-width: 90dvw; 
-  }
-}
-
-@include mixins.respond-above(lg) {
-  .privacy-policy-page-container {
-    max-width: 80dvw; // Etwas schmaler auf großen Bildschirmen
-  }
-}
+/* Remove redundant responsive max-width adjustments for the page container */
+// @include mixins.respond-above(md) { ... }
+// @include mixins.respond-above(lg) { ... }

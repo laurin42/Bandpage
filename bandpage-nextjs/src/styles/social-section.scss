@@ -12,7 +12,7 @@
   display: flex; 
   justify-content: center;
   align-items: center; 
-  max-height: 100dvh;
+  height: 100dvh;
 }
 
 .social-section-overlay {
@@ -23,7 +23,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4); 
-  max-width: 100dvw;
+  width: 100%;
   z-index: 1; 
 }
 
@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: column;
   align-items: center; 
+  max-height: 80dvh;
   max-width: 80dvw;
   margin: 0 auto;
   padding: 1rem 0; 
@@ -53,9 +54,9 @@
   background-color: transparent;
   color: whitesmoke;
   /* Responsive padding using clamp based on viewport height */
-  padding: clamp(0.5rem, 1.5vh, 1rem) 1rem;
+  padding: clamp(0.4rem, 1.2vh, 1rem) 1rem;
   /* Responsive font-size using clamp */
-  font-size: clamp(0.85rem, 2vh, 1.1rem);
+  font-size: clamp(0.8rem, 1.8vh, 1.1rem);
   border-radius: 1.5em; 
   text-decoration: none;
   font-family: var(--font-titillium-web), sans-serif;
@@ -92,19 +93,6 @@
   text-align: center;
 }
 
-.cta-scroll-down {
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-  gap: 0.5rem;
-  color: whitesmoke;
-  font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 0; 
-  text-align: center;
-}
-
 .cta-arrow-down {
   font-size: 1.8em; 
   animation: bounce 2s infinite; 
@@ -129,10 +117,11 @@
 .cta-curious-svg {
   display: block;
   width: 100%; 
-  height: auto; 
-  max-height: clamp(4.5rem, 12vh, 7rem); 
+  height: auto;
+  min-height: 4.5rem;
+  max-height: clamp(3.5rem, 10vh, 6rem); 
   max-width: 100%;
-  margin-bottom: 2.5vh; 
+  margin-bottom: 2vh; 
   font-size: clamp(10px, 2vh, 16px);
 }
 
@@ -141,11 +130,11 @@
   display: flex;
   flex-direction: column;
   align-items: center; 
-  gap: clamp(0.5rem, 1.5vh, 1rem); 
-  margin-bottom: 3vh; 
+  gap: clamp(0.4rem, 1.2vh, 1rem); 
+  margin-bottom: 0.4rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 .animate-item-1,
@@ -221,16 +210,12 @@
   gap: 0.5em; 
   color: whitesmoke;
   font-family: var(--font-titillium-web), sans-serif;
-  /* Responsive font-size using clamp */
-  font-size: clamp(0.9rem, 2.2vh, 1.3rem);
+  font-size: clamp(0.85rem, 2vh, 1.2rem);
   font-weight: 600;
   text-align: center; 
   justify-content: center; 
 }
 @include mixins.respond-below(md) {
-  .cta-scroll-svg {
-    padding-top: 3.2rem;
-  }
 }
 .cta-arrow-down-svg {
   width: 2.5em;
@@ -262,26 +247,43 @@
     height: 4.2rem;
   }
 }
-@media (max-height: 450px) {
+@media (max-height: 568px) {
   .social-link-item {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 1.2em;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 1em;
   }
   .cta-scroll-svg {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .cta-curious-svg {
-    margin-bottom: 1.5vh;
+    margin-bottom: 1vh;
   }
   .social-links-group {
-    margin-bottom: 2vh;
-    gap: clamp(0.3rem, 1vh, 0.5rem);
+    margin-bottom: 1.5vh;
+    gap: clamp(0.2rem, 0.8vh, 0.4rem);
+  }
+  .cta-heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .social-links-container {
+    padding: 0.5rem 0;
   }
 }
+
+@media (min-height: 620px) {
+  .social-links-group {
+    gap: clamp(0.2rem, 0.8vh, 0.4rem);
+    margin-bottom: 2vh;
+  }
+  .cta-scroll-svg {
+    padding-top: 2.4rem;
+  }
+} 
 @media (max-width: 480px) {
   .social-links-container {
-    gap: 0.8rem; 
+    margin-top: 0; 
   }
 
   .social-link-item {

@@ -11,7 +11,7 @@ const bandInfo = {
   name: "Burnheart Mockery",
   bio: "In den vernebelten Höhlen einer vergessenen Hippie-Kommune formte sich das Schicksal von Burnheart Mockery. Axl, der Gorilla unter den Sängern und spiritueller Bandleader, fand hier seine musikalischen Brüder: Luca, der kreative Geist, taucht in den Wirbelwind der Sologitarre ein, während Max, das Uhrwerk der Melodie, mit seinen Rhythmusgitarrenklängen die Seelen berührt. Lenny, Meister der Schießbude und Taktgeber, lenkt die Truppe durch lange Nächte, während Laurin - für die tiefen Frequenzen zuständig - kosmische Basslines durch die Galaxien schickt.",
   contact: {
-    email: "burnheart.mockery@gmail.com",
+    email: "kontakt@burnheart-mockery.de",
   },
   socialMedia: [
     {
@@ -149,9 +149,9 @@ const EPK: React.FC = () => {
                 <Image
                   src={photo.url}
                   alt={photo.alt}
-                  width={300}
-                  height={200}
-                  style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             ))}

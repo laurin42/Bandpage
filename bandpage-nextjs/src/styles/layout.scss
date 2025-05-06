@@ -73,18 +73,20 @@ main > section {
   position: relative;
   box-sizing: border-box;
   color: whitesmoke;
-  padding: 2rem;
 }
 
 #footer-section {
+  height: 100dvh;
+  padding: 0;
   background-color: black; 
-  display: block; 
-  box-sizing: border-box;
-  padding-top: calc(var(--header-height) + 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 
 #music {
-  max-height: 100dvh;
+  height: 100dvh;
   background-image: url("/music/musicSectionBg2.png"); 
   background-size: cover; 
   background-position: center; 
@@ -290,6 +292,7 @@ main > section {
   background-repeat: no-repeat;
   position: relative;
   align-items: flex-end;
+  height: 100dvh;
 }
 
 #konzerte::before {
@@ -354,6 +357,7 @@ main > section {
     background-image: url("/backgrounds/concertsBgDesktop.png");
     background-size: cover; 
     background-position: center;
+ 
   }
 
   .member-grid {

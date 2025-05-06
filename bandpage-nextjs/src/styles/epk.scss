@@ -4,15 +4,18 @@
 @use "breakpoints";
 
 .epk-section-wrapper {
-  height: 100%;
-  padding: var(--header-height) 2rem var(--header-height) 2rem;
-  margin: auto; 
+  // Remove height and complex padding if .epk-container handles layout
 }
 
 .epk-container {
-  height: 100%;
-  padding: var(--header-height) 2rem var(--header-height) 2rem;
-  margin-top: 2rem;
+  // height: 100%; // REMOVE
+  // Remove duplicate padding
+  padding-top: calc(var(--header-height) + 2rem); // Space below header
+  padding-bottom: 4rem; // Space at the bottom
+  padding-left: clamp(1rem, 5vw, 4rem); // Responsive side padding
+  padding-right: clamp(1rem, 5vw, 4rem); // Responsive side padding
+  margin: 0 auto; // Center the container
+  max-width: 1200px; // Set a max-width for content
   background-color: #1f1f1f; 
   color: #e0e0e0;
   border-radius: 8px;
@@ -74,8 +77,16 @@
 
 .photos-section .photo-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); // Smaller min size for flexibility
   gap: 1rem;
+}
+
+.photos-section .photo-item {
+  box-sizing: border-box;
+  position: relative; 
+  overflow: hidden;
+  border-radius: 4px; // Apply radius here instead of img
+  aspect-ratio: 16 / 10; // Give the container an aspect ratio (e.g., 16:10)
 }
 
 .photos-section .photo-item.span-col-2 {
@@ -83,10 +94,11 @@
 }
 
 .photos-section .photo-item img {
-  width: 100%;
-  height: 100%; 
-  border-radius: 4px;
-  object-fit: cover; 
+  // Styles for Image with fill are handled by Next.js, objectFit can be in style prop
+  // width: 100%; // Not needed with fill
+  // height: auto; // Not needed with fill
+  display: block; // Keep display block
+  // border-radius: 4px; // Move to parent .photo-item
 }
 
 .contact-section .contact-details p {
