@@ -56,7 +56,7 @@
   /* Responsive padding using clamp based on viewport height */
   padding: clamp(0.4rem, 1.2vh, 1rem) 1rem;
   /* Responsive font-size using clamp */
-  font-size: clamp(0.8rem, 1.8vh, 1.1rem);
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.15rem);
   border-radius: 1.5em; 
   text-decoration: none;
   font-family: var(--font-titillium-web), sans-serif;
@@ -87,7 +87,7 @@
 .cta-heading {
   color: whitesmoke;
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.8rem;
+  font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.2rem);
   font-weight: 700;
   margin-bottom: 2.5rem; 
   text-align: center;
@@ -122,7 +122,7 @@
   max-height: clamp(3.5rem, 10vh, 6rem); 
   max-width: 100%;
   margin-bottom: 2vh; 
-  font-size: clamp(10px, 2vh, 16px);
+  font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
 }
 
 .social-links-group {
@@ -210,7 +210,7 @@
   gap: 0.5em; 
   color: whitesmoke;
   font-family: var(--font-titillium-web), sans-serif;
-  font-size: clamp(0.85rem, 2vh, 1.2rem);
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.15rem);
   font-weight: 600;
   text-align: center; 
   justify-content: center; 
@@ -249,12 +249,12 @@
 }
 @media (max-height: 568px) {
   .social-link-item {
-    font-size: 0.7rem;
+    font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
     padding: 0.3rem 0.6rem;
     border-radius: 1em;
   }
   .cta-scroll-svg {
-    font-size: 0.7rem;
+    font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1rem);
   }
   .cta-curious-svg {
     margin-bottom: 1vh;
@@ -264,7 +264,7 @@
     gap: clamp(0.2rem, 0.8vh, 0.4rem);
   }
   .cta-heading {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 1rem + 1.2vw, 1.8rem);
     margin-bottom: 1.5rem;
   }
   .social-links-container {
@@ -288,7 +288,6 @@
 
   .social-link-item {
     padding: 0.8rem; 
-    font-size: 1rem; 
   }
 
   .social-link-icon {

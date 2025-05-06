@@ -5,12 +5,13 @@
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   position: relative;
   z-index: 2;
   width: 90dvw;
+  padding-top: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem));
   min-height: calc(100vh - var(--header-height) - clamp(3rem, 7vh, 6rem));
 
 }
@@ -21,86 +22,59 @@
 
 .newsletter-signup-container {
   background-color: var(--content-container-bg);
-  padding: clamp(0.8rem, 2vh, 1.8rem) clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(0.5rem, 2vh, 1.8rem) clamp(1rem, 3.5vw, 3rem);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 90dvw;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: clamp(0.5rem, 1.8vh, 1.5rem) auto 0 auto;
   text-align: center;
   box-sizing: border-box;
 }
 
-.newsletter-signup-container h4 {
-  font-family: var(--font-calistoga), serif;
-  font-size: clamp(1.1rem, 2.5vh, 1.7rem);
-  margin-bottom: clamp(0.8rem, 2vh, 1.5rem); 
-  color: whitesmoke;
-  font-weight: 400;
-}
-
-// Styles for the moved info (icon + text)
-.concert-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.4rem, 1vh, 0.9rem);
-  margin-bottom: clamp(0.8rem, 2vh, 1.5rem);
-  text-align: left;
-}
-
-.concert-warning-icon {
-  flex-shrink: 0;
-  width: clamp(1.8rem, 5vh, 2.8rem);
-  height: clamp(1.8rem, 5vh, 2.8rem);
-  margin: clamp(0.1rem, 0.4vh, 0.5rem) 0rem clamp(0.1rem, 0.4vh, 0.5rem) 0rem;
-}
-
-.concert-info-text {
-  font-family: var(--font-titillium-web), sans-serif;
-  font-size: clamp(0.8rem, 1.8vh, 1.15rem);
-  line-height: 1.7;
-  color: #e0e0e0;
-  margin: 0;
-}
-
-// Styles for the newsletter prompt text
-.newsletter-prompt {
-  font-family: var(--font-titillium-web), sans-serif;
-  font-size: 1.25rem;
-  font-size: clamp(0.8rem, 1.7vh, 1.05rem);
-  line-height: 1.6;
-  margin-bottom: clamp(0.8rem, 2vh, 1.5rem);
-  text-align: center;
-  color: #e0e0e0;
-}
-
-// Style for the bigger, centered span
 .newsletter-prompt-bigger {
   font-family: var(--font-calistoga), serif;
   display: block;
   text-align: center;
-  font-size: clamp(0.9rem, 2.2vh, 1.3rem);
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
   font-weight: 400;
-  margin-bottom: clamp(0.6rem, 1.5vh, 1.1rem);
+  margin-bottom: clamp(1rem, 1.8vh, 1.8rem);
+}
+
+.concert-info-text {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.2rem);
+  line-height: 1.7;
+  color: #e0e0e0;
+  margin: 0;
+  margin-bottom: clamp(1.5rem, 2.5vh, 2.5rem);
+}
+
+.newsletter-prompt {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.2rem);
+  line-height: 1.6;
+  margin-bottom: clamp(1rem, 1.8vh, 1.5rem);
+  text-align: center;
+  color: #e0e0e0;
 }
 
 .newsletter-form {
   font-family: var(--font-titillium-web), sans-serif;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.4rem, 1vh, 0.9rem);
+  gap: clamp(0.5rem, 1.2vh, 1rem);
   align-items: center;
+  width: 100%;
 }
 
 .newsletter-input {
-  padding: clamp(0.5rem, 1.2vh, 0.8rem) 1rem;
+  padding: clamp(0.6rem, 1.3vh, 0.9rem) 1rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background-color: #333;
   color: whitesmoke;
   border-radius: 4px;
-  font-size: clamp(0.8rem, 1.7vh, 1.05rem);
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
@@ -113,13 +87,13 @@
 }
 
 .newsletter-button {
-  padding: clamp(0.5rem, 1.2vh, 0.8rem) 1.5rem;
-  margin: clamp(0.1rem, 0.4vh, 0.4rem);
+  padding: clamp(0.6rem, 1.3vh, 0.9rem) 1.5rem;
+  margin: clamp(0.2rem, 0.5vh, 0.5rem);
   background-color: #f44336;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: clamp(0.8rem, 1.7vh, 1.05rem);
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
@@ -136,8 +110,8 @@
 }
 
 .newsletter-status {
-  margin-top: clamp(0.6rem, 1.5vh, 1.1rem);
-  font-size: clamp(0.7rem, 1.5vh, 0.95rem);
+  margin-top: clamp(0.8rem, 1.8vh, 1.3rem);
+  font-size: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
   padding: 0.5rem;
   border-radius: 4px;
 }
@@ -163,22 +137,6 @@
   } 
 }
 
-@include mixins.respond-below(md) {
-  .concert-info-container {
-    gap: 0.75rem;
-  }
-
-  .newsletter-signup-container h4 {
-    font-size: 1.4rem;
-  }
-
-  .concert-info-text,
-  .newsletter-prompt {
-    font-family: var(--font-titillium-web), sans-serif;
-    font-size: 1.25rem;
-  }
-}
-
 @include mixins.respond-above(md) {
   .newsletter-signup-container {
     max-width: 66dvw;
@@ -189,45 +147,27 @@
     justify-content: space-around;
   }
 
-  .newsletter-signup-container h4 {
-    font-size: clamp(1.4rem, 3.5vh, 2.2rem);
-    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-  }
-  .concert-info-container {
-    gap: clamp(0.8rem, 2vh, 1.5rem);
-    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-  }
-  .concert-warning-icon {
-    width: clamp(2.2rem, 6vh, 3.5rem);
-    height: clamp(2.2rem, 6vh, 3.5rem);
-    margin-top: clamp(0.5rem, 1vh, 1rem);
-    margin-bottom: clamp(0.5rem, 1vh, 1rem);
-  }
-  .concert-info-text {
-    font-size: clamp(1rem, 2.5vh, 1.25rem);
-  }
-  .newsletter-prompt {
-    font-size: clamp(1rem, 2.2vh, 1.25rem);
-    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-  }
   .newsletter-prompt-bigger {
-    font-size: clamp(1.2rem, 3vh, 1.8rem);
-    margin-bottom: clamp(1rem, 2.5vh, 1.8rem);
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
   }
-  .newsletter-form {
-    gap: clamp(0.8rem, 2vh, 1.5rem);
-    margin-top: clamp(1rem, 2.5vh, 1.8rem);
-    margin-bottom: clamp(1rem, 2.5vh, 1.8rem);
+
+  .concert-info-text,
+  .newsletter-prompt {
+    font-size: clamp(1rem, 0.8rem + 0.7vw, 1.3rem);
   }
+  
+  .concert-info-text {
+    margin-bottom: clamp(2rem, 3vh, 3rem);
+  }
+  
   .newsletter-input,
   .newsletter-button {
-    font-size: clamp(1rem, 2.2vh, 1.2rem);
-    padding-top: clamp(0.8rem, 1.8vh, 1.2rem);
-    padding-bottom: clamp(0.8rem, 1.8vh, 1.2rem);
+    font-size: clamp(1rem, 0.8rem + 0.6vw, 1.2rem);
   }
+  
   .newsletter-status {
-    margin-top: clamp(1rem, 2.5vh, 1.8rem);
-    font-size: clamp(0.9rem, 2vh, 1.1rem);
+    font-size: clamp(0.9rem, 0.7rem + 0.6vw, 1.1rem);
   }
 
   @include mixins.respond-above(sm) {
@@ -253,12 +193,13 @@
 }
 
 @include mixins.respond-below(xs) {
-  .concert-info-container {
-     flex-direction: column;
-     align-items: center;
-     text-align: center;
-  }
-  .concert-info-text {
-     text-align: center;
-  }
+  // REMOVE this block as it targets the removed container
+  // .concert-info-container {
+  //    flex-direction: column;
+  //    align-items: center;
+  //    text-align: center;
+  // }
+  // .concert-info-text {
+  //    text-align: center;
+  // }
 }

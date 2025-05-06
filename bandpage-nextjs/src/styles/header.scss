@@ -261,3 +261,17 @@ header.menu-is-open .brand-name-wrapper {
     font-size: 2.125rem; 
   }
 }
+
+.nav-link {
+  position: relative;
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
+  font-weight: 600;
+}
+
+@include mixins.respond-above(md) {
+  .nav-link {
+    font-size: clamp(1rem, 0.85rem + 0.6vw, 1.25rem);
+  }
+}

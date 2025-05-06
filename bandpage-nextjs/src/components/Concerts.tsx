@@ -2,7 +2,6 @@
 
 import React, { useState, FormEvent } from "react";
 import "@/styles/concerts.scss";
-import Image from "next/image";
 
 const Concerts = () => {
   const [email, setEmail] = useState("");
@@ -51,25 +50,14 @@ const Concerts = () => {
   return (
     <div className="concerts-content-wrapper">
       <div className="newsletter-signup-container">
-        <div className="concert-info-container">
-          <Image
-            src="/icons/info.svg"
-            alt="Info"
-            className="concert-warning-icon"
-            width={42}
-            height={42}
-          />
-          <p className="concert-info-text">
-            Aktuell konzentrieren wir uns auf neue Aufnahmen und haben zur Zeit
-            keine Auftritte geplant.
-          </p>
-        </div>
+        <h4 className="newsletter-prompt-bigger">Verpasse keinen Gig!</h4>{" "}
         <p className="newsletter-prompt">
-          <span className="newsletter-prompt-bigger">
-            Verpasse keinen Gig mehr!
-          </span>{" "}
           Abonniere unseren Newsletter und wir informieren dich, sobald neue
           Termine feststehen oder wir neue Aufnahmen veröffentlichen.
+        </p>
+        <p className="concert-info-text">
+          Aktuell konzentrieren wir uns auf neue Aufnahmen und haben zur Zeit
+          keine Auftritte geplant.
         </p>
         <form onSubmit={handleSubmit} className="newsletter-form">
           <input

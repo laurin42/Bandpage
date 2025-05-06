@@ -22,7 +22,7 @@ body {
 body {
   font-family: sans-serif; 
   overflow-x: hidden; 
-  font-size: 1rem; 
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.15rem);
   line-height: 1.6; 
   height: 100%; 
   background-color: black; 
@@ -30,7 +30,8 @@ body {
 
 @include mixins.respond-above(md) {
   body {
-    font-size: 1.125rem; 
+    // font-size: 1.125rem; // Remove fixed size
+    // Base clamp handles scaling, no specific override needed unless desired
   }
 }
 
@@ -291,7 +292,7 @@ main > section {
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
-  align-items: flex-end;
+  align-items: flex-start;
   height: 100dvh;
 }
 
@@ -352,6 +353,7 @@ main > section {
     text-align: center;
     font-size: 2.5rem; 
   }
+
 
   #konzerte {
     background-image: url("/backgrounds/concertsBgDesktop.png");
