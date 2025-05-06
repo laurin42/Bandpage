@@ -15,8 +15,6 @@ const NewsletterConfirmedPage = () => {
         die Kulissen.
       </p>
       <div className="links-section">
-        <Link href="/musik">Entdecke unsere Musik</Link>
-        <Link href="/konzerte">Aktuelle Konzerttermine</Link>
         <Link href="/">Zurück zur Startseite</Link>
       </div>
     </div>
