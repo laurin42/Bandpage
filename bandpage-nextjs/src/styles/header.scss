@@ -56,6 +56,16 @@ header.menu-is-open .brand-name-wrapper {
   white-space: nowrap; 
 }
 
+/* --- Media Query for very small screens --- */
+@include mixins.respond-below(xs) {
+  .brand-name {
+    font-size: clamp(1.1rem, 0.8rem + 1vw, 1.4rem);
+  }
+  .brand-name-wrapper {
+    min-width: 120px;
+  }
+}
+
 .menu-button,
 .close-button {
   background: none;

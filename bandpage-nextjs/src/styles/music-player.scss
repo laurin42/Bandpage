@@ -226,5 +226,68 @@
 }
 
 // Styles for low-height screens
-// @media (max-height: 600px) { ... entire block removed ... }
+@media (max-height: 570px) {
+  .music-player {
+    padding-top: clamp(0.2rem, 1vh, 0.5rem);
+    padding-bottom: clamp(0.2rem, 1vh, 0.5rem);
+    margin-top: clamp(0.2rem, 1vh, 0.5rem);
+  }
+
+  .player-ui {
+    gap: clamp(0.2rem, 0.8vh, 0.5rem);
+  }
+
+  .cover-art {
+    width: clamp(30px, 7vh, 45px);
+    height: clamp(30px, 7vh, 45px);
+  }
+
+  .track-info .title {
+    font-size: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
+    margin-bottom: 0;
+  }
+
+  .track-info .artist {
+    font-size: clamp(0.65rem, 0.55rem + 0.4vw, 0.8rem);
+  }
+
+  .controls {
+    gap: clamp(0.2rem, 0.8vw, 0.4rem);
+  }
+
+  .control-button {
+    padding: clamp(0.1rem, 0.5vh, 0.3rem);
+  }
+  
+  .control-button svg {
+    width: 1em; // Slightly smaller icons
+    height: 1em;
+  }
+
+  .control-button.play-pause {
+    padding: clamp(0.2rem, 0.7vh, 0.5rem);
+  }
+  
+  .control-button.play-pause svg {
+    width: 1em; // Slightly smaller icons
+    height: 1em;
+  }
+
+  .volume-control {
+    gap: clamp(0.2rem, 0.8vw, 0.4rem);
+  }
+
+  .volume-slider {
+    width: clamp(40px, 8vw, 60px);
+  }
+  
+  .seek-bar-container {
+    margin-top: clamp(0.1rem, 0.5vh, 0.2rem);
+    // Ensure it's correctly ordered if within flex column
+    // The existing respond-below(sm) already handles order, so this should be fine.
+  }
+
+  // If the .player-ui is flex-direction: column (from respond-below(sm))
+  // these specific low-height adjustments should work within that context.
+}
 
