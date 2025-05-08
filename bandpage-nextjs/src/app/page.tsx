@@ -12,72 +12,36 @@ import "@/styles/page.scss";
 import "@/styles/social-section.scss";
 import { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-
-// Define bio descriptions
-const bioDescriptions: { [key: string]: string } = {
-  alex: "ist der charismatische Frontmann und Lead-Sänger. Seine kraftvolle Stimme und energiegeladene Bühnenpräsenz ziehen das Publikum in den Bann. Er schreibt die meisten Songtexte.",
-  luca: "zaubert an der Leadgitarre. Seine Soli sind legendär und reichen von gefühlvollen Melodien bis zu schnellen Riffs. Er ist der kreative Kopf hinter vielen Arrangements.",
-  lenny:
-    "sorgt am Schlagzeug für den nötigen Groove und ein sicheres Timing – das Rückgrat unseres Sounds. Nebenbei kümmert er sich auch um alles, was mit Musikproduktion zu tun hat: Aufnehmen, Mixen und Mastern – alles aus einer Hand.",
-  max: "liefert an der Rhythmusgitarre das solide Fundament. Seine Akkorde und Rhythmen geben den Songs Struktur und Drive. Er ist das harmonische Uhrwerk der Band.",
-  laurin:
-    "bedient den Bass und sorgt für die tiefen Frequenzen. Seine Basslines sind groovig und melodisch zugleich. Er verbindet Rhythmus und Harmonie auf einzigartige Weise.",
-};
-
-// Section IDs in display order
-const sectionIds = [
-  "home",
-  "music",
-  "social",
-  "alex",
-  "luca",
-  "lenny",
-  "max",
-  "laurin",
-  "ueber-uns-desktop",
-  "konzerte",
-  "footer-section",
-];
-
-// Map section IDs to logical groups for header text
-const sectionToLogicalGroup = (id: string): string => {
-  if (["alex", "luca", "lenny", "max", "laurin"].includes(id)) {
-    return "ueber-uns";
-  }
-  if (id === "ueber-uns-desktop") {
-    return "ueber-uns";
-  }
-  if (id === "music") {
-    return "musik";
-  }
-  if (id === "konzerte") {
-    return "konzerte";
-  }
-  if (id === "social") {
-    return "social";
-  }
-  if (id === "footer-section") {
-    return "footer";
-  }
-  return "default";
-};
-
-const pathToSectionId: { [key: string]: string } = {
-  "/musik": "music",
-  "/konzerte": "konzerte",
-  "/social": "social",
-  "/ueber-uns": "ueber-uns-desktop", // Default to desktop, mobile handled by visibility or further logic if needed
-};
+import useCustomScrollbar from "@/hooks/useCustomScrollbar";
+import useSectionObserver from "@/hooks/useSectionObserver";
+import {
+  bioDescriptions,
+  sectionIds,
+  sectionToLogicalGroup,
+  pathToSectionId,
+} from "@/data/pageData";
 
 export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
   const scrollbarTrackRef = useRef<HTMLDivElement | null>(null);
   const scrollbarThumbRef = useRef<HTMLDivElement | null>(null);
   const [showIntro, setShowIntro] = useState(true);
-  const [activeSectionId, setActiveSectionId] = useState("home");
-  const [activeLogicalGroup, setActiveLogicalGroup] = useState("default");
-  const [headerText, setHeaderText] = useState("Burnheart Mockery");
   const pathname = usePathname();
+
+  useCustomScrollbar({
+    mainRef,
+    scrollbarTrackRef,
+    scrollbarThumbRef,
+    showIntro,
+  });
+
+  // Use the new section observer hook
+  const { headerText } = useSectionObserver({
+    mainRef,
+    sectionIds,
+    sectionToLogicalGroup,
+    showIntro,
+  });
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -92,301 +56,49 @@ export default function Home() {
     }
   }, []);
 
+  // Effect to scroll to section based on pathname or hash after intro
   useEffect(() => {
-    const newGroup = sectionToLogicalGroup(activeSectionId);
-    setActiveLogicalGroup((prevGroup) =>
-      prevGroup !== newGroup ? newGroup : prevGroup
-    );
-  }, [activeSectionId]);
+    if (showIntro || !mainRef.current) return;
 
-  useEffect(() => {
-    let newHeaderText = "Burnheart Mockery";
-    if (activeLogicalGroup === "musik") {
-      newHeaderText = "Unsere Musik";
-    } else if (activeLogicalGroup === "ueber-uns") {
-      newHeaderText = "Über uns";
-    } else if (activeLogicalGroup === "konzerte") {
-      newHeaderText = "Konzerte";
-    } else if (activeLogicalGroup === "social") {
-      newHeaderText = "Social";
-    } else if (activeLogicalGroup === "footer") {
-      newHeaderText = "Navigation";
-    }
-    setHeaderText(newHeaderText);
-  }, [activeLogicalGroup]); // Remove activeSectionId dependency
-
-  useEffect(() => {
-    const scrollElement = mainRef.current;
-    if (!scrollElement || showIntro) return;
-
-    const observerOptions = {
-      root: scrollElement,
-      threshold: 0.6,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSectionId((prevId) =>
-            entry.target.id !== prevId ? entry.target.id : prevId
-          );
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-
-    sectionIds.forEach((id) => {
-      const sectionElement = document.getElementById(id);
-      if (sectionElement) {
-        observer.observe(sectionElement);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [showIntro]);
-
-  // Effect to control the fake scrollbar
-  useEffect(() => {
     const mainElement = mainRef.current;
-    const trackElement = scrollbarTrackRef.current;
-    const thumbElement = scrollbarThumbRef.current;
+    let scrolled = false;
 
-    let hideTimeoutRef: NodeJS.Timeout | null = null;
-    let initialShowTimeoutRef: NodeJS.Timeout | null = null;
-    let animationFrameId: number | null = null;
-    let scrollEndTimeoutRef: NodeJS.Timeout | null = null;
-
-    // Define helper functions at the beginning of the useEffect
-    const hideScrollbar = () => {
-      if (trackElement) {
-        trackElement.style.opacity = "0";
-        trackElement.style.pointerEvents = "none";
+    const scrollToSection = (sectionId: string | undefined) => {
+      if (!sectionId) return false;
+      const targetElement = document.getElementById(sectionId);
+      if (targetElement && mainElement) {
+        // Simple scrollIntoView, can be refined with offset if header overlaps
+        // const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 0;
+        // const elementTopRelativeToMain = targetElement.getBoundingClientRect().top - mainElement.getBoundingClientRect().top;
+        // mainElement.scrollTop = mainElement.scrollTop + elementTopRelativeToMain - headerHeight;
+        targetElement.scrollIntoView({ behavior: "auto" });
+        return true;
       }
+      return false;
     };
 
-    const showScrollbar = () => {
-      if (trackElement) {
-        trackElement.style.opacity = "1";
-        trackElement.style.pointerEvents = "auto";
-      }
-      if (hideTimeoutRef) {
-        clearTimeout(hideTimeoutRef);
-      }
-      hideTimeoutRef = setTimeout(hideScrollbar, 1500);
-    };
-
-    const handleScrollEnd = () => {
-      if (!mainElement || !thumbElement) return;
-      if (mainElement.scrollTop <= 0.1) {
-        thumbElement.style.top = "0px";
-      }
-    };
-
-    const handleScroll = () => {
-      if (!mainElement || !trackElement || !thumbElement) return;
-
-      showScrollbar();
-
-      if (scrollEndTimeoutRef) {
-        clearTimeout(scrollEndTimeoutRef);
-      }
-      scrollEndTimeoutRef = setTimeout(handleScrollEnd, 150);
-
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-
-      animationFrameId = requestAnimationFrame(() => {
-        if (!mainElement || !trackElement || !thumbElement) return;
-
-        const { scrollTop, scrollHeight, clientHeight } = mainElement;
-        const trackHeight = parseFloat(
-          window.getComputedStyle(trackElement).height
-        );
-        const thumbHeight = parseFloat(
-          window.getComputedStyle(thumbElement).height
-        );
-        const maxThumbTop = Math.max(0, trackHeight - thumbHeight);
-        const totalScrollableDist = Math.max(0, scrollHeight - clientHeight);
-
-        let calculatedThumbTop = 0;
-
-        if (totalScrollableDist > 0) {
-          const scrollRatio = Math.max(
-            0,
-            Math.min(1, scrollTop / totalScrollableDist)
-          );
-          calculatedThumbTop = scrollRatio * maxThumbTop;
-        } else {
-          calculatedThumbTop = 0;
-        }
-
-        const thumbTop = Math.min(Math.max(0, calculatedThumbTop), maxThumbTop);
-        thumbElement.style.top = `${thumbTop}px`;
-      });
-    };
-
-    // Original logic continues here, after function definitions
-    if (!mainElement || !trackElement || !thumbElement) {
-      hideScrollbar();
-      return;
+    // 1. Try scrolling based on pathname
+    let targetSectionIdFromPath: string | undefined = undefined;
+    if (pathname) {
+      targetSectionIdFromPath = pathToSectionId[pathname];
+    }
+    if (targetSectionIdFromPath) {
+      scrolled = scrollToSection(targetSectionIdFromPath);
     }
 
-    if (showIntro) {
-      hideScrollbar();
-      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
-    } else {
-      if (
-        initialShowTimeoutRef === null &&
-        trackElement.style.opacity === "0"
-      ) {
-        requestAnimationFrame(() => {
-          let scrolledSuccessfully = false;
-          const targetSectionIdFromPath = pathToSectionId[pathname];
-
-          // 1. Try scrolling based on pathname
-          if (targetSectionIdFromPath) {
-            const targetElement = document.getElementById(
-              targetSectionIdFromPath
-            );
-            if (targetElement) {
-              if (mainElement) {
-                const headerHeight =
-                  parseFloat(
-                    getComputedStyle(document.documentElement).getPropertyValue(
-                      "--header-height"
-                    )
-                  ) || 0;
-                const elementRect = targetElement.getBoundingClientRect();
-                const elementTopRelativeToMain =
-                  elementRect.top - mainElement.getBoundingClientRect().top;
-                const scrollTopPosition =
-                  mainElement.scrollTop +
-                  elementTopRelativeToMain -
-                  headerHeight;
-                mainElement.scrollTo({
-                  top: scrollTopPosition,
-                  behavior: "auto",
-                });
-              } else {
-                targetElement.scrollIntoView({
-                  behavior: "auto",
-                  block: "start",
-                });
-              }
-              scrolledSuccessfully = true;
-            } else {
-              console.warn(
-                `Home: Could not find element with id='${targetSectionIdFromPath}' from pathname '${pathname}'.`
-              );
-            }
-          }
-
-          // 2. If not scrolled by pathname, try scrolling based on hash (existing logic)
-          if (
-            !scrolledSuccessfully &&
-            typeof window !== "undefined" &&
-            window.location.hash
-          ) {
-            const hashId = window.location.hash.substring(1);
-            const targetElement = document.getElementById(hashId);
-            if (targetElement) {
-              if (mainElement) {
-                const headerHeight =
-                  parseFloat(
-                    getComputedStyle(document.documentElement).getPropertyValue(
-                      "--header-height"
-                    )
-                  ) || 0;
-                const elementRect = targetElement.getBoundingClientRect();
-                const elementTopRelativeToMain =
-                  elementRect.top - mainElement.getBoundingClientRect().top;
-                const scrollTopPosition =
-                  mainElement.scrollTop +
-                  elementTopRelativeToMain -
-                  headerHeight;
-                mainElement.scrollTo({
-                  top: scrollTopPosition,
-                  behavior: "auto",
-                });
-              } else {
-                targetElement.scrollIntoView({
-                  behavior: "auto",
-                  block: "start",
-                });
-              }
-              scrolledSuccessfully = true;
-            } else {
-              console.warn(
-                `Home: Could not find element with id='${hashId}' from URL hash.`
-              );
-            }
-          }
-
-          // 3. If still not scrolled, scroll to home (fallback)
-          if (!scrolledSuccessfully) {
-            const firstSection = document.getElementById("home");
-            if (firstSection) {
-              if (mainElement) {
-                mainElement.scrollTo({ top: 0, behavior: "auto" });
-              } else {
-                firstSection.scrollIntoView({
-                  behavior: "auto",
-                  block: "start",
-                });
-              }
-            } else {
-              console.warn(
-                "Home: Could not find element with id='home' to scroll to."
-              );
-              if (mainElement) mainElement.scrollTop = 0;
-            }
-          }
-
-          initialShowTimeoutRef = setTimeout(() => {
-            showScrollbar();
-            handleScroll();
-            initialShowTimeoutRef = null;
-          }, 50);
-        });
-      } else if (trackElement.style.opacity === "0") {
-        showScrollbar();
-        handleScroll();
-      }
+    // 2. If not scrolled by pathname, try scrolling based on hash
+    if (!scrolled && typeof window !== "undefined" && window.location.hash) {
+      const hashId = window.location.hash.substring(1);
+      scrolled = scrollToSection(hashId);
     }
 
-    const handleTrackMouseEnter = () => {
-      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
-      showScrollbar();
-    };
-    const handleTrackMouseLeave = () => {
-      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
-      hideTimeoutRef = setTimeout(hideScrollbar, 500);
-    };
-
-    mainElement.addEventListener("scroll", handleScroll, { passive: true });
-    trackElement.addEventListener("mouseenter", handleTrackMouseEnter);
-    trackElement.addEventListener("mouseleave", handleTrackMouseLeave);
-    const resizeObserver = new ResizeObserver(handleScroll);
-    resizeObserver.observe(mainElement);
-
-    return () => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      if (hideTimeoutRef) clearTimeout(hideTimeoutRef);
-      if (initialShowTimeoutRef) clearTimeout(initialShowTimeoutRef);
-      if (scrollEndTimeoutRef) clearTimeout(scrollEndTimeoutRef);
-      mainElement.removeEventListener("scroll", handleScroll);
-      trackElement?.removeEventListener("mouseenter", handleTrackMouseEnter);
-      trackElement?.removeEventListener("mouseleave", handleTrackMouseLeave);
-      resizeObserver.disconnect();
-    };
-  }, [showIntro, mainRef, scrollbarTrackRef, scrollbarThumbRef, pathname]);
+    // 3. If still not scrolled, ensure it's at the top (e.g., for "/")
+    //    or if the path is "/" and no specific section was mapped.
+    if (!scrolled && pathname === "/") {
+      mainElement.scrollTop = 0;
+      // setActiveSectionId("home"); // Optionally reset active section
+    }
+  }, [showIntro, pathname, mainRef]); // mainRef is stable, but good to include if its .current is key
 
   return (
     <div>
