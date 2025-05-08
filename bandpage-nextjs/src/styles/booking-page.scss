@@ -11,8 +11,16 @@
   background-color: black;
 }
 
+.booking-content {
+  text-align: center;
+  padding-top: var(--header-height);
+  height: 100%;
+}
   /* Desktop background */
   @include mixins.respond-above(md) {
+    .booking-content {
+      padding-top: calc(var(--header-height) + 2rem);
+    }
     .booking-page-container {
       background-image: url('/backgrounds/bookingBgDesktop.png');
       background-size: cover;
@@ -23,17 +31,8 @@
     }
   }
 
-.booking-content {
-  text-align: center;
-  padding-top: calc(var(--header-height) + 2rem);
-}
 
 @include mixins.respond-below(md) {
-
-.booking-content {
-  padding-top: 0;
-}
-
 .booking-content h2 {
   font-family: var(--font-calistoga), serif;
   font-size: 2rem;

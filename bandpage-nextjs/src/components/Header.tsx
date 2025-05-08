@@ -78,9 +78,9 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
               introComplete && "element-visible"
             )}
           >
-            <span className={clsx("brand-name", animationClass)}>
+            <h1 className={clsx("brand-name", animationClass)}>
               {displayedText}
-            </span>
+            </h1>
           </div>
 
           <button

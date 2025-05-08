@@ -10,7 +10,6 @@
   background-color: #1f1f1f;
   border-radius: 8px;
   padding-top: clamp(1rem, 5vh, 4rem);
-  padding-bottom: 4rem;
   padding-left: clamp(1rem, 5vw, 3rem);
   padding-right: clamp(1rem, 5vw, 3rem);
   margin: 0 auto; 
@@ -82,6 +81,7 @@
   .contact-form {
   background-color: rgba(0, 0, 0, 0.8);
   max-width: 80dvw;
+  padding-top: 0;
   }
   .form-group-inline {
     flex-direction: row;
