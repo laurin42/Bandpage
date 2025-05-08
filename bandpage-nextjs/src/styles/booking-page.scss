@@ -3,33 +3,37 @@
 
 .booking-page-container {
   height: 100dvh;
-  padding-top: var(--header-height);
   color: whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  
-  /* Default background (mobile) */
   background-color: black;
-  
-  /* Desktop background */
-  @include mixins.respond-above(md) {
-    background-image: url('/backgrounds/bookingBgDesktop.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; 
-    background-color: transparent; 
-  }
 }
 
+  /* Desktop background */
+  @include mixins.respond-above(md) {
+    .booking-page-container {
+      background-image: url('/backgrounds/bookingBgDesktop.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed; 
+      background-color: transparent; 
+    }
+  }
+
 .booking-content {
-  width: 100%;
   text-align: center;
+  padding-top: calc(var(--header-height) + 2rem);
 }
 
 @include mixins.respond-below(md) {
+
+.booking-content {
+  padding-top: 0;
+}
+
 .booking-content h2 {
   font-family: var(--font-calistoga), serif;
   font-size: 2rem;

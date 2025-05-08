@@ -3,22 +3,14 @@
 @use "mixins";
 @use "breakpoints";
 
-.epk-section-wrapper {
-  // Remove height and complex padding if .epk-container handles layout
-}
-
 .epk-container {
-  // height: 100%; // REMOVE
-  // Remove duplicate padding
-  padding-top: calc(var(--header-height) + 2rem); // Space below header
-  padding-bottom: 4rem; // Space at the bottom
-  padding-left: clamp(1rem, 5vw, 4rem); // Responsive side padding
-  padding-right: clamp(1rem, 5vw, 4rem); // Responsive side padding
-  margin: 0 auto; // Center the container
-  max-width: 1200px; // Set a max-width for content
+  padding-top: calc(var(--header-height) + 2rem); 
+  padding-bottom: 4rem; 
+  padding-left: clamp(1rem, 5vw, 4rem); 
+  padding-right: clamp(1rem, 5vw, 4rem); 
+  margin: 0 auto; 
   background-color: #1f1f1f; 
   color: #e0e0e0;
-  border-radius: 8px;
   font-family: var(--font-titillium-web), sans-serif;
 }
 

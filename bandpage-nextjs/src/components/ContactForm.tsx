@@ -56,13 +56,13 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit} className="contact-form">
       <h2>
         Du möchtest uns für einen Auftritt buchen oder hast andere Fragen?
-        <p>
-          Nutze das Formular oder schreib uns direkt an{" "}
-          <a href="mailto:burnheartmockery@gmail.com">
-            kontakt@burnheart-mockery.de
-          </a>
-        </p>
       </h2>
+      <p>
+        Nutze das Formular oder schreib uns direkt an{" "}
+        <a href="mailto:burnheartmockery@gmail.com">
+          kontakt@burnheart-mockery.de
+        </a>
+      </p>
       <div className="form-group form-group-inline">
         <input
           type="text"

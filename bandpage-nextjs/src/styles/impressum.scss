@@ -8,10 +8,8 @@
   padding-left: clamp(1rem, 5vw, 4rem); // Standard horizontal padding
   padding-right: clamp(1rem, 5vw, 4rem); // Standard horizontal padding
   margin: 0 auto; // Center
-  max-width: 800px; // Adjusted max-width for text content
   background-color: #1f1f1f; // Match EPK background color for consistency
   color: #e0e0e0; // Match EPK color
-  border-radius: 8px;
   font-family: var(--font-titillium-web), sans-serif;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); 
 }
@@ -47,37 +45,4 @@
 
 /* --- Media Queries for Responsive Font Sizes --- */
 
-@media (min-width: 768px) {
-  .impressum-container h2 {
-    // font-size: 1.875rem; // Remove
-    // Base H2 clamp should handle this, or refine here
-  }
-  .impressum-container h3 {
-    // font-size: 1.375rem; // Remove
-    // Base H3 clamp should handle this, or refine here
-  }
-}
 
-@media (min-width: 1024px) {
-  .impressum-container h2 {
-    // font-size: 2rem; // Remove
-    // Base H2 clamp should handle this, or refine here
-  }
-  .impressum-container h3 {
-    // font-size: 1.5rem; // Remove
-    // Base H3 clamp should handle this, or refine here
-  }
-}
-
-/* Responsive adjustments */
-@include mixins.respond-above(md) {
-  .impressum-content {
-    max-width: 90dvw; 
-  }
-}
-
-@include mixins.respond-above(lg) {
-  .impressum-content {
-    max-width: 90dvw; 
-  }
-}
