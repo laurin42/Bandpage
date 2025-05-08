@@ -10,23 +10,26 @@ interface IntroAnimationProps {
 }
 
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
-  const [startAnimation, setStartAnimation] = useState(false);
+  const [applyAnimationClass, setApplyAnimationClass] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const animationDuration = 3500;
+
+  const initialDelay = 200;
+  const fadeAnimationDuration = 1600;
+  const animationHoldBeforeFade = 200;
 
   useEffect(() => {
     setIsMounted(true);
 
-    const startTimer = setTimeout(() => {
-      setStartAnimation(true);
-    }, 200);
+    const applyClassTimer = setTimeout(() => {
+      setApplyAnimationClass(true);
+    }, initialDelay);
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, animationDuration + 100);
+    }, initialDelay + animationHoldBeforeFade + fadeAnimationDuration + 100);
 
     return () => {
-      clearTimeout(startTimer);
+      clearTimeout(applyClassTimer);
       clearTimeout(completeTimer);
     };
   }, [onComplete]);
@@ -45,7 +48,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
         priority
         className={clsx(
           "intro-animated-logo",
-          startAnimation && "intro-logo-animate"
+          applyAnimationClass && "intro-logo-animate"
         )}
         style={{
           maxWidth: "80%",

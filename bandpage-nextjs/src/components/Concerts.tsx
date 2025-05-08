@@ -1,20 +1,13 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React from "react";
 import "@/styles/concerts.scss";
+import NewsletterForm from "@/components/NewsletterForm";
 
 const Concerts = () => {
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setStatusMessage("");
-    setIsError(false);
-
+  const handleNewsletterSignup = async (
+    email: string
+  ): Promise<{ success: boolean; message: string }> => {
     try {
       const response = await fetch("/api/newsletter-signup", {
         method: "POST",
@@ -27,23 +20,26 @@ const Concerts = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        setIsError(true);
-        throw new Error(result.error || "Anmeldung fehlgeschlagen.");
+        return {
+          success: false,
+          message:
+            result.message ||
+            "Anmeldung fehlgeschlagen. Bitte versuche es später erneut.",
+        };
       }
 
-      setStatusMessage(
-        "Danke für deine Anmeldung! Bitte prüfe dein Postfach, um die Anmeldung zu bestätigen."
-      );
-      setEmail("");
+      return {
+        success: true,
+        message:
+          result.message || "Anmeldung erfolgreich! Bitte prüfe dein Postfach.",
+      };
     } catch (error) {
-      setIsError(true);
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Ein unbekannter Fehler ist aufgetreten.";
-      setStatusMessage(message);
-    } finally {
-      setIsLoading(false);
+      console.error("Newsletter signup fetch error:", error);
+      return {
+        success: false,
+        message:
+          "Netzwerkfehler. Bitte prüfe deine Verbindung und versuche es erneut.",
+      };
     }
   };
 
@@ -59,29 +55,7 @@ const Concerts = () => {
           Aktuell konzentrieren wir uns auf neue Aufnahmen und haben zur Zeit
           keine Auftritte geplant.
         </p>
-        <form onSubmit={handleSubmit} className="newsletter-form">
-          <input
-            type="email"
-            placeholder="Deine E-Mail Adresse"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="newsletter-input"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            className="newsletter-button"
-            disabled={isLoading}
-          >
-            {isLoading ? "Sende..." : "Anmelden"}
-          </button>
-        </form>
-        {statusMessage && (
-          <p className={`newsletter-status ${isError ? "error" : "success"}`}>
-            {statusMessage}
-          </p>
-        )}
+        <NewsletterForm onSignup={handleNewsletterSignup} />
       </div>
     </div>
   );

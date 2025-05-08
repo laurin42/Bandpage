@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@getbrevo/brevo": "^2.2.0",
+    "@neondatabase/serverless": "^1.0.0",
+    "@prisma/client": "^6.7.0",
     "@radix-ui/react-dialog": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.0",
     "class-variance-authority": "^0.7.1",
@@ -17,6 +20,7 @@
     "lucide-react": "^0.492.0",
     "next": "15.3.0",
     "nodemailer": "^6.10.1",
+    "prisma": "^6.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-howler": "^5.2.0",
@@ -29,6 +33,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
     "sass": "^1.87.0",

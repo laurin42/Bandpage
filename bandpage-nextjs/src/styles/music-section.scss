@@ -53,7 +53,7 @@
   text-align: left;
   font-family: var(--font-titillium-web), sans-serif;
   font-weight: 400;
-  font-size: clamp(0.8rem, 1.7vh, 1.05rem);
+  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.15rem);
 }
 
 .song-list li:last-child {
@@ -105,5 +105,6 @@
 @include mixins.respond-above(md) {
   .music-content-wrapper {
     padding: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem)) 0;
+    max-width: 66dvw;
   }
 }

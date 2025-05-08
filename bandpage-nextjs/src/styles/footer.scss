@@ -81,13 +81,11 @@ h3 {
 @include mixins.respond-above(md) {
   h3 {
     font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+    width: 96dvw;
   }
   .sitemap-node a,
   .sitemap-node span {
     font-size: clamp(1rem, 0.85rem + 0.6vw, 1.25rem);
-  }
-  .copyright {
-    // Base small text clamp should scale reasonably
   }
   .footer-inner {
     padding: 3rem 1rem;

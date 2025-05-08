@@ -1,0 +1,20 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "../node_modules/.prisma/client"
+}
+
+model NewsletterSignup {
+    id             String    @id @default(uuid())
+    email          String    @unique
+    token          String    @unique
+    confirmed      Boolean   @default(false)
+    createdAt      DateTime  @default(now())
+    confirmedAt    DateTime?
+    unsubscribed   Boolean   @default(false)
+    unsubscribedAt DateTime?
+}
