@@ -93,6 +93,7 @@ export default function NewsletterForm({
         }
         .form-group {
           display: flex;
+          flex-direction: column;
           gap: clamp(0.5rem, 1.5vw, 0.75rem);
           width: 100%;
         }
@@ -107,6 +108,7 @@ export default function NewsletterForm({
           border-radius: 6px;
           box-sizing: border-box;
           line-height: 1.4;
+          width: 100%;
         }
         .form-group input[type="email"]::placeholder {
           color: #888;
@@ -127,6 +129,7 @@ export default function NewsletterForm({
           cursor: pointer;
           transition: background-color 0.2s ease;
           white-space: nowrap;
+          width: 100%;
         }
         .form-group button:hover:not(:disabled) {
           background-color: var(--form-primary-hover-color);
@@ -152,13 +155,15 @@ export default function NewsletterForm({
           color: var(--form-error-text);
         }
 
-        @media (max-width: 360px) {
+        @media (min-width: 768px) {
           .form-group {
-            flex-direction: column;
+            flex-direction: row;
           }
-          .form-group input[type="email"],
+          .form-group input[type="email"] {
+            width: auto;
+          }
           .form-group button {
-            width: 100%;
+            width: auto;
           }
         }
       `}</style>
