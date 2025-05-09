@@ -88,7 +88,7 @@ main > section {
 
 #music {
   height: 100dvh;
-  background-image: url("/music/musicSectionBg2.png"); 
+  background-image: url("/music/musicSectionBg2.webp"); 
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
@@ -101,14 +101,14 @@ main > section {
   background-position: center;
 
   @include mixins.respond-below(lg) { 
-    background-image: url("/backgrounds/heroBackgroundMobile.png");
+    background-image: url("/backgrounds/heroBackgroundMobile.webp");
     background-size: 80% auto;
     background-repeat: no-repeat;
     background-position: center; 
   }
   
   @include mixins.respond-above(lg) {
-    background-image: url("/backgrounds/heroBackgroundDesktop.png"); 
+    background-image: url("/backgrounds/heroBackgroundDesktop.webp"); 
     background-size: cover; 
     background-color: transparent; 
   }
@@ -152,26 +152,26 @@ main > section {
 }
 
 #alex {
-  background-image: url("/alexBg.png"); 
+  background-image: url("/alexBg.webp"); 
 }
 
 #luca {
-  background-image: url("/lucaBg.png");
+  background-image: url("/lucaBg.webp");
 }
 
 #lenny {
-  background-image: url("/lennyBg.png"); 
+  background-image: url("/lennyBg.webp"); 
 }
 
 #max {
-  background-image: url("/maxBg.png"); 
+  background-image: url("/maxBg.webp"); 
 }
 
 #laurin {
   display: flex; 
   flex-direction: column; 
   justify-content: space-between; 
-  background-image: url("/laurinBg.png"); 
+  background-image: url("/laurinBg.webp"); 
 }
 
 #laurin > footer {
@@ -229,11 +229,11 @@ main > section {
   transform: none; 
   opacity: 1; 
 
-  &.alex { background-image: url("/alexBg.png"); }
-  &.luca { background-image: url("/lucaBg.png"); }
-  &.lenny { background-image: url("/lennyBg.png"); }
-  &.max { background-image: url("/maxBg.png"); }
-  &.laurin { background-image: url("/laurinBg.png"); }
+  &.alex { background-image: url("/alexBg.webp"); }
+  &.luca { background-image: url("/lucaBg.webp"); }
+  &.lenny { background-image: url("/lennyBg.webp"); }
+  &.max { background-image: url("/maxBg.webp"); }
+  &.laurin { background-image: url("/laurinBg.webp"); }
 
   .overlay-base {
     position: absolute;
@@ -287,7 +287,7 @@ main > section {
 }
 
 #konzerte {
-  background-image: url("/bandfoto3.png");
+  background-image: url("/bandfoto3.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -356,7 +356,7 @@ main > section {
 
 
   #konzerte {
-    background-image: url("/backgrounds/concertsBgDesktop.png");
+    background-image: url("/backgrounds/concertsBgDesktop.webp");
     background-size: cover; 
     background-position: center;
  
@@ -387,11 +387,11 @@ main > section {
     opacity: 1; 
     margin: 2rem 0rem 2rem 0rem;
 
-    &.alex { background-image: url("/alexBg.png"); }
-    &.luca { background-image: url("/lucaBg.png"); }
-    &.lenny { background-image: url("/lennyBg.png"); }
-    &.max { background-image: url("/maxBg.png"); }
-    &.laurin { background-image: url("/laurinBg.png"); }
+    &.alex { background-image: url("/alexBg.webp"); }
+    &.luca { background-image: url("/lucaBg.webp"); }
+    &.lenny { background-image: url("/lennyBg.webp"); }
+    &.max { background-image: url("/maxBg.webp"); }
+    &.laurin { background-image: url("/laurinBg.webp"); }
 
     /* Base overlay style */
     .overlay-base {

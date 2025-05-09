@@ -19,10 +19,11 @@
   /* Desktop background */
   @include mixins.respond-above(md) {
     .booking-content {
+      margin: 0 auto;
       padding-top: calc(var(--header-height) + 2rem);
     }
     .booking-page-container {
-      background-image: url('/backgrounds/bookingBgDesktop.png');
+      background-image: url('/backgrounds/bookingBgDesktop.webp');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;

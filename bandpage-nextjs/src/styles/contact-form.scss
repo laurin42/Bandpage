@@ -12,6 +12,7 @@
   padding-top: clamp(1rem, 5vh, 4rem);
   padding-left: clamp(1rem, 5vw, 3rem);
   padding-right: clamp(1rem, 5vw, 3rem);
+  padding-bottom: clamp(1rem, 5vh, 4rem);
   margin: 0 auto; 
   color: #e0e0e0;
 }
@@ -76,6 +77,16 @@
   min-height: 120px;
   resize: vertical;
 }
+
+.email-input {
+  padding: clamp(0.5rem, 0.5rem + 0.5vw, 0.75rem);
+  border-radius: 0.25rem;
+  border: 1px solid #4b5563;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #f9fafb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 
 @include mixins.respond-above(md) {
   .contact-form {

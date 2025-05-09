@@ -1,8 +1,9 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client'; // REMOVE THIS LINE if it's only for PrismaClient instance
 import * as Brevo from '@getbrevo/brevo';
+import prisma from '@/server/db'; // Import the centralized Prisma client
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient(); // REMOVE THIS LINE
 
 // Configure Brevo API for contact management
 const contactsApi = new Brevo.ContactsApi();

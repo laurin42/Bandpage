@@ -9,14 +9,14 @@ const songs: Song[] = [
     title: "Lift Me Up",
     artist: "Burnheart Mockery",
     src: "/audio/liftMeUp.mp3",
-    coverSrc: "/cover/liftMeUp.png",
+    coverSrc: "/cover/liftMeUp.webp",
   },
   {
     id: 2,
     title: "Still Rock",
     artist: "Burnheart Mockery",
     src: "/audio/stillRock.mp3",
-    coverSrc: "/cover/stillRock.png",
+    coverSrc: "/cover/stillRock.webp",
   },
   // Add more songs here...
   {
@@ -24,28 +24,28 @@ const songs: Song[] = [
     title: "Dignity Blues",
     artist: "Burnheart Mockery",
     src: "/audio/dignityBlues.mp3",
-    coverSrc: "/cover/dignityBlues.png",
+    coverSrc: "/cover/dignityBlues.webp",
   },
   {
     id: 4,
     title: "Mary",
     artist: "Burnheart Mockery",
     src: "/audio/mary.mp3",
-    coverSrc: "/cover/mary.png",
+    coverSrc: "/cover/mary.webp",
   },
   {
     id: 5,
     title: "Fast Living World",
     artist: "Burnheart Mockery",
     src: "/audio/fastLivingWorld.mp3",
-    coverSrc: "/cover/fastLivingWorld.png",
+    coverSrc: "/cover/fastLivingWorld.webp",
   },
   {
     id: 6,
     title: "Midnight Roller",
     artist: "Burnheart Mockery",
     src: "/audio/midnightRoller.mp3",
-    coverSrc: "/cover/midnightRoller.png",
+    coverSrc: "/cover/midnightRoller.webp",
   },
 ];
 

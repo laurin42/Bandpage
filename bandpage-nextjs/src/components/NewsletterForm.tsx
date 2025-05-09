@@ -52,6 +52,7 @@ export default function NewsletterForm({
     >
       <div className="form-group">
         <input
+          className="email-input"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +61,7 @@ export default function NewsletterForm({
           aria-label="Email for newsletter"
           required
         />
-        <button type="submit" disabled={isLoading}>
+        <button type="submit" disabled={isLoading} className="submit-button">
           {isLoading ? buttonLoadingText : buttonText}
         </button>
       </div>

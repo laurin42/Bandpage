@@ -31,18 +31,18 @@ const bandInfo = {
     },
   ],
   photos: [
-    { url: "/epk/bandfoto1.png", alt: "Burnheart Mockery EPK Photo 1" },
+    { url: "/epk/bandfoto1.webp", alt: "Burnheart Mockery EPK Photo 1" },
 
-    { url: "/epk/bandfotoElevator.png", alt: "Burnheart Mockery EPK Photo 3" },
+    { url: "/epk/bandfotoElevator.webp", alt: "Burnheart Mockery EPK Photo 3" },
     {
-      url: "/epk/bandfotoGreenGrass.png",
+      url: "/epk/bandfotoGreenGrass.webp",
       alt: "Burnheart Mockery EPK Photo 3",
     },
     {
-      url: "/epk/bandfotoKunstnacht.png",
+      url: "/epk/bandfotoKunstnacht.webp",
       alt: "Burnheart Mockery EPK Photo 3",
     },
-    { url: "/epk/bandfotoMystic1.png", alt: "Burnheart Mockery EPK Photo 3" },
+    { url: "/epk/bandfotoMystic1.webp", alt: "Burnheart Mockery EPK Photo 3" },
   ],
 };
 

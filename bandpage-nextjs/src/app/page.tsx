@@ -248,7 +248,9 @@ export default function Home() {
       ) {
         requestAnimationFrame(() => {
           let scrolledSuccessfully = false;
-          const targetSectionIdFromPath = pathToSectionId[pathname];
+          const targetSectionIdFromPath = pathname
+            ? pathToSectionId[pathname]
+            : undefined;
 
           // 1. Try scrolling based on pathname
           if (targetSectionIdFromPath) {
@@ -452,7 +454,7 @@ export default function Home() {
         {/* 2b. Mobile/Tablet BioTiles Section (Hidden above lg) */}
         <BioTile
           id="alex"
-          imageUrl="/alexBg.png"
+          imageUrl="/alexBg.webp"
           scrollContainerRef={mainRef}
           description={bioDescriptions.alex}
         >
@@ -460,7 +462,7 @@ export default function Home() {
         </BioTile>
         <BioTile
           id="luca"
-          imageUrl="/lucaBg.png"
+          imageUrl="/lucaBg.webp"
           scrollContainerRef={mainRef}
           description={bioDescriptions.luca}
         >
@@ -468,7 +470,7 @@ export default function Home() {
         </BioTile>
         <BioTile
           id="lenny"
-          imageUrl="/lennyBg.png"
+          imageUrl="/lennyBg.webp"
           scrollContainerRef={mainRef}
           description={bioDescriptions.lenny}
         >
@@ -476,7 +478,7 @@ export default function Home() {
         </BioTile>
         <BioTile
           id="max"
-          imageUrl="/maxBg.png"
+          imageUrl="/maxBg.webp"
           scrollContainerRef={mainRef}
           description={bioDescriptions.max}
         >
@@ -484,7 +486,7 @@ export default function Home() {
         </BioTile>
         <BioTile
           id="laurin"
-          imageUrl="/laurinBg.png"
+          imageUrl="/laurinBg.webp"
           scrollContainerRef={mainRef}
           description={bioDescriptions.laurin}
         >

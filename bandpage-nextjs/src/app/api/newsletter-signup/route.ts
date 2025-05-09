@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { randomUUID } from 'crypto';
 import * as Brevo from '@getbrevo/brevo';
-
-const prisma = new PrismaClient();
+import prisma from '@/server/db';
 
 const apiInstance = new Brevo.TransactionalEmailsApi();
 apiInstance.setApiKey(Brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
