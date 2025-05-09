@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.burnheart-mockery.de/</loc>
-    <lastmod>2024-07-20</lastmod> <!-- Bitte anpassen oder dynamisch generieren -->
+    <lastmod>2024-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -29,5 +29,23 @@
     <lastmod>2024-07-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.burnheart-mockery.de/impressum</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.burnheart-mockery.de/epk</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.burnheart-mockery.de/booking</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset> 
