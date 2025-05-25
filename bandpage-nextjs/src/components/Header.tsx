@@ -14,6 +14,7 @@ import {
   Mail,
   Dot,
   Info,
+  ShoppingCart,
 } from "lucide-react";
 import UserLock from "@/assets/icons/userLock.svg";
 import "@/styles/header.scss";
@@ -146,6 +147,19 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                     Konzerte
                   </span>
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="https://shop.burnheart-mockery.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={toggleMenu}
+                >
+                  <span className="menu-item-content">
+                    <ShoppingCart size={18} className="menu-icon" />
+                    Shop
+                  </span>
+                </a>
               </li>
               <li className="menu-item-has-children">
                 <button
