@@ -140,14 +140,17 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                   </span>
                 </Link>
               </li>
-              <li>
-                <Link href="/#konzerte" onClick={toggleMenu}>
+              <a>
+                <Link
+                  href="https://shop.burnheart-mockery.de/collections/tickets"
+                  onClick={toggleMenu}
+                >
                   <span className="menu-item-content">
                     <Calendar size={18} className="menu-icon" />
                     Konzerte
                   </span>
                 </Link>
-              </li>
+              </a>
               <li>
                 <a
                   href="https://shop.burnheart-mockery.de/"
@@ -157,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 >
                   <span className="menu-item-content">
                     <ShoppingCart size={18} className="menu-icon" />
-                    Shop
+                    Merch
                   </span>
                 </a>
               </li>
