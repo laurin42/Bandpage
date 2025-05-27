@@ -101,6 +101,12 @@ header.menu-is-open .brand-name-wrapper {
   box-sizing: border-box;
 }
 
+@include mixins.respond-below(md) {
+  .mobile-menu {
+    width: 100dvw;
+    max-width: 1000px;
+  }
+}
 .mobile-menu.open {
   transform: translateX(0); 
 }
@@ -116,7 +122,7 @@ header.menu-is-open .brand-name-wrapper {
 .mobile-menu ul {
   list-style: none;
   padding: 0; 
-  margin: 2rem 0 0 0; 
+  margin: 2rem 0 0 0.4rem; 
 }
 
 .mobile-menu li {

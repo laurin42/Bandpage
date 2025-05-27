@@ -406,6 +406,11 @@ export default function Home() {
 
         <MusicSection />
 
+        {/* 3. Konzerte Section */}
+        <section id="konzerte">
+          <Concerts />
+        </section>
+
         {/* === NEW ORDER START === */}
 
         {/* 1. Social Section */}
@@ -492,11 +497,6 @@ export default function Home() {
         >
           <></>
         </BioTile>
-
-        {/* 3. Konzerte Section */}
-        <section id="konzerte">
-          <Concerts />
-        </section>
 
         {/* 4. Footer Section (Sitemap) */}
         <section id="footer-section">

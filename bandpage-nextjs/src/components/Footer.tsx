@@ -11,6 +11,7 @@ import {
   FileText,
   BookUser,
   Info,
+  ShoppingCart,
 } from "lucide-react";
 import UserLock from "@/assets/icons/userLock.svg";
 import "@/styles/footer.scss";
@@ -22,7 +23,7 @@ const Footer = () => {
     <>
       <div className="footer-inner">
         <div className="footer-content-main">
-          <h3></h3>
+          <h3 className="footer-borderline"></h3>
           <div className="sitemap-tree">
             <div className="sitemap-node level-0">
               <Home size={16} className="sitemap-icon" />
@@ -31,6 +32,12 @@ const Footer = () => {
             <div className="sitemap-node level-1">
               <Music size={16} className="sitemap-icon" />
               <Link href="/#music">Musik</Link>
+            </div>
+            <div className="sitemap-node level-1">
+              <ShoppingCart size={18} className="sitemap-icon" />
+              <Link href="https://shop.burnheart-mockery.de/">
+                Tickets & Mehr
+              </Link>
             </div>
             <div className="sitemap-node level-1">
               <Share2 size={16} className="sitemap-icon" />
@@ -44,8 +51,6 @@ const Footer = () => {
               <CalendarDays size={16} className="sitemap-icon" />
               <Link href="/#konzerte">Konzerte</Link>
             </div>
-
-            <div className="sitemap-node level-0 separator"></div>
             <div className="sitemap-node level-1">
               <FileText size={16} className="sitemap-icon" />
               <Link href="/epk">EPK</Link>

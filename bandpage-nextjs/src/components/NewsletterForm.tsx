@@ -1,21 +1,18 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { Send } from "lucide-react";
 
 interface NewsletterFormProps {
   onSignup: (email: string) => Promise<{ success: boolean; message: string }>;
   className?: string;
   inputPlaceholder?: string;
-  buttonText?: string;
-  buttonLoadingText?: string;
 }
 
 export default function NewsletterForm({
   onSignup,
   className = "",
   inputPlaceholder = "Deine E-Mail-Adresse",
-  buttonText = "Abonnieren",
-  buttonLoadingText = "Abonniere...",
 }: NewsletterFormProps) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -62,7 +59,7 @@ export default function NewsletterForm({
           required
         />
         <button type="submit" disabled={isLoading} className="submit-button">
-          {isLoading ? buttonLoadingText : buttonText}
+          <Send size={18} strokeWidth={2} />
         </button>
       </div>
       {message && (
@@ -87,16 +84,17 @@ export default function NewsletterForm({
           flex-direction: column;
           gap: clamp(0.5rem, 2vw, 0.8rem);
           width: 100%;
-          max-width: 500px;
+          max-width: 700px;
           margin-left: auto;
           margin-right: auto;
           box-sizing: border-box;
         }
         .form-group {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           gap: clamp(0.5rem, 1.5vw, 0.75rem);
           width: 100%;
+          align-items: stretch;
         }
         .form-group input[type="email"] {
           flex-grow: 1;
@@ -109,7 +107,6 @@ export default function NewsletterForm({
           border-radius: 6px;
           box-sizing: border-box;
           line-height: 1.4;
-          width: 100%;
         }
         .form-group input[type="email"]::placeholder {
           color: #888;
@@ -130,7 +127,7 @@ export default function NewsletterForm({
           cursor: pointer;
           transition: background-color 0.2s ease;
           white-space: nowrap;
-          width: 100%;
+          flex-shrink: 0;
         }
         .form-group button:hover:not(:disabled) {
           background-color: var(--form-primary-hover-color);
@@ -154,18 +151,6 @@ export default function NewsletterForm({
         .message.error {
           background-color: var(--form-error-bg);
           color: var(--form-error-text);
-        }
-
-        @media (min-width: 768px) {
-          .form-group {
-            flex-direction: row;
-          }
-          .form-group input[type="email"] {
-            width: auto;
-          }
-          .form-group button {
-            width: auto;
-          }
         }
       `}</style>
     </form>

@@ -1,207 +1,176 @@
 @use "breakpoints";
 @use "mixins"; 
 
-.concerts-content-wrapper {
+.concerts-page-wrapper {
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-  width: 90dvw;
   padding-top: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem));
-  min-height: calc(100vh - var(--header-height) - clamp(3rem, 7vh, 6rem));
-
-}
-
-// --- Removed .text-background styles ---
-
-// --- Newsletter Signup Styles ---
-
-.newsletter-signup-container {
-  background-color: var(--content-container-bg);
-  padding: clamp(0.5rem, 2vh, 1.8rem) clamp(1rem, 3.5vw, 3rem);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: 90dvw;
+  padding-bottom: clamp(1.5rem, 3vh, 3rem);
+  min-height: calc(100vh - var(--header-height));
   width: 100%;
-  margin: clamp(0.5rem, 1.8vh, 1.5rem) auto 0 auto;
-  text-align: center;
   box-sizing: border-box;
 }
 
-.newsletter-prompt-bigger {
-  font-family: var(--font-calistoga), serif;
-  display: block;
-  text-align: center;
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
-  font-weight: 400;
-  margin-bottom: clamp(1rem, 1.8vh, 1.8rem);
+.concerts-content-wrapper {
+  background-color: var(--content-container-bg);
+  border-radius: 8px;
+  padding: clamp(1rem, 3vw, 2rem);
+  width: 90dvw;
+  max-width: 1200px; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-.concert-info-text {
-  font-family: var(--font-titillium-web), sans-serif;
-  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.2rem);
-  line-height: 1.7;
+.concerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vh, 1.5rem); 
+}
+
+.concert-card {
+  display: grid;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding-bottom: clamp(1rem, 2vh, 1.5rem);
+  border-bottom:1px solid rgba(255, 255, 255, 0.7);
+  // Mobile: 2 columns (image | details stacked)
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "image title"
+    "image location"
+    "image action";
+
+  &:last-child {
+    padding-bottom: 1.6rem; 
+  }
+}
+
+.concert-image-wrapper {
+  grid-area: image;
+  width: 6rem; 
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden; 
+}
+
+.concert-image {
+  display: block; 
+  position: relative;
+}
+
+.concert-title {
+  grid-area: title;
+  font-family: var(--font-calistoga), serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
   color: #e0e0e0;
   margin: 0;
-  margin-bottom: clamp(1.5rem, 2.5vh, 2.5rem);
+}
+
+.concert-location {
+  grid-area: location;
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: #b0b0b0;
+  margin: 0;
+}
+
+.concert-ticket-action {
+  grid-area: action;
+  justify-self: start;
+}
+
+.ticket-button {
+  background-color: rgb(240, 37, 37);
+  color: whitesmoke;
+  border: none;
+  padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.8rem, 2vw, 1.2rem);
+  font-size: clamp(0.8rem, 1.3vw, 0.9rem);
+  font-family: var(--font-titillium-web), sans-serif;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ticket-unavailable {
+  font-family: var(--font-titillium-web), sans-serif;
+  font-size: clamp(0.8rem, 1.3vw, 0.9rem);
+  color: #888;
+}
+
+.no-concerts-message {
+  font-family: var(--font-titillium-web), sans-serif;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+// --- Newsletter Signup Styles (mostly unchanged, just ensure it's below concerts list) ---
+.newsletter-signup-container {
+  padding-top: 1.4rem; // Removed top padding as gap from concerts-list handles it
+  max-width: 90dvw;
+  width: 100%;
+  margin: 0 auto; // Center if needed, though parent is already centered
+  text-align: left;
+  box-sizing: border-box;
 }
 
 .newsletter-prompt {
   font-family: var(--font-titillium-web), sans-serif;
   font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.2rem);
-  line-height: 1.6;
-  margin-bottom: clamp(1rem, 1.8vh, 1.5rem);
-  text-align: center;
   color: #e0e0e0;
+  margin-top: 0;
 }
 
-.newsletter-form {
-  font-family: var(--font-titillium-web), sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.5rem, 1.2vh, 1rem);
-  align-items: center;
-  width: 100%;
-}
+// --- Responsive adjustments for large screens ---
+@include mixins.respond-above(md) { // md breakpoint is typically 768px
+  .concert-card {
+    grid-template-columns: auto minmax(0, 1.5fr) minmax(0, 1fr) auto; // Adjusted for better flexibility
+    grid-template-areas: "image title location action";
+    gap: 0.75rem 1.5rem; // Adjust column gap for wider layout
+    align-items: center; // Vertically center all items in the row
+  }
 
-.newsletter-input {
-  font-family: var(--font-titillium-web), sans-serif;
-  padding: clamp(0.6rem, 1.3vh, 0.9rem) 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background-color: #333;
-  color: whitesmoke;
-  border-radius: 4px;
-  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
-  margin: clamp(0.1rem, 0.4vh, 0.4rem);
-}
+  .concert-image-wrapper {
+    width: 6rem; 
+    height: 6rem;
+  }
 
-.newsletter-input:focus {
-  outline: none;
-  border-color: #f44336;
-}
+  .concert-title,
+  .concert-location {
+    white-space: normal; // Allow text to wrap
+    word-break: break-word; // Break long words if necessary to prevent overflow
+  }
 
-.newsletter-button {
-  padding: clamp(0.6rem, 1.3vh, 0.9rem) 1.5rem;
-  margin: clamp(0.2rem, 0.5vh, 0.5rem);
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-family: var(--font-calistoga), serif;
-  font-weight: 400;
-  font-size: clamp(0.9rem, 0.8rem + 0.5vw, 1.1rem);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
+  .concert-ticket-action {
+    justify-self: end; // Align button to the end of its cell on large screens
+  }
 
-.newsletter-button:hover:not(:disabled) {
-  background-color: #d32f2f;
-}
-
-.newsletter-button:disabled {
-  background-color: #555;
-  cursor: not-allowed;
-}
-
-.newsletter-status {
-  margin-top: clamp(0.8rem, 1.8vh, 1.3rem);
-  font-size: clamp(0.8rem, 0.7rem + 0.5vw, 1rem);
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.newsletter-status.success {
-  color: #4caf50;
-  font-family: var(--font-titillium-web), sans-serif;
-  background-color: rgba(76, 175, 80, 0.1);
-  border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.newsletter-status.error {
-  color: #f44336;
-  background-color: rgba(244, 67, 54, 0.1);
-  border: 1px solid rgba(244, 67, 54, 0.3);
-}
-
-// --- Responsive adjustments ---
-
-@media (max-height: 820px) {
-  .newsletter-content-wrapper {
-    height: 90dvh;
-  } 
-}
-
-@include mixins.respond-above(md) {
   .newsletter-signup-container {
-    max-width: 66dvw;
-    padding-top: clamp(2rem, 4vh, 3.5rem);
-    padding-bottom: clamp(2rem, 4vh, 3.5rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .newsletter-prompt-bigger {
-    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
-    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
-  }
-
-  .concert-info-text,
-  .newsletter-prompt {
-    font-size: clamp(1rem, 0.8rem + 0.7vw, 1.3rem);
-  }
-  
-  .concert-info-text {
-    margin-bottom: clamp(2rem, 3vh, 3rem);
-  }
-  
-  .newsletter-input,
-  .newsletter-button {
-    font-size: clamp(1rem, 0.8rem + 0.6vw, 1.2rem);
-  }
-  
-  .newsletter-status {
-    font-size: clamp(0.9rem, 0.7rem + 0.6vw, 1.1rem);
-  }
-
-  @include mixins.respond-above(sm) {
-    .newsletter-form {
-      gap: clamp(0.8rem, 1.5vw, 1.2rem);
-    }
+    text-align: center;
+    padding-top: 2.4rem;
   }
 }
 
-@include mixins.respond-above(sm) {
-  .newsletter-form {
-    flex-direction: row;
-    justify-content: center;
-  }
-  .newsletter-input {
-    width: auto;
-    flex-grow: 1;
-    max-width: 350px;
-  }
-  .newsletter-button {
-    width: auto;
-  }
-}
-
-@include mixins.respond-below(xs) {
-  // REMOVE this block as it targets the removed container
-  // .concert-info-container {
-  //    flex-direction: column;
-  //    align-items: center;
-  //    text-align: center;
-  // }
-  // .concert-info-text {
-  //    text-align: center;
-  // }
+// Remove duplicated or outdated styles from before
+.concert-item, // Old class
+.concert-item a, // Old class
+.concert-info, // Old class
+.concert-newsletter-separator, // Old class
+.upcoming-concerts-container, // Old class
+.newsletter-prompt-bigger, // Potentially old
+.concert-info-text, // Potentially old
+.newsletter-form, // Handled by NewsletterForm component's JSX style
+.newsletter-input, // Handled by NewsletterForm component's JSX style
+.newsletter-button, // Handled by NewsletterForm component's JSX style
+.newsletter-status // Handled by NewsletterForm component's JSX style
+{
+  display: none !important; // Effectively remove old styles to prevent conflicts
 }

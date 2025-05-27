@@ -296,6 +296,13 @@ main > section {
   height: 100dvh;
 }
 
+@include mixins.respond-below(md) {
+  #konzerte {
+    align-items:flex-start;
+    padding-bottom: 0.8rem;
+  }
+}
+
 #konzerte::before {
   content: "";
   position: absolute;

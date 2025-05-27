@@ -121,6 +121,29 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                 </Link>
               </li>
               <li>
+                <Link href="/#konzerte" onClick={toggleMenu}>
+                  <span className="menu-item-content">
+                    <Calendar size={18} className="menu-icon" />
+                    Konzerte
+                  </span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="https://shop.burnheart-mockery.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={toggleMenu}
+                >
+                  <span className="menu-item-content">
+                    <ShoppingCart size={18} className="menu-icon" />
+                    Tickets & Mehr
+                  </span>
+                </Link>
+              </li>
+
+              <li>
                 <Link href="/#social" onClick={toggleMenu}>
                   <span className="menu-item-content">
                     <Share2 size={18} className="menu-icon" />
@@ -140,30 +163,7 @@ const Header: React.FC<HeaderProps> = ({ headerText, introComplete }) => {
                   </span>
                 </Link>
               </li>
-              <a>
-                <Link
-                  href="https://shop.burnheart-mockery.de/collections/tickets"
-                  onClick={toggleMenu}
-                >
-                  <span className="menu-item-content">
-                    <Calendar size={18} className="menu-icon" />
-                    Konzerte
-                  </span>
-                </Link>
-              </a>
-              <li>
-                <a
-                  href="https://shop.burnheart-mockery.de/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={toggleMenu}
-                >
-                  <span className="menu-item-content">
-                    <ShoppingCart size={18} className="menu-icon" />
-                    Merch
-                  </span>
-                </a>
-              </li>
+
               <li className="menu-item-has-children">
                 <button
                   onClick={toggleKontaktSubMenu}

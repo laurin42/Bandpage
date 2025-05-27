@@ -2,7 +2,6 @@
 @use "breakpoints";
 
 .music-player {
-  background-color: rgba(0, 0, 0, 0.8);   
   padding: clamp(0.5rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
   width: 100%;
   box-sizing: border-box; 
@@ -46,6 +45,7 @@
 }
 
 .track-info .title {
+  font-family: var(--font-calistoga);
   font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
   font-weight: 600; 
   white-space: nowrap;
@@ -162,15 +162,6 @@
 /* --- End Seek Bar positioning --- */
 
 /* --- Media Queries for Responsive Font Sizes --- */
-
-@include mixins.respond-above(md) {
-  .track-info .title {
-    // font-size: 1.125rem; // REMOVE
-  }
-  .track-info .artist {
-    // font-size: 0.9375rem; // REMOVE
-  }
-}
 
 @include mixins.respond-below(sm) {
   .player-ui {

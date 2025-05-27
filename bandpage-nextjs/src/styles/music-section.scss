@@ -1,21 +1,26 @@
 @use "mixins";
 @use "breakpoints";
 
-.music-content-wrapper {
+.music-page-wrapper {
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   padding-top: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem));
-  padding-bottom: clamp(1.5rem, 4vh, 3rem);
+  padding-bottom: clamp(1.5rem, 3vh, 3rem);
+  min-height: calc(100vh - var(--header-height));
+  width: 100%;
   box-sizing: border-box;
-  position: relative;
-  z-index: 2;
+}
+
+.music-content-wrapper {
+  background-color: var(--content-container-bg);
+  border-radius: 8px;
+  padding: clamp(1rem, 3vw, 2rem);
   width: 90dvw;
-  min-height: calc(100vh - var(--header-height) - clamp(3rem, 7vh, 6rem));
-  text-align: center;
-  color: whitesmoke;
+  max-width: 1200px; // Max width for the content area
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .music-content-wrapper h2 {
@@ -35,7 +40,6 @@
   list-style: none;
   padding: clamp(0.8rem, 2vh, 1.8rem) clamp(1rem, 2.5vw, 2rem);
   margin: 0 auto; 
-  background-color: rgba(0, 0, 0, 0.8);
   width: 100%;  
   box-sizing: border-box; 
   border-radius: 0 0 8px 8px;
@@ -104,7 +108,6 @@
 /* Responsive adjustments */
 @include mixins.respond-above(md) {
   .music-content-wrapper {
-    padding: calc(var(--header-height) + clamp(1.5rem, 3vh, 3rem)) 0;
     max-width: 66dvw;
   }
 }

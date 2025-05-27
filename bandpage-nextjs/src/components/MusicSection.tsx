@@ -122,33 +122,35 @@ const MusicSection = () => {
 
   return (
     <section id="music" ref={sectionRef}>
-      <div className="music-content-wrapper">
-        <MusicPlayer
-          song={currentSong}
-          isPlaying={isPlaying}
-          volume={volume}
-          onPlayPause={handlePlayPause}
-          onNext={handleNext}
-          onPrev={handlePrev}
-          onVolumeChange={handleVolumeChange}
-          onEnded={handleSongEnd}
-        />
+      <div className="music-page-wrapper">
+        <div className="music-content-wrapper">
+          <MusicPlayer
+            song={currentSong}
+            isPlaying={isPlaying}
+            volume={volume}
+            onPlayPause={handlePlayPause}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            onVolumeChange={handleVolumeChange}
+            onEnded={handleSongEnd}
+          />
 
-        <ul className="song-list">
-          {songs.map((song, index) => (
-            <li
-              key={song.id}
-              className={index === currentSongIndex ? "active-song" : ""}
-              onClick={() => {
-                setCurrentSongIndex(index);
-                setIsPlaying(true);
-              }}
-            >
-              <span className="song-index">{index + 1}.</span>
-              <span className="song-title">{song.title}</span>
-            </li>
-          ))}
-        </ul>
+          <ul className="song-list">
+            {songs.map((song, index) => (
+              <li
+                key={song.id}
+                className={index === currentSongIndex ? "active-song" : ""}
+                onClick={() => {
+                  setCurrentSongIndex(index);
+                  setIsPlaying(true);
+                }}
+              >
+                <span className="song-index">{index + 1}.</span>
+                <span className="song-title">{song.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
